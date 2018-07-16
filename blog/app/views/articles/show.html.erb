@@ -1,0 +1,36 @@
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+ 
+<p>
+  <strong>Author:</strong>
+  <td><%= @article.user.email %></td>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+
+<p>
+  <% if @article.attachment.presence %>
+    <strong>Attachment:</strong>
+    <%= link_to "Download", @article.attachment_url, :target=> "_blank" %>
+  <% end %>
+</p>
+
+<h2>Comments</h2>
+<%#= render @article.comments %>
+<% @article.comments.each do |comment| %>
+   <%= render comment if !comment.parent_id.presence %>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>
+ 
+<% if user_signed_in? && current_user.id == @article.user_id %>
+  <%= link_to 'Edit', edit_article_path(@article) %> |
+<% end %>
+
+<%= link_to 'Back', articles_path %>
