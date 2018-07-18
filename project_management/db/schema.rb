@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_112120) do
+ActiveRecord::Schema.define(version: 2018_07_18_103233) do
 
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 2018_07_17_112120) do
     t.string "title"
     t.text "description"
     t.string "attachment"
-    t.integer "user_id"
+    t.integer "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_projects_on_user_id"
+    t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(version: 2018_07_17_112120) do
     t.integer "role_id", null: false
     t.index ["role_id"], name: "index_roles_users_on_role_id"
     t.index ["user_id"], name: "index_roles_users_on_user_id"
+  end
+
+  create_table "superusers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -87,7 +92,8 @@ ActiveRecord::Schema.define(version: 2018_07_17_112120) do
     t.string "encrypted_password", default: "", null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
-    t.string "nickname", default: "", null: false
+    t.string "type", default: "", null: false
+    t.string "nickname", default: ""
     t.string "address", default: ""
     t.string "position", default: ""
     t.string "avatar_file_name"

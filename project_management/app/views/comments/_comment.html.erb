@@ -1,0 +1,36 @@
+<p>
+  <%= comment.commenter %>
+</p>
+ 
+<p>
+  <strong>Comment:</strong>
+  <%= comment.body %>
+</p>
+
+<p>
+  <% if user_signed_in? && (current_user.id == comment.user_id) %>
+    <%=link_to 'Delete', [comment.ticket, comment], method: :delete,
+              data: { confirm: 'Are you sure?' } %> |
+  <% end %>
+  <% if user_signed_in? && current_user.id == comment.user_id %>
+    <%= link_to 'Edit', edit_article_comment_path(comment.ticket, comment) %> 
+  <% end %>
+</p>
+
+<div>
+  <%= render comment.replies if comment.replies.any? %>
+</div>
+
+<p>
+  <%= form_for [comment.ticket, Comment.new] do |form| %>
+    <%= form.hidden_field :parent_id, :value => comment.id%>
+    <p>
+      <%= form.hidden_field :commenter, :value => current_user.username %>
+    </p>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+    <%= form.submit "Reply" %>
+  <% end %>
+</p>

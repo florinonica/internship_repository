@@ -1,0 +1,12 @@
+<h1>Edit comment</h1>
+<%= form_for [@ticket, @comment] do |form| %>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+ 
+<%= link_to 'Back', article_path(@comment.ticket) %>

@@ -8,11 +8,11 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :encrypted_password, null: false, default: ""
       t.string :first_name, null: false, default: ""
       t.string :last_name, null: false, default: ""
-      t.string :nickname, null: false, default: ""
+      t.string :type, null: false, default: ""
+      t.string :nickname, default: ""
       t.string :address, default: ""
       t.string :position, default: ""
       t.attachment :avatar
-
 
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

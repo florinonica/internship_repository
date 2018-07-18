@@ -4,4 +4,7 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     registrations: 'users/registrations'
   }
+  resources :users, except: :create
+  get 'create_user' => 'users#create', as: :create_user   
+  root 'welcome#index'
 end
