@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_103233) do
+ActiveRecord::Schema.define(version: 2018_07_19_071241) do
+
+  create_table "clients_projects", id: false, force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "project_id", null: false
+    t.index ["client_id"], name: "index_clients_projects_on_client_id"
+    t.index ["project_id"], name: "index_clients_projects_on_project_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
@@ -40,7 +47,6 @@ ActiveRecord::Schema.define(version: 2018_07_18_103233) do
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "attachment"
     t.integer "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -58,11 +64,6 @@ ActiveRecord::Schema.define(version: 2018_07_18_103233) do
     t.integer "role_id", null: false
     t.index ["role_id"], name: "index_roles_users_on_role_id"
     t.index ["user_id"], name: "index_roles_users_on_user_id"
-  end
-
-  create_table "superusers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tickets", force: :cascade do |t|

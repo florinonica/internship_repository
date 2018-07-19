@@ -1,0 +1,33 @@
+<p>
+  <strong>Title</strong>
+  <%= @project.title %>
+</p>
+ 
+<p>
+  <strong>Description</strong>
+  <td><%= @project.description %></td>
+</p>
+
+<%#= form_with model: @project, local: true do |form| %>
+ <%#= form.select :user_id, options_for_select(User.all.collect {|x| [x.first_name + " " + x.last_name, x.id] if x.is_a? Client}.compact), prompt: "Please select"%>
+  <p>
+    <%#= form.submit 'Add client', User.all.find_by%>
+  </p>
+ 
+<%# end %>
+<%= form_with model: @project, local: true do |form| %>
+  <%= form.select(:user) do %>
+    <% User.where(:type => 'Client').each do |u| -%>
+      <%= content_tag(:option, u.first_name + " " + u.last_name, value: u) %>
+    <% end %>
+    <%= form.submit 'Add client', @project.clients << User.find_by_id(:selected)%>
+  <% end %>
+  <p>
+    <%= form.submit 'Add client', @project.clients << user%>
+  </p>
+<% end %>
+<br>
+
+<%= link_to 'Edit', edit_project_path(@project) %> | <td><%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<br>
+<%= link_to 'Back', projects_path %>

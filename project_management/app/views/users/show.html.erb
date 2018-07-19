@@ -1,0 +1,50 @@
+<p>
+  <%= image_tag(@user.avatar.url(:medium)) %>
+</p>
+
+<p>
+  <strong>Name</strong>
+  <%= @user.first_name + " " + @user.last_name %>
+</p>
+ 
+<p>
+  <strong>Email</strong>
+  <td><%= @user.email %></td>
+</p>
+
+<p>
+  <strong>Username</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Password</strong>
+  <td><%= @user.password %></td>
+</p>
+
+<p>
+  <strong>Nickname</strong>
+  <%= @user.nickname %>
+</p>
+
+<p>
+  <strong>User Type</strong>
+  <%= @user.type %>
+</p>
+
+<p>
+  <strong>Address</strong>
+  <%= @user.address %>
+</p>
+
+<p>
+  <% if !@user.is_a? Client %>
+    <strong>Position</strong>
+    <%= @user.position %>
+  <% end %>
+</p>
+
+<br>
+<%= link_to 'Edit', edit_user_path(@user) %> | <td><%= link_to 'Destroy', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<br>
+<%= link_to 'Back', users_path %>
