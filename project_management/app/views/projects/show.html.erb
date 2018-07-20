@@ -8,26 +8,22 @@
   <td><%= @project.description %></td>
 </p>
 
-<%#= form_with model: @project, local: true do |form| %>
- <%#= form.select :user_id, options_for_select(User.all.collect {|x| [x.first_name + " " + x.last_name, x.id] if x.is_a? Client}.compact), prompt: "Please select"%>
+<%= form_for @project, :url => {:action => :add_client} do |form| %>
+  <%= form.collection_select :client_id, (Client.all - @project.clients), :id, :full_name, include_blank: true %>
   <p>
-    <%#= form.submit 'Add client', User.all.find_by%>
-  </p>
- 
-<%# end %>
-<%= form_with model: @project, local: true do |form| %>
-  <%= form.select(:user) do %>
-    <% User.where(:type => 'Client').each do |u| -%>
-      <%= content_tag(:option, u.first_name + " " + u.last_name, value: u) %>
-    <% end %>
-    <%= form.submit 'Add client', @project.clients << User.find_by_id(:selected)%>
-  <% end %>
-  <p>
-    <%= form.submit 'Add client', @project.clients << user%>
+    <%= form.submit 'Add client' %>
   </p>
 <% end %>
 <br>
 
-<%= link_to 'Edit', edit_project_path(@project) %> | <td><%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<%= form_for @project, :url => {:action => :add_project_manager} do |form| %>
+  <%= form.collection_select :employee_ids, Employee.select{ |e| e.roles.include?(Role.first) }, :id, :full_name, include_blank: true %>
+  <p>
+    <%= form.submit 'Add project manager' %>
+  </p>
+<% end %>
+
+<br>
+<%= link_to 'Edit', edit_project_path(@project) %> | <%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
 <br>
 <%= link_to 'Back', projects_path %>
