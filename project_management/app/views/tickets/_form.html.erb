@@ -1,0 +1,16 @@
+<%= form_with(model: [ @project, @project.tickets.build ], local: true) do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_area :title %>
+  </p>
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <p>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

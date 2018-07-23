@@ -11,17 +11,17 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 	
-  def edit
-    @project = Project.find(params[:id])
-  end
-
   def create
     @project = Project.new(project_params)
     if @project.save
       redirect_to @project
     else
       render 'new'
-    end	
+    end 
+  end
+
+  def edit
+    @project = Project.find(params[:id])
   end
 
   def update
@@ -31,6 +31,12 @@ class ProjectsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+    redirect_to projects_path
   end
 
   def add_client
@@ -49,10 +55,18 @@ class ProjectsController < ApplicationController
     @projectWorker.save
   end
 
-  def destroy
+  def dashboard
     @project = Project.find(params[:id])
-    @project.destroy
-    redirect_to projects_path
+  end
+
+  def add_tester
+    @project = Project.find(params[:id])
+    @employee = Employee.find(params[:project][:employee_ids])
+    @projectWorker = ProjectWorker.new
+    @projectWorker.project_id = @project
+    @projectWorker.user_id = @employee
+    @projectWorker.role_id = Role.find(3)
+    @projectWorker.save
   end
 
   private

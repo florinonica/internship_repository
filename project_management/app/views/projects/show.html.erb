@@ -17,7 +17,7 @@
 <br>
 
 <%= form_for @project, :url => {:action => :add_project_manager} do |form| %>
-  <%= form.collection_select :employee_ids, Employee.select{ |e| e.roles.include?(Role.first) }, :id, :full_name, include_blank: true %>
+  <%= form.collection_select :employee_ids, (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees), :id, :full_name, include_blank: true %>
   <p>
     <%= form.submit 'Add project manager' %>
   </p>

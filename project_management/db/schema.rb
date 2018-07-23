@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_20_103205) do
+ActiveRecord::Schema.define(version: 2018_07_23_072956) do
 
   create_table "clients_projects", id: false, force: :cascade do |t|
     t.integer "client_id", null: false
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(version: 2018_07_20_103205) do
     t.string "title"
     t.text "description"
     t.string "attachment"
+    t.integer "project_id"
     t.integer "owner_id"
     t.integer "dev_id"
-    t.integer "tester_id"
     t.integer "task_id"
     t.string "status"
     t.string "priority"
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 2018_07_20_103205) do
     t.datetime "updated_at", null: false
     t.index ["dev_id"], name: "index_tickets_on_dev_id"
     t.index ["owner_id"], name: "index_tickets_on_owner_id"
+    t.index ["project_id"], name: "index_tickets_on_project_id"
     t.index ["task_id"], name: "index_tickets_on_task_id"
-    t.index ["tester_id"], name: "index_tickets_on_tester_id"
   end
 
   create_table "users", force: :cascade do |t|

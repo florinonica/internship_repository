@@ -1,22 +1,80 @@
-<h1>LUsers</h1>
-<table cellpadding=15 cellspacing=15>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th colspan="2"></th>
-  </tr>
+<h1>Users</h1>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= user.first_name + " " + user.last_name %></td>
-      <td><%= user.email %></td>
-      <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
-      <td><%= link_to 'Show', user_path(user) %></td>
-      <td><%= link_to 'Edit', edit_user_path(user) %></td>
-      <td><%= link_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#hometab" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#supertab" role="tab" data-toggle="tab">Superusers</a></li>
+  <li><a href="#employeetab" role="tab" data-toggle="tab">Employees</a></li>
+  <li><a href="#clienttab" role="tab" data-toggle="tab">Clients</a></li> 
+</ul>
+</li>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="hometab">Users</div>
+  <div class="tab-pane" id="supertab">
+    <table cellpadding=15 cellspacing=15>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th colspan="2"></th>
+      </tr>
+
+      <% Superuser.all.each do |user| %>
+        <tr>
+          <td><%= user.first_name + " " + user.last_name %></td>
+          <td><%= user.email %></td>
+          <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+          <td><%= link_to 'Show', user_path(user) %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="tab-pane" id="employeetab">
+    <table cellpadding=15 cellspacing=15>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th colspan="2"></th>
+      </tr>
+
+      <% Employee.all.each do |user| %>
+        <tr>
+          <td><%= user.first_name + " " + user.last_name %></td>
+          <td><%= user.email %></td>
+          <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+          <td><%= link_to 'Show', user_path(user) %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="tab-pane" id="clienttab">
+    <table cellpadding=15 cellspacing=15>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th colspan="2"></th>
+      </tr>
+
+      <% Client.all.each do |user| %>
+        <tr>
+          <td><%= user.first_name + " " + user.last_name %></td>
+          <td><%= user.email %></td>
+          <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+          <td><%= link_to 'Show', user_path(user) %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
 
 <%= link_to "Add User", new_user_path %><br>
 

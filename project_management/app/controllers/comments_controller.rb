@@ -16,13 +16,6 @@ class CommentsController < ApplicationController
     redirect_to ticket_path(@ticket)
   end
 
-  def destroy
-    @ticket = Ticket.find(params[:ticket_id])
-    @comment = @ticket.comments.find(params[:id])
-    @comment.destroy
-    redirect_to ticket_path(@ticket)
-  end
-
   def edit
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.find(params[:id])
@@ -36,6 +29,13 @@ class CommentsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @ticket = Ticket.find(params[:ticket_id])
+    @comment = @ticket.comments.find(params[:id])
+    @comment.destroy
+    redirect_to ticket_path(@ticket)
   end
 
   private
