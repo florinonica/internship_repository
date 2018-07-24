@@ -39,6 +39,10 @@ class ProjectsController < ApplicationController
     redirect_to projects_path
   end
 
+  def dashboard
+    @project = Project.find(params[:id])
+  end
+
   def add_client
     @project = Project.find(params[:id])
     @client = Client.find(params[:project][:client_id])
@@ -49,29 +53,41 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @employee = Employee.find(params[:project][:employee_ids])
     @projectWorker = ProjectWorker.new
-    @projectWorker.project_id = @project
-    @projectWorker.user_id = @employee
-    @projectWorker.role_id = Role.find(1)
+    @projectWorker.project_id = @project.id
+    @projectWorker.user_id = @employee.id
+    @projectWorker.role_id = Role.find(1).id
     @projectWorker.save
-  end
-
-  def dashboard
-    @project = Project.find(params[:id])
   end
 
   def add_tester
     @project = Project.find(params[:id])
-    @employee = Employee.find(params[:project][:employee_ids])
-    @projectWorker = ProjectWorker.new
-    @projectWorker.project_id = @project
-    @projectWorker.user_id = @employee
-    @projectWorker.role_id = Role.find(3)
-    @projectWorker.save
+    @employees = Employee.find(params[:project][:employee_ids])
+    @employees.each do |employee|
+      @projectWorker = ProjectWorker.new
+      @projectWorker.project_id = @project.id
+      @projectWorker.user_id = employee.id
+      @projectWorker.role_id = Role.find(3).id
+      @projectWorker.save
+    end
+    redirect_to dashboard_path(@project)
+  end
+
+  def add_dev
+    @project = Project.find(params[:id])
+    @employees = Employee.find(params[:project][:employee_ids])
+    @employees.each do |employee|
+      @projectWorker = ProjectWorker.new
+      @projectWorker.project_id = @project.id
+      @projectWorker.user_id = employee.id
+      @projectWorker.role_id = Role.find(2).id
+      @projectWorker.save
+    end
+    redirect_to dashboard_path(@project)
   end
 
   private
     def project_params
-      params.require(:project).permit(:title, :description, :client_id)
+      params.require(:project).permit(:title, :description, :client_id, :employee_ids => [])
     end
 
 end

@@ -4,27 +4,103 @@
   <strong>Title</strong>
   <%= @project.title %>
 </p>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-<table cellpadding=15 cellspacing=15>
-  <tr>
-    <th>Name</th>
-    <th>Descrpition</th>
-    <th colspan="2"></th>
-  </tr>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#hometab" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#employees" role="tab" data-toggle="tab">Employees</a></li>
+  <li><a href="#clients" role="tab" data-toggle="tab">Clients</a></li>
+  <li><a href="#tasks" role="tab" data-toggle="tab">Tickets</a></li> 
+</ul>
+</li>
 
-  <% @project.tickets.each do |ticket| %>
-    <tr>
-      <td><%= ticket.title %></td>
-      <td><%= ticket.description %></td>
-      <td><%= link_to 'Edit', edit_project_ticket_path(ticket) %></td>
-      <td><%= link_to 'Destroy', project_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      
-      <td><%#= link_to 'Assign Dev',%></td>
-    </tr>
-  <% end %>
-</table>
+<div class="tab-content">
+  <div class="tab-pane active" id="hometab"></div>
+  <div class="tab-pane" id="employees">
+    <table cellpadding=30 cellspacing=15>
+      <tr>
+        <th>      </th>
+        <th>Name</th>
+        <th>Function</th>
+        <th>Email</th>
+        <th colspan="2"></th>
+      </tr>
 
-<h2>Create a task:</h2>
-<%= render 'tickets/form' %>
+      <% @project.project_workers.each do |pw| %>
+        <tr>
+          <td><%= image_tag(pw.user.avatar.url(:thumb), :class => "round-image-50") %></td>
+          <td><%= pw.user.full_name %></td>
+          <td><%= pw.role.role_type %>
+          <td><%= pw.user.email %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <%= form_for @project, :url => {:action => :add_dev} do |form| %>
+      <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+        <br>
+        <%= b.check_box %>
+        <%= b.label %>
+      <%end %>
+      <p>
+        <%= form.submit 'Add developer' %>
+      </p>
+    <% end %>
+
+    <%= form_for @project, :url => {:action => :add_tester} do |form| %>
+      <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+        <br>
+        <%= b.check_box %>
+        <%= b.label %>
+      <%end %>
+      <p>
+        <%= form.submit 'Add tester' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="clients">
+    <table cellpadding=15 cellspacing=15>
+      <tr>
+        <th>         </th>
+        <th>Name </th>
+        <th>Email</th>
+        <th colspan="2"></th>
+      </tr>
+
+      <% @project.clients.each do |user| %>
+        <tr>
+          <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+          <td><%= user.first_name + " " + user.last_name %></td>
+          <td><%= user.email %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="tab-pane" id="tasks">
+    <h3>Tasks</h3>
+    <table cellpadding=15 cellspacing=15>
+      <tr>
+        <th>Name</th>
+        <th>Descrpition</th>
+        <th colspan="2"></th>
+      </tr>
+
+      <% @project.tickets.each do |ticket| %>
+        <tr>
+          <td><%= ticket.title %></td>
+          <td><%= ticket.description %></td>
+          <td><%= link_to 'Edit', edit_project_ticket_path(ticket) %></td>
+          <td><%= link_to 'Destroy', project_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%#= link_to 'Assign Dev',%></td>
+        </tr>
+    <% end %>
+    </table>      
+    <h2>Create a task:</h2>
+    <%= render 'tickets/form' %> 
+  </div>
+</div>
 
 <%= link_to "Back", projects_path %>

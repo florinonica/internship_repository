@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_23_072956) do
+ActiveRecord::Schema.define(version: 2018_07_24_073806) do
 
   create_table "clients_projects", id: false, force: :cascade do |t|
     t.integer "client_id", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_072956) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
+    t.string "role_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
