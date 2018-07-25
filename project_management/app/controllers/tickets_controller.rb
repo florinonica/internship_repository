@@ -21,13 +21,13 @@ class TicketsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
-    @ticket = @project.tickets.find(params[:project_id])
+    @project = Project.find(params[:project_id])
+    @ticket = @project.tickets.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
-    @ticket = @project.tickets.find(params[:project_id])
+    @project = Project.find(params[:project_id])
+    @ticket = @project.tickets.find(params[:id])
     if @ticket.update(ticket_params)
       redirect_to dashboard_path(@project)
     else
@@ -36,8 +36,8 @@ class TicketsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
-    @ticket = @project.tickets.find(params[:project_id])
+    @project = Project.find(params[:project_id])
+    @ticket = @project.tickets.find(params[:id])
     @ticket.destroy
     redirect_to dashboard_path(@project)
   end
@@ -52,6 +52,6 @@ class TicketsController < ApplicationController
 
   private
     def ticket_params
-      params.require(:ticket).permit(:title, :description, :attachment, :project_id, :dev_id)
+      params.require(:ticket).permit(:title, :description, :attachment, :project_id, :dev_id, :priority, :status, :task_id)
     end
 end

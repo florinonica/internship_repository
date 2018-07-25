@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
     @comment.save
-    redirect_to ticket_path(@ticket)
+    #redirect_to ticket_path(@ticket)
   end
 
   def edit
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.find(params[:id])
     @comment.destroy
-    redirect_to ticket_path(@ticket)
+    #redirect_to ticket_path(@ticket)
   end
 
   private

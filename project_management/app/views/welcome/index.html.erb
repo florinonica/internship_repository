@@ -1,4 +1,10 @@
 <h1>Welcome</h1>
-<%= link_to "Add User", new_user_path, :class => 'navbar-link' %><br>
-<%= link_to "View Users", users_path, :class => 'navbar-link' %><br>
+<% if current_user.type == "Superuser" %>
+  <%= link_to "Add User", new_user_path, :class => 'navbar-link' %><br>
+<% end %>
+
+<% if current_user.type == "Superuser" || current_user.type == "Employee" %>
+  <%= link_to "View Users", users_path, :class => 'navbar-link' %><br>
+<% end %>
+
 <%= link_to "View Projects", projects_path, :class => 'navbar-link' %>

@@ -1,4 +1,4 @@
-<%= form_with(model: [ @ticket, @ticket.comments.build ], local: true) do |form| %>
+<%= form_with(model: [ @ticket, @ticket.comments.build ]) do |form| %>
   <p>
     <%= form.hidden_field :commenter, :value => current_user.username %>
   </p>

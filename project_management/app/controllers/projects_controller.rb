@@ -85,6 +85,20 @@ class ProjectsController < ApplicationController
     redirect_to dashboard_path(@project)
   end
 
+  def remove_client
+    @project = Project.find(params[:id])
+    @client = Client.find(params[:client_id])
+    @project.client_ids = @project.client_ids - [@client.id]
+    redirect_to dashboard_path(@project)
+  end
+
+  def remove_employee
+    @project = Project.find(params[:id])
+    @employee = Employee.find(params[:employee_ids])
+    @project.employee_ids = @project.employee_ids - [@employee.id]
+    redirect_to dashboard_path(@project)
+  end
+
   private
     def project_params
       params.require(:project).permit(:title, :description, :client_id, :employee_ids => [])

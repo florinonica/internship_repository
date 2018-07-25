@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, except: :create
   resources :projects do
-  	resources :tickets
-  	resources :comments
+  	resources :tickets do
+  	 resources :comments
+    end
   end
   post 'create_user' => 'users#create', as: :create_user   
   patch 'projects/:id/add_client' => 'projects#add_client'
@@ -13,5 +14,9 @@ Rails.application.routes.draw do
   patch 'projects/:id/add_tester' => 'projects#add_tester'
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
   resources :clients, param: :client_id
+  resources :tickets do
+    resources :comments
+  end
   root 'welcome#index'
+
 end

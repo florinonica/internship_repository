@@ -28,8 +28,10 @@
           <td><%= user.email %></td>
           <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
           <td><%= link_to 'Show', user_path(user) %></td>
-          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if current_user.type == "Superuser" %>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>
@@ -48,8 +50,10 @@
           <td><%= user.email %></td>
           <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
           <td><%= link_to 'Show', user_path(user) %></td>
-          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if current_user.type == "Superuser" %>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>
@@ -68,8 +72,10 @@
           <td><%= user.email %></td>
           <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
           <td><%= link_to 'Show', user_path(user) %></td>
-          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if current_user.type == "Superuser" %>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>

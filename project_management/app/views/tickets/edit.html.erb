@@ -1,5 +1,36 @@
 <h1>Edit ticket</h1>
 
-<%= render 'form' %>
+<%= form_for [ @project, @ticket] do |form| %>
+  <%= form.hidden_field :status, :value => "To do"%>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_area :title %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <div class="form-group">
+    <%= form.label :priority %> <br />
+    <%= form.label :priority, 'High' %>
+    <%= form.radio_button :priority, 'high' %><br>
+    <%= form.label :priority, 'Medium' %>
+    <%= form.radio_button :priority, 'medium' %><br>
+    <%= form.label :priority, 'Low' %>
+    <%= form.radio_button :priority, 'low' %>
+    <br />
+  </div>
+
+  <p>
+    <%= form.label :Developer %><br>
+    <%= form.select :dev_id, @project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
 
 <%= link_to "Back", :back %> 
