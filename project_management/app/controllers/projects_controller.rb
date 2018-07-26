@@ -50,11 +50,9 @@ class ProjectsController < ApplicationController
   end
 
   def add_project_manager
-    @project = Project.find(params[:id])
-    @employee = Employee.find(params[:project][:employee_ids])
     @projectWorker = ProjectWorker.new
-    @projectWorker.project_id = @project.id
-    @projectWorker.user_id = @employee.id
+    @projectWorker.project_id = params[:id]
+    @projectWorker.user_id = params[:project][:employee_ids]
     @projectWorker.role_id = Role.find(1).id
     @projectWorker.save
   end

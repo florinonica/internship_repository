@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.save
     #redirect_to ticket_path(@ticket)
+    redirect_to :back
   end
 
   def edit

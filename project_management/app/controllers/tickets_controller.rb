@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
     @project = Project.find(params[:project_id])
     @ticket = @project.tickets.new ticket_params
     @ticket.owner_id = current_user.id
-    if !(params[:ticket][:dev_id].nil? || params[:ticket][:dev_id] = "")
+    if !(params[:ticket][:dev_id].nil? || params[:ticket][:dev_id] == "")
       @employee = Employee.find(params[:ticket][:dev_id])
       @ticket.dev_id = @employee.id
     end
