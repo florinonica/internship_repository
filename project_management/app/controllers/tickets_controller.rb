@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   def index
-    @tickets = Ticket.all
+    @project = Project.find(params[:project_id])
+    @tickets = @project.tickets
   end
 
   def new
@@ -13,11 +14,13 @@ class TicketsController < ApplicationController
     @ticket = @project.tickets.new ticket_params
     @ticket.owner_id = current_user.id
     if !(params[:ticket][:dev_id].nil? || params[:ticket][:dev_id] == "")
-      @employee = Employee.find(params[:ticket][:dev_id])
-      @ticket.dev_id = @employee.id
+      @ticket.dev_id = params[:ticket][:dev_id]
     end
-    @ticket.save
-    redirect_to dashboard_path(@project)
+    if @ticket.save
+      redirect_to dashboard_path(@project)
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -26,26 +29,22 @@ class TicketsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:project_id])
-    @ticket = @project.tickets.find(params[:id])
+    @ticket = Ticket.find(params[:id])
     if @ticket.update(ticket_params)
-      redirect_to dashboard_path(@project)
+      redirect_to dashboard_path(Project.find(params[:project_id]))
     else
       render 'edit'
     end
   end
 
   def destroy
-    @project = Project.find(params[:project_id])
-    @ticket = @project.tickets.find(params[:id])
+    @ticket = Ticket.find(params[:id])
     @ticket.destroy
     redirect_to dashboard_path(@project)
   end
 
   def assign_dev
-    @project = Project.find(params[:id])
-    @ticket = @project.tickets.find(params[:project_id])
-    @employee = Employee.find(params[:project][:dev_id])
+    @ticket = Ticket.find(params[:id])
     @ticket.dev_id = params[:project][:dev_id]
     @ticket.save
   end

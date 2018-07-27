@@ -1,9 +1,9 @@
 <h1>Welcome</h1>
-<% if current_user.type == "Superuser" %>
+<% if current_user.can_create_user %>
   <%= link_to "Add User", new_user_path, :class => 'navbar-link' %><br>
 <% end %>
 
-<% if current_user.type == "Superuser" || current_user.type == "Employee" %>
+<% if current_user.can_see_users %>
   <%= link_to "View Users", users_path, :class => 'navbar-link' %><br>
 <% end %>
 

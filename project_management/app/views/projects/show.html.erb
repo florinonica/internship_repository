@@ -8,13 +8,6 @@
   <td><%= @project.description %></td>
 </p>
 
-<%#= form_for @project, :url => {:action => :add_client} do |form| %>
-  <%#= form.collection_select :client_id, (Client.all - @project.clients), :id, :full_name, include_blank: true %>
-  <p>
-    <%#= form.submit 'Add client' %>
-  </p>
-<%# end %>
-
 <% if current_user.type == "Superuser" %>
 
   <div class="tab-pane" id="clients">

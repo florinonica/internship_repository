@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   def index
-    @comments = Comment.all
+    @ticket = Ticket.find(params[:ticket_id])
+    @comments = @ticket.comments
   end
 
   def new
@@ -12,9 +13,12 @@ class CommentsController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
-    @comment.save
+    if @comment.save
     #redirect_to ticket_path(@ticket)
-    redirect_to :back
+      redirect_to :back
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -36,12 +40,12 @@ class CommentsController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.find(params[:id])
     @comment.destroy
-    #redirect_to ticket_path(@ticket)
+    redirect_to ticket_path(@ticket)
   end
 
   private
     def comment_params
-      params.require(:comment).permit(:commenter, :body, :user_id, :ticket_id, :parent_id, :parent)
+      params.require(:comment).permit(:commenter, :body, :user_id, :ticket_id, :parent_id)
     end
 end
 
