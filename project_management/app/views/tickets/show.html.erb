@@ -1,31 +1,31 @@
 <p>
-  <%= ticket.title %>
+  <%= @ticket.title %>
 </p>
  
 <p>
   <strong>Description</strong><br>
-  <%= ticket.description %>
+  <%= @ticket.description %>
 </p>
 
 <p>
-  <% if current_user.id == ticket.owner_id %>
-    <%=link_to 'Delete', [ticket.project, ticket], method: :delete,
+  <% if current_user.id == @ticket.owner_id %>
+    <%=link_to 'Delete', [@ticket.project, @ticket], method: :delete,
               data: { confirm: 'Are you sure?' } %> |
   <% end %>
-  <% if current_user.id == ticket.owner_id %>
-    <%= link_to 'Edit', edit_project_ticket_path(ticket.project, ticket) %> 
+  <% if current_user.id == @ticket.owner_id %>
+    <%= link_to 'Edit', edit_project_ticket_path(@ticket.project, @ticket) %> 
   <% end %>
 </p>
 
 <h2>Comments</h2>
-<% ticket.comments.each do |comment| %>
+<% @ticket.comments.each do |comment| %>
    <%= render comment if !comment.parent_id.presence %>
 <% end %>
 
 <h2>Add a comment:</h2>
 <%#= render 'comments/form' %>
 
-<%= form_with(model: [ ticket, ticket.comments.build ]) do |form| %>
+<%= form_with(model: [ @ticket, @ticket.comments.build ]) do |form| %>
   <p>
     <%= form.hidden_field :commenter, :value => current_user.username %>
   </p>
@@ -40,9 +40,9 @@
 
 
 <p>
-<%= form_for [ticket.project, Ticket.new] do |form| %>
-  <%= form.hidden_field :task_id, :value => ticket.id%>
-  <% if ticket.project.project_workers.find_by(user_id: current_user.id).role_id == 3 %>
+<%= form_for [@ticket.project, Ticket.new] do |form| %>
+  <%= form.hidden_field :task_id, :value => @ticket.id%>
+  <% if @ticket.project.project_workers.find_by(user_id: current_user.id).role_id == 3 %>
     <%= form.hidden_field :type, :value => "Bug"%>
   <% else %>
     <%= form.hidden_field :type, :value => "Task"%>
@@ -72,7 +72,7 @@
 
   <p>
     <%= form.label :Developer %><br>
-    <%= form.select :dev_id, @project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
+    <%= form.select :dev_id, @ticket.project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
   </p>
 
   <p>
@@ -81,3 +81,5 @@
 <% end %>
 
 </p>
+
+<%= link_to "Back", dashboard_path(@ticket.project) %>

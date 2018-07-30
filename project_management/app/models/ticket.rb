@@ -5,4 +5,17 @@ class Ticket < ApplicationRecord
   belongs_to :task, class_name: "Ticket", optional: true
   has_many :comments, foreign_key: :ticket_id, dependent: :destroy
   has_many :subtasks, class_name: "Ticket", foreign_key: :task_id, dependent: :destroy
+
+  def get_colour
+  	case self.priority 
+  	when "high"
+  		return "#EA0B07"
+  	when "medium"
+  		return "#F4E518"
+  	when "low"
+  		return "#28ED42"
+  	else
+  		return "#fff"
+  	end
+  end
 end

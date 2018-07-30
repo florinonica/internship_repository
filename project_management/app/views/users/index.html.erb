@@ -46,7 +46,7 @@
 
       <% Employee.all.each do |user| %>
         <tr>
-          <td><%= user.first_name + " " + user.last_name %></td>
+          <td><%= user.full_name %></td>
           <td><%= user.email %></td>
           <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
           <td><%= link_to 'Show', user_path(user) %></td>

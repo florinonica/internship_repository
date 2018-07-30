@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :get_project, only: [:show, :edit, :update, :destroy, :dashboard, :add_client, :remove_client, :remove_employee]
+  before_action :get_project, only: [:show, :edit, :update, :destroy, :dashboard, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
 
   def index
     @projects = Project.all
@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
 	
   def create
     @project = Project.new(project_params)
+
     if @project.save
       redirect_to @project
     else
@@ -45,64 +46,30 @@ class ProjectsController < ApplicationController
     @project.clients << @client
   end
 
-  def add_project_manager
-    @projectWorker = ProjectWorker.new
-    @projectWorker.project_id = params[:id]
-    @projectWorker.user_id = params[:project][:employee_ids]
-    @projectWorker.role_id = 1
-    @projectWorker.save
-  end
-
-  def add_tester
-    @employees = Employee.find(params[:project][:employee_ids])
-    @employees.each do |employee|
-      @projectWorker = ProjectWorker.new
-      @projectWorker.project_id = params[:id]
-      @projectWorker.user_id = params[:project][:employee_ids]
-      @projectWorker.role_id = 3
-      @projectWorker.save
-    end
-    redirect_to dashboard_path(@project)
-  end
-
   def add_employees
-    params[:project][:employee_ids].zip(params[:project][:role_ids]).each do |e, r|
+    params[:project][:employee_ids].each do |e|
       @projectWorker = ProjectWorker.new
       @projectWorker.project_id = params[:id]
       @projectWorker.user_id = e
-      @projectWorker.role_id = r
-      @projectWorker.save
-    end
-    redirect_to dashboard_path(@project)
-  end
-
-  def add_dev
-    @employees = Employee.find(params[:project][:employee_ids])
-    @employees.each do |employee|
-      @projectWorker = ProjectWorker.new
-      @projectWorker.project_id = params[:id]
-      @projectWorker.user_id = params[:project][:employee_ids]
-      @projectWorker.role_id = 2
+      @projectWorker.role_id = params[:project][:role_id]
       @projectWorker.save
     end
     redirect_to dashboard_path(@project)
   end
 
   def remove_client
-    @client = Client.find(params[:client_id])
-    @project.client_ids = @project.client_ids - [@client.id]
+    @project.client_ids = @project.client_ids - params[:client_id]
     redirect_to dashboard_path(@project)
   end
 
   def remove_employee
-    @employee = Employee.find(params[:employee_ids])
-    @project.employee_ids = @project.employee_ids - [@employee.id]
+    @project.employee_ids = @project.employee_ids - params[:employee_ids]
     redirect_to dashboard_path(@project)
   end
 
   private
     def project_params
-      params.require(:project).permit(:title, :description, :client_id, :employee_ids => [])
+      params.require(:project).permit(:title, :description, :client_id, :employee,  :role_id, :employee_ids => [])
     end
 
     def get_project

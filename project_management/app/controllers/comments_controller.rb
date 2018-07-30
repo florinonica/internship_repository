@@ -4,6 +4,10 @@ class CommentsController < ApplicationController
     @comments = @ticket.comments
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   def new
     @ticket = Ticket.find(params[:ticket_id])
     @comment = Comment.new
@@ -13,6 +17,7 @@ class CommentsController < ApplicationController
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
+    
     if @comment.save
     #redirect_to ticket_path(@ticket)
       redirect_to :back
@@ -29,6 +34,7 @@ class CommentsController < ApplicationController
   def update
     @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.find(params[:id])
+
     if @comment.update(comment_params)
       redirect_to @ticket
     else

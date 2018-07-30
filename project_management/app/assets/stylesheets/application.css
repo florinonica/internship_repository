@@ -285,3 +285,114 @@ color:#fff;
     -ms-transform: translateX(50%);
     transform: translateX(50%);
 }
+
+.board-container {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-top-menu {
+  width: 100%;
+  background-color: grey;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+.board-top-menu-item {
+  padding: 5px;
+}
+
+.board-top-menu-item:hover {
+  background-color: #fefefe;
+}
+
+.board-content {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px;
+  background-color: #0079bf;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+}
+
+.cards {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.cards-container {
+  width: 265px;
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+  min-height: 100px;
+  background-color: #dbdbdb;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  padding-bottom: 20px;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.cards-container-head {
+  position: relative;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+}
+
+.cards-container-title {
+  font-weight: bold;
+  font-size: 20px;
+  white-space: normal;
+  width: 100%;
+}
+
+.card-container {
+  width: 100%;
+  margin: 0 auto 10px;
+  background-color: #fff;
+  min-height: 100px;
+  border-radius: 1px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  transition: 0.15s;
+}
+
+.card-header {
+  padding: 10px 10px;
+  border-bottom: 3px solid #dbdbdb;
+  border-top: 3px solid #dbdbdb;
+  border-left: 3px solid #dbdbdb;
+  border-right: 3px solid #dbdbdb;
+  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 1px;
+  white-space: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+  display: flex;
+  height: 100px;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+html {
+    overflow-x: hidden;
+}
+.card-container{
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.cards-container-footer {
+  position: relative;
+
+
+}

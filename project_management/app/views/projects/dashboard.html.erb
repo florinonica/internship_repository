@@ -1,109 +1,69 @@
-<p>
-  <strong><h2><%= @project.title %></h2></strong>
-</p>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <style>
-    body {background-color: #2A8DD4;
+<style>
+    body {background-color: #0079bf;
       font-color: white;}
-  </style>
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#hometab" role="tab" data-toggle="tab">Home</a></li>
-  <li><a href="#employees" role="tab" data-toggle="tab">Employees</a></li>
-  <li><a href="#clients" role="tab" data-toggle="tab">Clients</a></li>
-  <li><a href="#tasks" role="tab" data-toggle="tab">Tickets</a></li> 
-</ul>
-</li>
+</style>
 
-<div class="tab-content">
-  <div class="tab-pane active" id="hometab"></div>
-  <div class="tab-pane" id="employees">
-    <table cellpadding=30 cellspacing=15>
-      <tr>
-        <th>      </th>
-        <th>Name</th>
-        <th>Function</th>
-        <th>Email</th>
-        <th colspan="2"></th>
-      </tr>
-
-      <% @project.project_workers.each do |pw| %>
-        <tr>
-          <td><%= image_tag(pw.user.avatar.url(:thumb), :class => "round-image-50") %></td>
-          <td><%= pw.user.full_name %></td>
-          <td><%= pw.role.role_type %>
-          <td><%= pw.user.email %></td>
-        </tr>
-      <% end %>
-    </table>
-    <% if @project.project_workers.find_by(user_id: current_user.id).role_id == 1 %>
-
-
-      <%= form_for @project, :url => {:action => :add_employees} do |form| %>
-        <% (Employee.all - @project.employees).each do |e| %>
-            <%= check_box_tag :employee_ids, e.id %>
-            <%= label_tag :employee_ids, e.full_name %>
-            <%= form.fields_for :roles do |f| %>
-              <%#= check_box_tag 'role_ids[]', role.id -%>
-              <%#= f.collection_radio_buttons :role_ids, e.roles, :id, :role_type, multiple: true %>
+<div class="board-container">
+  <div class="board-content">
+    <div>
+      <div class="cards-container-head">
+        <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'><%=@project.title%></div>
+      </div>
+      <div class="cards">
+        <div class="cards-container">
+          <div class="cards-container-head">
+            <div class="cards-container-title">To do </div>
+          </div>
+          <div class="card-container">
+            <% @project.get_tasks_to_do.each do |ticket|%>
+              <div class="card-header" style = 'background-color: <%= ticket.get_colour%>;'>
+                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                <%= ticket.description %>
+              </div>
             <% end %>
-            <br>
-        <% end %>
-        <p>
-          <%= form.submit 'Add employees' %>
-        </p>
-          
-      <% end %>
-
-      <%= form_for @project, :url => {:action => :add_dev} do |form| %>
-        <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-          <br>
-          <%= b.check_box %>
-          <%= b.label %>
-        <%end %>
-        <p>
-          <%= form.submit 'Add developer' %>
-        </p>
-      <% end %>
-
-      <%= form_for @project, :url => {:action => :add_tester} do |form| %>
-        <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-          <br>
-          <%= b.check_box %>
-          <%= b.label %>
-        <%end %>
-        <p>
-          <%= form.submit 'Add tester' %>
-        </p>
-      <% end %>
-    <% end %>
+          </div>
+        </div>
+        <div class="cards-container">
+          <div class="cards-container-head">
+            <div class="cards-container-title">In progress</div>
+          </div>
+          <div class="card-container">
+            <% @project.get_tasks_in_progress.each do |ticket|%>
+              <div class="card-header" >
+                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                <%= ticket.description %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="cards-container">
+          <div class="cards-container-head">
+            <div class="cards-container-title">Dev complete</div>
+          </div>
+          <div class="card-container">
+            <% @project.get_tasks_dev_complete.each do |ticket|%>
+              <div class="card-header" >
+                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                <%= ticket.description %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="cards-container">
+          <div class="cards-container-head">
+            <div class="cards-container-title">Done</div>
+          </div>
+          <div class="card-container">
+            <% @project.get_tasks_done.each do |ticket|%>
+              <div class="card-header" >
+                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                <%= ticket.description %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="tab-pane" id="clients">
-    <table cellpadding=15 cellspacing=15>
-      <tr>
-        <th>         </th>
-        <th>Name </th>
-        <th>Email</th>
-        <th colspan="2"></th>
-      </tr>
+<%= button_to "New task", new_project_ticket_path(@project), :method => "get" %>
 
-      <% @project.clients.each do |user| %>
-        <tr>
-          <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
-          <td><%= user.first_name + " " + user.last_name %></td>
-          <td><%= user.email %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="tab-pane" id="tasks">
-    <h3>Tasks</h3>
-    <%#= render @project.tickets%>     
-    <h2>Create a task:</h2>
-    <%= render 'tickets/form' %> 
-  </div>
-</div>
-
-<%= link_to "Back", projects_path %>

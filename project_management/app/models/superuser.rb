@@ -20,7 +20,7 @@ class Superuser < User
   end
 
   def can_see_dashboard
-  	false
+  	true
   end
 
   def can_see_users
