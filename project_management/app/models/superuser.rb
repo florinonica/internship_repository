@@ -3,10 +3,6 @@ class Superuser < User
     User.model_name
   end
 
-  def can_see_projects
-  	true
-  end
-
   def can_create_project
   	true
   end
@@ -16,10 +12,6 @@ class Superuser < User
   end
 
   def can_delete_project
-  	true
-  end
-
-  def can_see_dashboard
   	true
   end
 
@@ -37,6 +29,22 @@ class Superuser < User
 
   def can_delete_user
   	true
+  end
+
+  def can_add_clients
+    true
+  end
+
+  def can_change_manager
+    true
+  end
+
+  def can_assign_employees(id)
+    true
+  end
+
+  def can_see_project_details
+    true
   end
 
 end

@@ -30,7 +30,6 @@
     <%= form.hidden_field :commenter, :value => current_user.username %>
   </p>
   <p>
-    <%= form.label :body %><br>
     <%= form.text_area :body %>
   </p>
   <p>
@@ -39,14 +38,14 @@
 <% end %>
 
 
-<p>
+<!--p>
 <%= form_for [@ticket.project, Ticket.new] do |form| %>
   <%= form.hidden_field :task_id, :value => @ticket.id%>
-  <% if @ticket.project.project_workers.find_by(user_id: current_user.id).role_id == 3 %>
-    <%= form.hidden_field :type, :value => "Bug"%>
-  <% else %>
-    <%= form.hidden_field :type, :value => "Task"%>
-  <% end %>
+  <%# if @ticket.project.project_workers.find_by(user_id: current_user.id).role_id == 3  %>
+    <%#= form.hidden_field :type, :value => "Bug"%>
+  <%# else %>
+    <%#= form.hidden_field :type, :value => "Task"%>
+  <%# end %>
   <%= form.hidden_field :type, :value => "Task"%>
   <%= form.hidden_field :status, :value => "To do"%>
   <p>
@@ -80,6 +79,6 @@
   </p>
 <% end %>
 
-</p>
+</p-->
 
 <%= link_to "Back", dashboard_path(@ticket.project) %>

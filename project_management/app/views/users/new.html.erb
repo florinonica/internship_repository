@@ -17,60 +17,77 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, class: 'form-control', autofocus: true, autocomplete: "off" %>
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :username %><br />
+      <%= f.text_field :username, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "off" %>
+    </div>
   </div>
 
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, class: 'form-control', autofocus: true, autocomplete: "off" %>
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :nickname %><br />
+      <%= f.text_field :nickname, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, class: 'form-control', autofocus: true, autocomplete: "off" %>
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :type %><br />
+      <%= f.text_field :type, class: 'form-control', autofocus: true%>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "off" %>
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :address %><br />
+      <%= f.text_field :address, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "off" %>
-  </div>
-
-
-  <div class="field">
-    <%= f.label :nickname %><br />
-    <%= f.text_field :nickname, class: 'form-control', autofocus: true, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :type %><br />
-    <%= f.text_field :type, class: 'form-control', autofocus: true%>
-  </div>
-
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address, class: 'form-control', autofocus: true, autocomplete: "off" %>
-  </div>
-
+<br>
   <div class="actions">
     <%= f.submit "Add user" %>
   </div>
 <% end %>
-
+<br>
 <%= link_to "Back", :back %>
 <%#= render "users/shared/links" %>

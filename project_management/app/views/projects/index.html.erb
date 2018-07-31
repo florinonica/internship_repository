@@ -1,4 +1,4 @@
-<h1>Projects</h1>
+<h2>Projects</h2>
 
 <table cellpadding=15 cellspacing=15>
   <tr>
@@ -7,16 +7,16 @@
 
   <% current_user.get_projects.each do |project| %>
     <tr>
-      <td><%= link_to project.title, dashboard_path(project) %></td>
+      <td class="col-xs-5"><%= link_to project.title, dashboard_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
       <% if current_user.can_edit_project %>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td class="col-xs-5"><%= link_to 'Edit', edit_project_path(project)%></td>
       <% end %>
       <% if current_user.can_delete_project %>
-        <td><%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td ><%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }  %></td>
       <% end %>
     </tr>
   <% end %>
 </table>
-<%= link_to "Add Project", new_project_path %><br>
+<br>
 
 <%= link_to "Back", root_path %>

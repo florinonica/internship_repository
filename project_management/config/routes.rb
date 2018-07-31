@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   patch 'projects/:id/add_tester' => 'projects#add_tester'
   patch 'projects/:id/add_employees' => 'projects#add_employees'
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
+  get 'projects/:id/team' => 'projects#team', :as => :team
   resources :clients, param: :client_id
   resources :tickets do
     resources :comments

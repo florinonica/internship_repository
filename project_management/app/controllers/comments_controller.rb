@@ -1,25 +1,23 @@
 class CommentsController < ApplicationController
+  before_action :get_ticket, only: [:index, :new, :create]
+  before_action :get_comment, only: [:show, :edit, :update, :destroy]
+
   def index
-    @ticket = Ticket.find(params[:ticket_id])
     @comments = @ticket.comments
   end
 
   def show
-    @comment = Comment.find(params[:id])
   end
 
   def new
-    @ticket = Ticket.find(params[:ticket_id])
     @comment = Comment.new
   end
 
   def create
-    @ticket = Ticket.find(params[:ticket_id])
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
     
     if @comment.save
-    #redirect_to ticket_path(@ticket)
       redirect_to :back
     else
       render 'new'
@@ -27,14 +25,9 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @ticket = Ticket.find(params[:ticket_id])
-    @comment = @ticket.comments.find(params[:id])
   end
 
   def update
-    @ticket = Ticket.find(params[:ticket_id])
-    @comment = @ticket.comments.find(params[:id])
-
     if @comment.update(comment_params)
       redirect_to @ticket
     else
@@ -43,8 +36,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @ticket = Ticket.find(params[:ticket_id])
-    @comment = @ticket.comments.find(params[:id])
     @comment.destroy
     redirect_to ticket_path(@ticket)
   end
@@ -52,6 +43,14 @@ class CommentsController < ApplicationController
   private
     def comment_params
       params.require(:comment).permit(:commenter, :body, :user_id, :ticket_id, :parent_id)
+    end
+
+    def get_ticket
+      @ticket = Ticket.find(params[:ticket_id])
+    end
+
+    def get_comment
+      @comment = Comment.find(params[:id])
     end
 end
 

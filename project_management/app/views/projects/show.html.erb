@@ -1,35 +1,38 @@
 <p>
-  <strong>Title</strong>
-  <%= @project.title %>
+  <strong style='color:#000000; font-size: 25px;'><%= @project.title %></strong>
 </p>
- 
+<br>
 <p>
-  <strong>Description</strong>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Manager</strong>
   <td><%= @project.description %></td>
 </p>
 
-<% if current_user.type == "Superuser" %>
 
-  <div class="tab-pane" id="clients">
-    <table cellpadding=15 cellspacing=15>
+<h3>Clients</h3>
+<div class="tab-pane" id="clients">
+  <table cellpadding=15 cellspacing=15>
+    <tr>
+      <th class="col-xs-2">         </th>
+      <th class="col-xs-3">Name </th>
+      <th class="col-xs-3">Email</th>
+      <th colspan="2"></th>
+    </tr>
+
+    <% @project.clients.each do |user| %>
       <tr>
-        <th>         </th>
-        <th>Name </th>
-        <th>Email</th>
-        <th colspan="2"></th>
+        <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+        <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
+        <td class="col-xs-3"><%= user.email %></td>
       </tr>
+    <% end %>
+  </table>
+</div>
 
-      <% @project.clients.each do |user| %>
-        <tr>
-          <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
-          <td><%= user.first_name + " " + user.last_name %></td>
-          <td><%= user.email %></td>
-
-        </tr>
-      <% end %>
-    </table>
-  </div>
-
+<% if current_user.can_add_clients %>
   <%= form_for @project, :url => {:action => :add_client} do |form| %>
     <%= form.collection_check_boxes :client_id, (Client.all - @project.clients), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
       <br>
@@ -41,17 +44,22 @@
     </p>
   <% end %>
 <br>
+<% end %>
 
+<% if current_user.can_change_manager %>
   <%= form_for @project, :url => {:action => :add_project_manager} do |form| %>
     <%= form.collection_select :employee_ids, (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees), :id, :full_name, include_blank: true %>
     <p>
       <%= form.submit 'Add project manager' %>
     </p>
   <% end %>
+<% end %>
 
 <br>
-<%= link_to 'Edit', edit_project_path(@project) %> | <%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
-<br>
+<% if current_user.can_delete_project %>
+  <%= link_to 'Edit', edit_project_path(@project) %> | <%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
+<br>
+
 
 <%= link_to 'Back', projects_path %>

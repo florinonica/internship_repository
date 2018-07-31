@@ -8,11 +8,11 @@ class Ticket < ApplicationRecord
 
   def get_colour
   	case self.priority 
-  	when "high"
+  	when "High"
   		return "#EA0B07"
-  	when "medium"
+  	when "Medium"
   		return "#F4E518"
-  	when "low"
+  	when "Low"
   		return "#28ED42"
   	else
   		return "#fff"

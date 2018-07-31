@@ -22,30 +22,51 @@ class User < ApplicationRecord
   end
 
   def can_see_projects
+    true
   end
 
   def can_create_project
+    false
   end
 
   def can_edit_project
+    false
   end
 
   def can_delete_project
-  end
-
-  def can_see_dashboard
+    false
   end
 
   def can_see_users
+    false
   end
 
   def can_create_user
+    false
   end
 
   def can_edit_user
+    false
   end
 
   def can_delete_user
+    false
+  end
+
+  def can_add_clients
+    false
+  end
+
+  def can_change_manager
+    false
+  end
+
+  def can_assign_employees(id)
+    false
+  end
+
+  def can_see_project_details
+    false
   end
 
 end

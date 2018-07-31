@@ -1,7 +1,6 @@
 
 body {  padding-top: 110px; 
     font-family: 'Varela Round', sans-serif;
-
 }
 
 
@@ -19,7 +18,45 @@ body {  padding-top: 110px;
 }
 
 
+.form-submit-button {
 
+background: #DE0E06;
+
+color: white;
+
+border-style: outset;
+
+border-color: #DE0E06;
+
+height: 50px;
+
+width: 100px;
+
+font: bold 15px arial, sans-serif;
+
+text-shadow:none;
+
+}
+
+.form-submit-button:hover {
+
+background: #F4331D;
+
+color: white;
+
+border-style: outset;
+
+border-color: #F4331D;
+
+height: 50px;
+
+width: 100px;
+
+font: bold 15px arial, sans-serif;
+
+text-shadow:none;
+
+}
 
 .nav-tabs{
  
