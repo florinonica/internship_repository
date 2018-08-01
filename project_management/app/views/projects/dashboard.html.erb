@@ -22,19 +22,21 @@
       hoverClass: "highlight",            
       greedy: true,
       drop: function( event, ui ) {
-        $( this ).find( ".placeholder" ).hide();
-        $(ui.draggable).appendTo(this);
-        var id = ui.draggable.attr('id');
-        $.ajax({
-          url: '/tickets/'+ id + '/',
-          type: 'PUT',
-          data: { status: this.id },
-          success: function (response) {
-
-          },
-          error: function (response) {
-          }
-        });
+        var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
+        if((this.id == "In progress" && roomid == "To do") ||
+          (this.id == "Dev complete" && roomid == "In progress") ||
+          (this.id == "Done" && roomid == "Dev complete") ||
+          (this.id == "In progress" && roomid == "Dev complete") )
+        {
+          $( this ).find( ".placeholder" ).hide();
+          $(ui.draggable).appendTo(this);
+          var id = ui.draggable.attr('id');
+          $.ajax({
+            url: '/tickets/'+ id + '/change_status',
+            type: 'PATCH',
+            data: { status: this.id }
+          });
+        }
       }
       });
   } );  
@@ -53,13 +55,21 @@
           </div>
           <div class="card-container" id = "To do">
             <% @project.get_tasks_to_do.each do |ticket|%>
-              <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                <div>
-                  <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  <%#= link_to "", status_path(ticket), :class => "glyphicon glyphicon-circle-arrow-right" %>
+              <% if current_user.can_alter_ticket(ticket) %>
+                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
                 </div>
-                <%= ticket.description %>
-              </div>
+              <% else %>
+                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -69,10 +79,21 @@
           </div>
           <div class="card-container" id = "In progress">
             <% @project.get_tasks_in_progress.each do |ticket|%>
-              <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                <%= ticket.description %>
-              </div>
+              <% if current_user.can_alter_ticket(ticket) %>
+                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% else %>
+                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -82,10 +103,21 @@
           </div>
           <div class="card-container" id = "Dev complete">
             <% @project.get_tasks_dev_complete.each do |ticket|%>
-              <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                <%= ticket.description %>
-              </div>
+              <% if current_user.can_alter_ticket(ticket) %>
+                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% else %>
+                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -95,10 +127,21 @@
           </div>
           <div class="card-container" id = "Done">
             <% @project.get_tasks_done.each do |ticket|%>
-              <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                <%= ticket.description %>
-              </div>
+              <% if current_user.can_alter_ticket(ticket) %>
+                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% else %>
+                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+                  <div>
+                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+                  </div>
+                  <%= ticket.description %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>

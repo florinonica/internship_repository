@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :get_ticket, only: [:index, :new, :create]
+  before_action :get_ticket, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :get_comment, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     
     if @comment.save
-      redirect_to :back
+      redirect_to ticket_path(@ticket)
     else
       render 'new'
     end
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to @ticket
+      redirect_to ticket_path(@ticket)
     else
       render 'edit'
     end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Placeholder name</title>
+    <title>Trollo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -27,6 +27,9 @@
                 <% if current_user.can_create_user %>
                   <li>
                     <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
+                  </li>
+                  <li>
+                    <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
                   </li>
                 <% end %>
             </ul>

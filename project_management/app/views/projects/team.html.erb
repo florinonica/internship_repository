@@ -1,48 +1,53 @@
 <strong><h2><%= @project.title %></h2></strong>
-<BR>
-    <table cellpadding=30 cellspacing=15>
-      <tr>
-        <th >      </th>
-        <th class="col-xs-2">Name</th>
-        <th class="col-xs-2">Function</th>
-        <th class="col-xs-2">Email</th>
-        <th class="col-xs-2" colspan="2"></th>
-      </tr>
+<br><br>
+<table cellpadding=30 cellspacing=15>
+  <tr>
+    <th >      </th>
+    <th class="col-xs-2">Name</th>
+    <th class="col-xs-2">Function</th>
+    <th class="col-xs-2">Email</th>
+    <th class="col-xs-2" colspan="2"></th>
+  </tr>
 
-      <% @project.project_workers.each do |pw| %>
-        <tr>
-          <td ><%= image_tag(pw.user.avatar.url(:thumb), :class => "round-image-50") %></td>
-          <td class="col-xs-3"><%= pw.user.full_name %></td>
-          <td class="col-xs-3"><%= pw.role.role_type %>
-          <td class="col-xs-3"><%= pw.user.email %></td>
-        </tr>
+  <% @project.project_workers.each do |pw| %>
+    <tr>
+      <td ><%= image_tag(pw.user.avatar.url(:thumb), :class => "round-image-50") %></td>
+      <td class="col-xs-3"><%= pw.user.full_name %></td>
+      <td class="col-xs-3"><%= pw.role.role_type %>
+      <td class="col-xs-3"><%= pw.user.email %></td>
+      <% if current_user.can_assign_employees(@project.id) %>
+        <td><%= link_to 'Remove', controller: "projects", action: "remove_employee", id: @project.id, employee_id: pw.user.id %></td>
       <% end %>
-    </table>
-    <br>
-    <% if current_user.can_assign_employees(@project.id) %>
-      <%= form_for @project, :url => {:action => :add_employees} do |form| %>
-        <%= form.hidden_field :role_id, :value => '2' %>
-        <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-          <br>
-          <%= b.check_box %>
-          <%= b.label %>
-        <%end %>
-        <p>
-          <%= form.submit 'Add developer' %>
-        </p>
-      <% end %>
+    </tr>
+  <% end %>
+</table>
+<br>
+<% if current_user.can_assign_employees(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees).count > 0%>
+  <%= form_for @project, :url => {:action => :add_employees} do |form| %>
+    <%= form.hidden_field :role_id, :value => '2' %>
+    <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+      <br>
+      <%= b.check_box %>
+      <%= b.label %>
+    <%end %>
+    <p>
+      <%= form.submit 'Add developer' %>
+    </p>
+  <% end %>
+<% end %>
 
-      <%= form_for @project, :url => {:action => :add_employees} do |form| %>
-        <%= form.hidden_field :role_id, :value => '3' %>
-        <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-          <br>
-          <%= b.check_box %>
-          <%= b.label %>
-        <%end %>
-        <p>
-          <%= form.submit 'Add tester' %>
-        </p>
-      <% end %>
-    <% end %>
+<% if current_user.can_assign_employees(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees).count > 0%>
+  <%= form_for @project, :url => {:action => :add_employees} do |form| %>
+    <%= form.hidden_field :role_id, :value => '3' %>
+    <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+      <br>
+      <%= b.check_box %>
+      <%= b.label %>
+    <%end %>
+    <p>
+      <%= form.submit 'Add tester' %>
+    </p>
+  <% end %>
+<% end %>
 
 <%= link_to "Back", :back %>

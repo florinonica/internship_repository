@@ -1,9 +1,17 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
 <p>
   <%= comment.commenter %>
 </p>
  
 <p>
-  <strong>Comment:</strong>
   <%= comment.body %>
 </p>
 
@@ -13,23 +21,8 @@
               data: { confirm: 'Are you sure?' } %> |
   <% end %>
   <% if user_signed_in? && current_user.id == comment.user_id %>
-    <%= link_to 'Edit', edit_project_ticket_comment_path(comment.ticket, comment) %> 
+    <%= link_to 'Edit', edit_ticket_comment_path(comment.ticket, comment) %> 
   <% end %>
 </p>
 
-<div>
-  <%= render comment.replies if comment.replies.any? %>
-</div>
-
-<p>
-  <%= form_for [comment.ticket, Comment.new] do |form| %>
-    <%= form.hidden_field :parent_id, :value => comment.id%>
-    <p>
-      <%= form.hidden_field :commenter, :value => current_user.username %>
-    </p>
-    <p>
-      <%= form.text_area :body %>
-    </p>
-    <%= form.submit "Reply" %>
-  <% end %>
-</p>
+<br>

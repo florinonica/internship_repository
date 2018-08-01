@@ -13,8 +13,12 @@ Rails.application.routes.draw do
   patch 'projects/:id/add_dev' => 'projects#add_dev'
   patch 'projects/:id/add_tester' => 'projects#add_tester'
   patch 'projects/:id/add_employees' => 'projects#add_employees'
+  get 'projects/:id/remove_client' => 'projects#remove_client'
+  get 'projects/:id/remove_employee' => 'projects#remove_employee'
+  patch 'tickets/:id/change_status' => 'tickets#change_status', :as => :change_status
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
   get 'projects/:id/team' => 'projects#team', :as => :team
+  get 'users/type' => 'users#custom_index', :as => :type
   resources :clients, param: :client_id
   resources :tickets do
     resources :comments

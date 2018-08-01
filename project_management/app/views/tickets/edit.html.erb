@@ -1,5 +1,39 @@
-<h1>Edit ticket</h1>
+<h2>Edit ticket</h2>
 
-<%#= render 'tickets/form' %>
+<%= form_for [@project, @ticket] do |form| %>
+  <%# if @project.project_workers.find_by(:user_id current_user.id).role_id = 3 %>
+    <%#= form.hidden_field :type, :value => "Bug"%>
+  <%# else %>
+    <%#= form.hidden_field :type, :value => "Task"%>
+  <%# end %>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= form.label :title %><br>
+      <%= form.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= form.label :description %><br>
+      <%= form.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <%= form.label :priority %><br>
+    <%= form.select :priority, ["High", "Medium", "Low"]%>
+    <br />
+  </div>
+
+  <p>
+    <%= form.label :Developer %><br>
+    <%= form.select :dev_id, @project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
+  </p>
+
+  <p>
+    <%= form.submit "Submit"%>
+  </p>
+<% end %>
 
 <%= link_to "Back", :back %> 

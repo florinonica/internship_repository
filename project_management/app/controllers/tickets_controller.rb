@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :get_project, only: [:index, :new, :create]
-  before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev]
+  before_action :get_project, only: [:index, :new, :create, :edit, :update]
+  before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev, :change_status]
 
   def index
     @tickets = @project.tickets
@@ -31,14 +31,33 @@ class TicketsController < ApplicationController
   end
 
   def update
-    if @ticket.update(:status => params[:status])
-      redirect_to dashboard_path(@project)
+    if @ticket.update(ticket_params)
+      redirect_to dashboard_path(@ticket.project)
     else
       render 'edit'
     end
   end
 
+  def change_status
+    case params[:status]
+      when "In progress"
+        if @ticket.status == "Dev complete"
+          @ticket.update(:status => params[:status])
+        else
+          @ticket.update(:status => params[:status], :start_at => Time.now)
+        end
+      when "Dev complete"
+        @ticket.update(:status => params[:status], :completed_at => Time.now)
+      when "Done"
+        @ticket.update(:status => params[:status], :end_at => Time.now)
+      else
+        raise "invalid status"
+    end
+    redirect_to dashboard_path(@ticket.project)
+  end
+
   def destroy
+    @project = @ticket.project
     @ticket.destroy
     redirect_to dashboard_path(@project)
   end

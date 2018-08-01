@@ -5,7 +5,7 @@ class Employee < User
     User.model_name
   end
 
-  def can_see_users
+  def can_see_employees
   	true
   end
 
@@ -18,6 +18,14 @@ class Employee < User
 
   def can_see_project_details
     true
+  end
+
+  def can_alter_ticket(ticket)
+    if self.tickets.include?(ticket) || (self.tasks.include?(ticket) && (ticket.status =="To do" || ticket.status =="In progress")) || 
+      (self.project_workers.find_by(project_id: ticket.project_id).role_id == 3 && ticket.status =="Dev complete")
+      return true
+    end
+    return false
   end
 
 end

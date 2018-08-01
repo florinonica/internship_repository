@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :registerable
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  #validates :email, :presence => true, :email => true
   has_many :tickets, foreign_key: :owner_id
   has_many :tasks, foreign_key: :dev_id
   has_many :bugs, foreign_key: :bug_id
@@ -37,7 +38,7 @@ class User < ApplicationRecord
     false
   end
 
-  def can_see_users
+  def can_see_all_users
     false
   end
 
@@ -66,6 +67,14 @@ class User < ApplicationRecord
   end
 
   def can_see_project_details
+    false
+  end
+
+  def can_see_employees
+    false
+  end
+
+  def can_alter_ticket(ticket)
     false
   end
 

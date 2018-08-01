@@ -27,12 +27,15 @@
         <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
         <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
         <td class="col-xs-3"><%= user.email %></td>
+        <% if current_user.can_add_clients %>
+          <td><%= link_to 'Remove', controller: "projects", action: "remove_client", id: @project.id, client_id: user.id %></td>
+        <% end %>
       </tr>
     <% end %>
   </table>
 </div>
 
-<% if current_user.can_add_clients %>
+<% if current_user.can_add_clients && (Client.all - @project.clients).count > 0 %>
   <%= form_for @project, :url => {:action => :add_client} do |form| %>
     <%= form.collection_check_boxes :client_id, (Client.all - @project.clients), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
       <br>
@@ -43,9 +46,8 @@
       <%= form.submit 'Add client' %>
     </p>
   <% end %>
-<br>
 <% end %>
-
+<br>
 <% if current_user.can_change_manager %>
   <%= form_for @project, :url => {:action => :add_project_manager} do |form| %>
     <%= form.collection_select :employee_ids, (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees), :id, :full_name, include_blank: true %>
@@ -60,6 +62,5 @@
   <%= link_to 'Edit', edit_project_path(@project) %> | <%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <br>
-
 
 <%= link_to 'Back', projects_path %>

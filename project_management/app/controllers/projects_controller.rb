@@ -47,6 +47,7 @@ class ProjectsController < ApplicationController
   def add_client
     @client = Client.find(params[:project][:client_id])
     @project.clients << @client
+    redirect_to project_path(@project)
   end
 
   def add_employees
@@ -57,22 +58,24 @@ class ProjectsController < ApplicationController
       @projectWorker.role_id = params[:project][:role_id]
       @projectWorker.save
     end
-    redirect_to dashboard_path(@project)
+    redirect_to team_path(@project)
   end
 
   def remove_client
-    @project.client_ids = @project.client_ids - params[:client_id]
-    redirect_to dashboard_path(@project)
+    @client = Client.find(params[:client_id])
+    @project.clients = @project.clients - [@client]
+    redirect_to project_path(@project)
   end
 
   def remove_employee
-    @project.employee_ids = @project.employee_ids - params[:employee_ids]
-    redirect_to dashboard_path(@project)
+    @employee = Employee.find(params[:employee_id])
+    @project.employees = @project.employees - [@employee]
+    redirect_to team_path(@project)
   end
 
   private
     def project_params
-      params.require(:project).permit(:title, :description, :client_id, :employee,  :role_id, :employee_ids => [])
+      params.require(:project).permit(:title, :description, :client_id, :employee,  :role_id, :employee_id, :employee_ids => [])
     end
 
     def get_project

@@ -15,7 +15,7 @@ class Superuser < User
   	true
   end
 
-  def can_see_users
+  def can_see_all_users
   	true
   end
 
@@ -44,6 +44,14 @@ class Superuser < User
   end
 
   def can_see_project_details
+    true
+  end
+
+  def can_see_employees
+    true
+  end
+
+  def can_alter_ticket(ticket)
     true
   end
 

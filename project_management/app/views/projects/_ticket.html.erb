@@ -1,0 +1,15 @@
+<% if current_user.can_alter_ticket(ticket) %>
+  <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+    <div>
+      <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+    </div>
+    <%= ticket.description %>
+  </div>
+<% else %>
+  <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+    <div>
+      <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
+    </div>
+    <%= ticket.description %>
+  </div>
+<% end %>

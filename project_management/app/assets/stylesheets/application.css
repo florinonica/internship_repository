@@ -3,6 +3,7 @@ body {  padding-top: 110px;
     font-family: 'Varela Round', sans-serif;
 }
 
+.hidden { display: none; }
 
 .round-image-50 {
     background-color: white;
@@ -231,14 +232,10 @@ color:#fff;
 
 #sidebar.active {
     margin-left: -250px;
-    transform: rotateY(100deg); /* Rotate sidebar vertically by 100 degrees. */
+    transform: rotateY(100deg);
 }
 
 @media (max-width: 768px) {
-    /* Reversing the behavior of the sidebar: 
-       it'll be rotated vertically and off canvas by default, 
-       collapsing in on toggle button click with removal of 
-       the vertical rotation.   */
     #sidebar {
         margin-left: -250px;
         transform: rotateY(100deg);
@@ -247,11 +244,6 @@ color:#fff;
         margin-left: 0;
         transform: none;
     }
-
-    /* Reversing the behavior of the bars: 
-       Removing the rotation from the first,
-       last bars and reappear the second bar on default state, 
-       and giving them a vertical margin */
     #sidebarCollapse span:first-of-type,
     #sidebarCollapse span:nth-of-type(2),
     #sidebarCollapse span:last-of-type {
@@ -260,7 +252,6 @@ color:#fff;
         margin: 5px auto;
     }
 
-    /* Removing the vertical margin and make the first and last bars rotate again when the sidebar is open, hiding the second bar */
     #sidebarCollapse.active span {
         margin: 0 auto;
     }
@@ -281,7 +272,6 @@ color:#fff;
     text-align: center;
 }
 
-/* Toggling the sidebar header content, hide the big heading [h3] and showing the small heading [strong] and vice versa*/
 #sidebar .sidebar-header strong {
     display: none;
 }
@@ -309,7 +299,6 @@ color:#fff;
     margin-bottom: 5px;
 }
 
-/* Same dropdown links padding*/
 #sidebar.active ul ul a {
     padding: 10px !important;
 }
@@ -411,6 +400,29 @@ color:#fff;
   word-break: break-all;
   word-wrap: break-word;
   display: flex;
+  width: fixed;
+  height: 100px;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.card-header-1 {
+  padding: 10px 10px;
+  border-bottom: 3px solid #dbdbdb;
+  border-top: 3px solid #dbdbdb;
+  border-left: 3px solid #dbdbdb;
+  border-right: 3px solid #dbdbdb;
+  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 1px;
+  white-space: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+  display: flex;
+  width: fixed;
   height: 100px;
   overflow-y: scroll;
   flex-direction: column;
