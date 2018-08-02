@@ -1,7 +1,7 @@
 <br>
-<%= link_to "Back", root_path %>
+<%= link_to "Back", root_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>
 <br>
-
+<br>
 <% if current_user.can_see_all_users %>
   <table cellpadding=15 cellspacing=15>
     <tr>
@@ -12,16 +12,16 @@
       <th colspan="2"></th>
     </tr>
 
-    <% User.all.each do |user| %>
+    <% @users.each do |user| %>
       <tr>
         <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
         <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
         <td class="col-xs-3"><%= user.type %></td>
         <td class="col-xs-3"><%= user.email %></td>
-        <td class="col-xs-2"><%= link_to 'View profile', user_path(user) %></td>
+        <td class="col-xs-2"><%= link_to 'Profile', user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-user"} %></td>
         <% if current_user.can_delete_user %>
-          <td class="col-xs-2"><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td class="col-xs-2"><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td class="col-xs-2"><%= link_to 'Edit', edit_user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"}%></td>
+          <td class="col-xs-2"><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"%></td>
         <% end %>
       </tr>
     <% end %>
@@ -35,15 +35,17 @@
       <th colspan="2"></th>
     </tr>
 
-    <% Employee.all.each do |user| %>
+    <% @users.where(:type => "Employee").each do |user| %>
       <tr>
         <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
         <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
         <td class="col-xs-3"><%= user.email %></td>
-        <td class="col-xs-2"><%= link_to 'View profile', user_path(user) %></td>
+        <td class="col-xs-2"><%= link_to 'Profile', user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-user"} %></td>
       </tr>
     <% end %>
   </table>
 <% else %>
   <h1 style="color:red;"> <strong>ACCES DENIED</strong></h1>
 <% end %>
+
+<%= will_paginate @users,renderer: BootstrapPagination::Rails %>

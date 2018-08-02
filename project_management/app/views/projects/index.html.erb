@@ -13,14 +13,14 @@
         <td class="col-xs-5"><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
       <% end %>
       <% if current_user.can_edit_project %>
-        <td class="col-xs-5"><%= link_to 'Edit', edit_project_path(project)%></td>
+        <td class="col-xs-5"><%= link_to 'Edit', edit_project_path(project), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"}%></td>
       <% end %>
       <% if current_user.can_delete_project %>
-        <td ><%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }  %></td>
+        <td ><%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"  %></td>
       <% end %>
     </tr>
   <% end %>
 </table>
 <br>
 
-<%= link_to "Back", root_path %>
+<%= link_to "Back", root_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>

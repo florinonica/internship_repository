@@ -55,4 +55,16 @@ class Superuser < User
     true
   end
 
+  def can_delete_ticket(ticket)
+    true
+  end
+
+  def is_manager(id)
+    true
+  end
+
+  def can_add_subtask_or_bug(ticket)
+    true
+  end
+
 end

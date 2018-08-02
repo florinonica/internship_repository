@@ -79,13 +79,20 @@
 
   <div class="row">
     <div class="col-xs-5">
+      <%= f.label :position %><br />
+      <%= f.text_field :position, class: 'form-control', autofocus: true, autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-5">
       <%= f.label :address %><br />
       <%= f.text_field :address, class: 'form-control', autofocus: true, autocomplete: "off" %>
     </div>
   </div>
 <br>
   <div class="actions">
-    <%= f.submit "Add user" %>
+    <%= f.submit "Add user", {class: "btn btn-info collapsed"} %>
   </div>
 <% end %>
 <br>

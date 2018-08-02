@@ -14,7 +14,14 @@ class ProjectsController < ApplicationController
 	
   def create
     @project = Project.new(project_params)
-
+    params.require(:project).permit(:files => [])
+    params[:project][:files].each do |file|
+      @attachment = Attachment.new
+      @attachment.file = file
+      @attachment.project_id = @project.id
+      @attachment.save
+      @project.attachments << @attachment
+    end
     if @project.save
       redirect_to @project
     else

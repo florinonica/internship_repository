@@ -5,6 +5,12 @@
   <p>
     <%= form.text_area :body %>
   </p>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= form.label :file %>
+      <%= form.file_field :file, :multiple => true %>
+    </div>
+  </div>
   <p>
     <%= form.submit %>
   </p>

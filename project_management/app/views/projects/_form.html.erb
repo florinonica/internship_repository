@@ -27,9 +27,17 @@
       <%= form.text_area :description, class: 'form-control' %>
     </div>
   </div>
+<br>
+  <div class="row">
+    <div class="col-xs-4">
+      <%= form.label :files %>
+      <%= form.file_field :files, :multiple => true %>
+    </div>
+  </div>
+
 <br> 
   <p>
-    <%= form.submit %>
+    <%= form.submit "Submit"%>
   </p>
  
 <% end %>

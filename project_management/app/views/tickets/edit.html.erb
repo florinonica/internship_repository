@@ -25,14 +25,20 @@
     <%= form.select :priority, ["High", "Medium", "Low"]%>
     <br />
   </div>
-
+  <div class="row">
+    <div class="col-xs-4">
+      <%= form.label :file %>
+      <%= form.file_field :file, :multiple => true %>
+    </div>
+  </div>
+  <br>
   <p>
     <%= form.label :Developer %><br>
     <%= form.select :dev_id, @project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
   </p>
 
   <p>
-    <%= form.submit "Submit"%>
+    <%= form.submit "Submit", {class: "btn btn-info collapsed"}%>
   </p>
 <% end %>
 

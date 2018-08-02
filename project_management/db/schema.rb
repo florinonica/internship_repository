@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_24_073806) do
+ActiveRecord::Schema.define(version: 2018_08_02_091844) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "file_file_name"
+    t.string "file_content_type"
+    t.integer "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.integer "ticket_id"
+    t.integer "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_attachments_on_comment_id"
+    t.index ["project_id"], name: "index_attachments_on_project_id"
+    t.index ["ticket_id"], name: "index_attachments_on_ticket_id"
+    t.index ["user_id"], name: "index_attachments_on_user_id"
+  end
 
   create_table "clients_projects", id: false, force: :cascade do |t|
     t.integer "client_id", null: false
@@ -81,6 +98,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_073806) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "updated_at", null: false
+    t.string "type"
     t.index ["dev_id"], name: "index_tickets_on_dev_id"
     t.index ["owner_id"], name: "index_tickets_on_owner_id"
     t.index ["project_id"], name: "index_tickets_on_project_id"

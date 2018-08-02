@@ -43,7 +43,7 @@
       <%= b.label %>
     <%end %>
     <p>
-      <%= form.submit 'Add client' %>
+      <%= form.submit 'Add client', {class: "btn btn-info collapsed"} %>
     </p>
   <% end %>
 <% end %>
@@ -52,15 +52,15 @@
   <%= form_for @project, :url => {:action => :add_project_manager} do |form| %>
     <%= form.collection_select :employee_ids, (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees), :id, :full_name, include_blank: true %>
     <p>
-      <%= form.submit 'Add project manager' %>
+      <%= form.submit 'Add project manager', {class: "btn btn-info collapsed"} %>
     </p>
   <% end %>
 <% end %>
 
 <br>
 <% if current_user.can_delete_project %>
-  <%= link_to 'Edit', edit_project_path(@project) %> | <%= link_to 'Destroy', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Edit', edit_project_path(@project), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"} %> | <%= link_to 'Delete', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove" %>
 <% end %>
 <br>
 
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Back', projects_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>

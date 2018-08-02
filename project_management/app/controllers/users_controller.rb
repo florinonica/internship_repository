@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :get_user, only: [:show, :edit, :update, :destroy]
 
   def index
-  	@users = User.all
+  	#@users = User.all
+    @users = User.paginate(:page=>params[:page],per_page:5)
   end
 
   def show
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :nickname, :position, :email, :password, :password_confirmation, :current_password, :type, :avatar)
+      params.require(:user).permit(:first_name, :last_name, :username, :nickname, :position, :email, :password, :password_confirmation, :type, :avatar)
     end
 
     def get_user

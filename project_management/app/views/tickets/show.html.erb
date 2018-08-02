@@ -1,52 +1,125 @@
 <script>
-function myFunction() {
-    var x = document.getElementById("comments");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Hide comments');
-    } else {
-        x.style.display = "none";
-        $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Show comments');
+function display(i) {
+    if(i == 1) {
+        var x = document.getElementById("comments");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            $(".btn#marcel").html('<span class="glyphicon glyphicon-collapse-up"></span> Hide comments');
+        } else {
+            x.style.display = "none";
+            $(".btn#marcel").html('<span class="glyphicon glyphicon-collapse-down"></span> Show comments');
+        }
+    }
+    else{
+        var x = document.getElementById("add");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
     }
 }
 </script>
 
-<h3><%= @ticket.title %></h3><br>
+<h3><strong><%= @ticket.title %></strong></h3><br>
 <h4><strong>Description</strong></h4>
 <div class="row">
   <div class="col-xs-3">
     <%= @ticket.description %>
   </div>
-</div>
-<br>
+</div><br>
+
 <p>
-  <% if current_user.id == @ticket.owner_id %>
+  <% if current_user.can_delete_ticket(@ticket) %>
     <%=link_to 'Delete', [@ticket.project, @ticket], method: :delete,
               data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"%> |
-  <% end %>
-  <% if current_user.id == @ticket.owner_id %>
     <%= link_to 'Edit', edit_project_ticket_path(@ticket.project, @ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"} %> 
   <% end %>
-</p>
-<br>
+</p><br>
 
-<h4>Add a comment:</h4>
-<%= form_with(model: [ @ticket, @ticket.comments.build ]) do |form| %>
-  <p>
-    <%= form.hidden_field :commenter, :value => current_user.username %>
-  </p>
-  <div class="row">
-    <div class="col-xs-4">
-    <%= form.text_area :body, class: 'form-control' %>
+<% if current_user.can_add_subtask_or_bug(@ticket) && !@ticket.task.presence%>
+  <button class="btn btn-info collapsed" onclick="display(2)">
+    <span class="glyphicon glyphicon-collapse-down"></span> 
+    <% if current_user.is_tester(@ticket.project_id) %>
+      Add Bug 
+    <% elsif current_user.is_dev(@ticket.project_id)%>
+      Add Subtask
+    <% else %>
+      Add Bug/Subtask
+    <% end %>
+  </button>
+
+  <div id = "add" style ='display: none;'>
+  <%= form_for [@ticket.project, Ticket.new] do |form| %>
+    <%= form.hidden_field :task_id, :value => @ticket.id%>
+    <%= form.hidden_field :status, :value => "To do"%>
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_area :title %>
+    </p>
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+    <div class="form-group">
+      <%= form.label :priority %><br>
+      <%= form.select :priority, ["High", "Medium", "Low"]%>
+      <br />
     </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <%= form.label :file %>
+        <%= form.file_field :file, :multiple => true%>
+      </div>
+    </div>
+    <br>
+    <% if current_user.is_tester(@ticket.project_id)  %>
+      <%= form.hidden_field :type, :value => "Bug"%>
+    <% elsif current_user.is_dev(@ticket.project_id) %>
+      <%= form.hidden_field :type, :value => "Task"%>
+    <% else %>
+      <div class="form-group">
+        <%= form.label :type %><br>
+        <%= form.select :type, ["Bug", "Task"]%>
+        <br />
+      </div>
+    <% end %>
+    <p>
+      <%= form.label :Developer %><br>
+      <%= form.select :dev_id, @ticket.project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
+    </p>
+    <p>
+      <%= form.submit "Submit", {class: "btn btn-info collapsed"} %>
+    </p>
+  <% end %>
   </div>
-  <br>
-  <p>
-    <%= form.submit "Submit", {class: "btn btn-info collapsed"}%>
-  </p>
+  <% end %>
+
+  <h4>Add a comment:</h4>
+  <%= form_with(model: [ @ticket, @ticket.comments.build ]) do |form| %>
+    <p>
+      <%= form.hidden_field :commenter, :value => current_user.username %>
+    </p>
+    <div class="row">
+      <div class="col-xs-4">
+      <%= form.text_area :body, class: 'form-control' %>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= form.label :file %>
+        <%= form.file_field :file, :multiple => true %>
+      </div>
+    </div>
+    <br>
+    <p>
+      <%= form.submit "Submit", {class: "btn btn-info collapsed"}%>
+    </p>
 <% end %>
 
-<button class="btn btn-info collapsed" onclick="myFunction()">
+<button id="marcel" class="btn btn-info collapsed" onclick="display(1)">
   <span class="glyphicon glyphicon-collapse-down"></span> Show comments
 </button>
 
@@ -55,7 +128,6 @@ function myFunction() {
   <% @ticket.comments.each do |comment| %>
      <%= render comment if (!comment.parent_id.presence && !(comment.body.nil?)) %>
   <% end %>
-</div>
+</div><br><br>
 
-<br>
-<%= link_to "Back", dashboard_path(@ticket.project), {class: "btn btn-info collapsed"} %>
+<%= link_to "Back", dashboard_path(@ticket.project), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>

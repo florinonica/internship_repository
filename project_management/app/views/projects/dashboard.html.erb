@@ -26,7 +26,7 @@
         if((this.id == "In progress" && roomid == "To do") ||
           (this.id == "Dev complete" && roomid == "In progress") ||
           (this.id == "Done" && roomid == "Dev complete") ||
-          (this.id == "In progress" && roomid == "Dev complete") )
+          (this.id == "In progress" && roomid == "Dev complete") || (<%= current_user.is_manager(@project.id)%>))
         {
           $( this ).find( ".placeholder" ).hide();
           $(ui.draggable).appendTo(this);
@@ -44,109 +44,16 @@
 
 <div class="board-container">
   <div class="board-content">
-    <div>
-      <div class="cards-container-head">
-        <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'><%=@project.title%></div>
-      </div>
-      <div class="cards">
-        <div class="cards-container">
-          <div class="cards-container-head">
-            <div class="cards-container-title">To do </div>
-          </div>
-          <div class="card-container" id = "To do">
-            <% @project.get_tasks_to_do.each do |ticket|%>
-              <% if current_user.can_alter_ticket(ticket) %>
-                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% else %>
-                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <div class="cards-container">
-          <div class="cards-container-head">
-            <div class="cards-container-title">In progress</div>
-          </div>
-          <div class="card-container" id = "In progress">
-            <% @project.get_tasks_in_progress.each do |ticket|%>
-              <% if current_user.can_alter_ticket(ticket) %>
-                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% else %>
-                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <div class="cards-container">
-          <div class="cards-container-head">
-            <div class="cards-container-title">Dev complete</div>
-          </div>
-          <div class="card-container" id = "Dev complete">
-            <% @project.get_tasks_dev_complete.each do |ticket|%>
-              <% if current_user.can_alter_ticket(ticket) %>
-                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% else %>
-                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <div class="cards-container">
-          <div class="cards-container-head">
-            <div class="cards-container-title">Done</div>
-          </div>
-          <div class="card-container" id = "Done">
-            <% @project.get_tasks_done.each do |ticket|%>
-              <% if current_user.can_alter_ticket(ticket) %>
-                <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% else %>
-                <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
-                  <div>
-                    <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
-                  </div>
-                  <%= ticket.description %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+    <div class="cards-container-head">
+      <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'><%=@project.title%></div>
+    </div>
+    <div class="cards">
+      <%= render partial: "card", locals: {id: "To do", tickets: @project.get_tasks_to_do}%>
+      <%= render partial: "card", locals: {id: "In progress", tickets: @project.get_tasks_in_progress}%>
+      <%= render partial: "card", locals: {id: "Dev complete", tickets: @project.get_tasks_dev_complete}%>
+      <%= render partial: "card", locals: {id: "Done", tickets: @project.get_tasks_done}%>
     </div>
   </div>
+</div>
 <%= button_to "New task", new_project_ticket_path(@project), :method => "get", :class => "form-submit-button"%>
 
