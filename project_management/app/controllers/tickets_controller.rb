@@ -19,7 +19,7 @@ class TicketsController < ApplicationController
     if !(params[:ticket][:dev_id].nil? || params[:ticket][:dev_id] == "")
       @ticket.dev_id = params[:ticket][:dev_id]
     end
-    
+    save_attachments
     if @ticket.save
       redirect_to dashboard_path(@project)
     else
@@ -73,5 +73,19 @@ class TicketsController < ApplicationController
 
     def get_ticket
       @ticket = Ticket.find(params[:id])
+    end
+
+    def save_attachments
+      params.require(:ticket).permit(:files => [])
+      params[:ticket][:files].each do |file|
+        @attachment = Attachment.new(user_id: current_user.id, file: file)
+        
+        if @attachment.save
+          @project.attachments << @attachment
+          @ticket.attachments << @attachment
+        else
+          render 'new'
+        end
+      end
     end
 end

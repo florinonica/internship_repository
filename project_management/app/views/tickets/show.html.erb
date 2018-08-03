@@ -29,6 +29,14 @@ function display(i) {
   </div>
 </div><br>
 
+<div id="attachments">
+  <% @ticket.attachments.each do |asset| %>
+    <% if asset.is_image?%>
+      <%= image_tag asset.file.url, :size => '100x100' %>
+    <% end %>
+  <% end %>
+</div>
+
 <p>
   <% if current_user.can_delete_ticket(@ticket) %>
     <%=link_to 'Delete', [@ticket.project, @ticket], method: :delete,
@@ -69,8 +77,8 @@ function display(i) {
 
     <div class="row">
       <div class="col-xs-4">
-        <%= form.label :file %>
-        <%= form.file_field :file, :multiple => true%>
+        <%= form.label :files %>
+        <%= form.file_field :files, :multiple => true%>
       </div>
     </div>
     <br>
@@ -109,8 +117,8 @@ function display(i) {
     <br>
     <div class="row">
       <div class="col-xs-4">
-        <%= form.label :file %>
-        <%= form.file_field :file, :multiple => true %>
+        <%= form.label :files %>
+        <%= form.file_field :files, :multiple => true %>
       </div>
     </div>
     <br>

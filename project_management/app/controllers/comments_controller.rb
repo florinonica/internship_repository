@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
-    
+    save_attachments
     if @comment.save
       redirect_to ticket_path(@ticket)
     else
@@ -51,6 +51,21 @@ class CommentsController < ApplicationController
 
     def get_comment
       @comment = Comment.find(params[:id])
+    end
+
+    def save_attachments
+      params.require(:comment).permit(:files => [])
+      params[:comment][:files].each do |file|
+        @attachment = Attachment.new(user_id: current_user.id, file: file)
+        
+        if @attachment.save
+          @comment.ticket.project.attachments << @attachment
+          @comment.ticket.attachments << @attachment
+          @comment.attachments << @attachment
+        else
+          render 'new'
+        end
+      end
     end
 end
 

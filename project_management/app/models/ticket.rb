@@ -6,7 +6,7 @@ class Ticket < ApplicationRecord
   has_many :comments, foreign_key: :ticket_id, dependent: :destroy
   has_many :subtasks, class_name: "Task", foreign_key: :task_id, dependent: :destroy
   has_many :bugs, class_name: "Ticket", foreign_key: :task_id, dependent: :destroy
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
 
   def get_colour
   	case self.priority 
