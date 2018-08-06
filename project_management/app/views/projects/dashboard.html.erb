@@ -1,9 +1,20 @@
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript">
+    $(document).on('turbolinks:load', function() {
+      $(function() {
+        $("#tickets_search").change(function() {
+          $.get($("#tickets_search").attr("action"), $("#tickets_search").serialize(), null, "script");
+          return false;
+        });
+      });
+    });
+  </script>
  </head>
 
 <style>
@@ -11,7 +22,10 @@
       font-color: white;}
 </style>
 
+
+
 <script>
+
  $( function() {
     $( '.card-header' ).draggable({
         appendTo: "body",           
@@ -41,19 +55,30 @@
       });
   } );  
 </script>
-
+<body>
 <div class="board-container">
   <div class="board-content">
     <div class="cards-container-head">
       <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'><%=@project.title%></div>
+        <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
+          <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:#0079bf; font-size: 17.5px;' %>
+        <% end %>
     </div>
     <div class="cards">
-      <%= render partial: "card", locals: {id: "To do", tickets: @project.get_tasks_to_do}%>
-      <%= render partial: "card", locals: {id: "In progress", tickets: @project.get_tasks_in_progress}%>
-      <%= render partial: "card", locals: {id: "Dev complete", tickets: @project.get_tasks_dev_complete}%>
-      <%= render partial: "card", locals: {id: "Done", tickets: @project.get_tasks_done}%>
+      <div  id="m" class="cards">
+        <%= render partial: "card", locals: {id: "To do", tickets: @project.get_tasks_to_do.search(params[:search])} %>
+      </div>
+      <div  id="m1" class="cards">
+        <%= render partial: "card", locals: {id: "In progress", tickets: @project.get_tasks_in_progress.search(params[:search])} %>
+      </div>
+      <div  id="m2" class="cards">
+        <%= render partial: "card", locals: {id: "Dev complete", tickets: @project.get_tasks_dev_complete.search(params[:search])} %>
+      </div>
+      <div  id="m3" class="cards">
+        <%= render partial: "card", locals: {id: "Done", tickets: @project.get_tasks_done.search(params[:search])} %> 
+      </div>
     </div>
   </div>
 </div>
 <%= button_to "New task", new_project_ticket_path(@project), :method => "get", :class => "form-submit-button"%>
-
+</body>

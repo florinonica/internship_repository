@@ -1,0 +1,4 @@
+$("#m").html("<%= escape_javascript(render(partial: "card", locals: {id: "To do", tickets: @project.get_tasks_to_do.search(params[:search])})) %>");
+$("#m1").html("<%= escape_javascript(render(partial: "card", locals: {id: "In progress", tickets: @project.get_tasks_in_progress.search(params[:search])})) %>");
+$("#m2").html("<%= escape_javascript(render(partial: "card", locals: {id: "Dev complete", tickets: @project.get_tasks_dev_complete.search(params[:search])})) %>");
+$("#m3").html("<%= escape_javascript(render(partial: "card", locals: {id: "Done", tickets: @project.get_tasks_done.search(params[:search])})) %>");

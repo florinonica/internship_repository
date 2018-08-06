@@ -11,6 +11,69 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/assets/jquery.mousewheel.pack.js"></script>
+
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="/assets/jquery.fancybox.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/assets/jquery.fancybox.pack.js"></script>
+
+    <!-- Optionally add helpers - button, thumbnail and/or media -->
+    <link rel="stylesheet" href="/assets/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/assets/jquery.fancybox-buttons.js"></script>
+    <script type="text/javascript" src="/assets/jquery.fancybox-media.js"></script>
+
+    <link rel="stylesheet" href="/assets/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/assets/jquery.fancybox-thumbs.js"></script>
+    <script type="text/javascript">
+     (function ($, F) {
+        F.transitions.resizeIn = function() {
+            var previous = F.previous,
+                current  = F.current,
+                startPos = previous.wrap.stop(true).position(),
+                endPos   = $.extend({opacity : 1}, current.pos);
+
+            startPos.width  = previous.wrap.width();
+            startPos.height = previous.wrap.height();
+
+            previous.wrap.stop(true).trigger('onReset').remove();
+
+            delete endPos.position;
+
+            current.inner.hide();
+
+            current.wrap.css(startPos).animate(endPos, {
+                duration : current.nextSpeed,
+                easing   : current.nextEasing,
+                step     : F.transitions.step,
+                complete : function() {
+                    F._afterZoomIn();
+
+                    current.inner.fadeIn("fast");
+                }
+            });
+        };
+
+    }(jQuery, jQuery.fancybox));
+
+    $(".fancybox")
+        .attr('rel', 'gallery')
+        .fancybox({parent: "body",
+            nextMethod : 'resizeIn',
+            nextSpeed  : 250,
+            
+            prevMethod : false,
+            
+            helpers : {
+                title : {
+                    type : 'inside'
+                }
+            }
+        });
+
+    </script>
   </head>
 
 <% if user_signed_in? %>

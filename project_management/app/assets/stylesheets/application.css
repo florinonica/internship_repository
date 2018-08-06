@@ -353,6 +353,7 @@ color:#fff;
   height: 100%;
   overflow-y: auto;
   padding-bottom: 20px;
+  display:inline-block;
 }
 
 .cards-container {
@@ -373,6 +374,7 @@ color:#fff;
   position: relative;
   padding: 10px 15px;
   margin-bottom: 5px;
+  display:flex;
 }
 
 .cards-container-title {
@@ -380,6 +382,7 @@ color:#fff;
   font-size: 20px;
   white-space: normal;
   width: 100%;
+
 }
 
 .card-container {

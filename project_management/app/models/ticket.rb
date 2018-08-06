@@ -8,6 +8,14 @@ class Ticket < ApplicationRecord
   has_many :bugs, class_name: "Ticket", foreign_key: :task_id, dependent: :destroy
   has_many :attachments, dependent: :destroy
 
+  def self.search(search)
+    unless search=="All"
+      where('type LIKE ?', "%#{search}%")
+    else
+      all
+    end
+  end
+
   def get_colour
   	case self.priority 
   	when "High"

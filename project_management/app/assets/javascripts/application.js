@@ -13,5 +13,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require lightbox
+//= require jquery.mousewheel.pack
+//= require jquery.fancybox.pack
+//= require jquery.fancybox-buttons
 //= require_tree .
