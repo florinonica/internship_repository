@@ -1,11 +1,6 @@
 <h2>Edit ticket</h2>
 
 <%= form_for [@project, @ticket] do |form| %>
-  <%# if @project.project_workers.find_by(:user_id current_user.id).role_id = 3 %>
-    <%#= form.hidden_field :type, :value => "Bug"%>
-  <%# else %>
-    <%#= form.hidden_field :type, :value => "Task"%>
-  <%# end %>
   <div class="row">
     <div class="col-xs-4">
       <%= form.label :title %><br>
@@ -27,8 +22,8 @@
   </div>
   <div class="row">
     <div class="col-xs-4">
-      <%= form.label :file %>
-      <%= form.file_field :file, :multiple => true %>
+      <%= form.label :files %>
+      <%= form.file_field :files, :multiple => true %>
     </div>
   </div>
   <br>

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :get_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.paginate(:page=>params[:page],per_page:5)
+    @users = User.paginate(:page => params[:page], per_page:5)
   end
 
   def show
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
     if @user.save
+      #save_roles
       redirect_to root_path
     else
       render 'new'
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      save_roles
       redirect_to users_path
     else
       render 'edit'
@@ -46,4 +48,6 @@ class UsersController < ApplicationController
     def get_user
       @user = User.find(params[:id])
     end
+
+
 end

@@ -29,6 +29,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
+      save_attachments
       redirect_to ticket_path(@ticket)
     else
       render 'edit'

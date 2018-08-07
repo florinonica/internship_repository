@@ -3,67 +3,67 @@ class Superuser < User
     User.model_name
   end
 
-  def can_create_project
+  def can_create_project?
   	true
   end
 
-  def can_edit_project
+  def can_edit_project?
   	true
   end
 
-  def can_delete_project
+  def can_delete_project?
   	true
   end
 
-  def can_see_all_users
+  def can_see_all_users?
   	true
   end
 
-  def can_create_user
+  def can_create_user?
   	true
   end
 
-  def can_edit_user
+  def can_edit_user?
   	true
   end
 
-  def can_delete_user
+  def can_delete_user?
   	true
   end
 
-  def can_add_clients
+  def can_add_clients?
     true
   end
 
-  def can_change_manager
+  def can_change_manager?
     true
   end
 
-  def can_assign_employees(id)
+  def can_assign_employees?(id)
     true
   end
 
-  def can_see_project_details
+  def can_see_project_details?
     true
   end
 
-  def can_see_employees
+  def can_see_employees?
     true
   end
 
-  def can_alter_ticket(ticket)
+  def can_alter_ticket?(ticket)
     true
   end
 
-  def can_delete_ticket(ticket)
+  def can_delete_ticket?(ticket)
     true
   end
 
-  def is_manager(id)
+  def is_manager?(id)
     true
   end
 
-  def can_add_subtask_or_bug(ticket)
+  def can_add_subtask_or_bug?(ticket)
     true
   end
 

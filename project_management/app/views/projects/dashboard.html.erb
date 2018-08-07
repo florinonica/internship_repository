@@ -24,37 +24,7 @@
 
 
 
-<script>
 
- $( function() {
-    $( '.card-header' ).draggable({
-        appendTo: "body",           
-        helper: "clone"
-      });
-    $( '.card-container' ).droppable({
-      activeClass: "div-state",
-      hoverClass: "highlight",            
-      greedy: true,
-      drop: function( event, ui ) {
-        var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
-        if((this.id == "In progress" && roomid == "To do") ||
-          (this.id == "Dev complete" && roomid == "In progress") ||
-          (this.id == "Done" && roomid == "Dev complete") ||
-          (this.id == "In progress" && roomid == "Dev complete") || (<%= current_user.is_manager(@project.id)%>))
-        {
-          $( this ).find( ".placeholder" ).hide();
-          $(ui.draggable).appendTo(this);
-          var id = ui.draggable.attr('id');
-          $.ajax({
-            url: '/tickets/'+ id + '/change_status',
-            type: 'PATCH',
-            data: { status: this.id }
-          });
-        }
-      }
-      });
-  } );  
-</script>
 <body>
 <div class="board-container">
   <div class="board-content">

@@ -16,7 +16,7 @@ class TicketsController < ApplicationController
   def create
     @ticket = @project.tickets.new ticket_params
     @ticket.owner_id = current_user.id
-    if !(params[:ticket][:dev_id].nil? || params[:ticket][:dev_id] == "")
+    if !(params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty?) #blank
       @ticket.dev_id = params[:ticket][:dev_id]
     end
     save_attachments
@@ -32,6 +32,7 @@ class TicketsController < ApplicationController
 
   def update
     if @ticket.update(ticket_params)
+      save_attachments
       redirect_to dashboard_path(@ticket.project)
     else
       render 'edit'
@@ -40,6 +41,8 @@ class TicketsController < ApplicationController
 
   def change_status
     case params[:status]
+      when "To do"
+        @ticket.update(:status => params[:status])
       when "In progress"
         if @ticket.status == "Dev complete"
           @ticket.update(:status => params[:status])
@@ -77,14 +80,16 @@ class TicketsController < ApplicationController
 
     def save_attachments
       params.require(:ticket).permit(:files => [])
-      params[:ticket][:files].each do |file|
-        @attachment = Attachment.new(user_id: current_user.id, file: file)
-        
-        if @attachment.save
-          @project.attachments << @attachment
-          @ticket.attachments << @attachment
-        else
-          render 'new'
+      unless params[:ticket][:files].nil?
+        params[:ticket][:files].each do |file|
+          @attachment = Attachment.new(user_id: current_user.id, file: file)
+     
+          if @attachment.save
+            @project.attachments << @attachment
+            @ticket.attachments << @attachment
+          else
+            render 'new'
+          end
         end
       end
     end

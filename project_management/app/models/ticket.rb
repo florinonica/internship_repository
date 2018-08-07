@@ -7,6 +7,9 @@ class Ticket < ApplicationRecord
   has_many :subtasks, class_name: "Task", foreign_key: :task_id, dependent: :destroy
   has_many :bugs, class_name: "Ticket", foreign_key: :task_id, dependent: :destroy
   has_many :attachments, dependent: :destroy
+  validates :title, :presence => true, length: { in: 3..50 }
+  validates :description, :presence => true, length: { in: 10..200 }
+
 
   def self.search(search)
     unless search=="All"
@@ -15,11 +18,11 @@ class Ticket < ApplicationRecord
       all
     end
   end
-
+  
   def get_colour
   	case self.priority 
   	when "High"
-  		return "#EA0B07"
+  		return "#F81115"
   	when "Medium"
   		return "#F4E518"
   	when "Low"

@@ -91,6 +91,20 @@
     </div>
   </div>
 
+    <br>
+  <h4>Select roles(employee only)</h4>
+  <br>
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.collection_check_boxes :role_ids, Role.all - @user.roles, :id, :role_type, multiple: true, include_hidden: false, include_blank: false do |b|%>
+          <br>
+          <%= b.check_box %>
+          <%= b.label %>
+      <%end %>
+    </div>
+  </div>
+<br>
+
   <div class="actions">
     <%= f.submit "Update", {class: "btn btn-info collapsed"} %>
   </div>

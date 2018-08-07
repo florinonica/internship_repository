@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
 
   private
     def project_params
-      params.require(:project).permit(:title, :description, :client_id, :employee,  :role_id, :employee_id, :employee_ids => [])
+      params.require(:project).permit(:title, :description, :client_id, :attachment_id, :employee,  :role_id, :employee_id, :employee_ids => [])
     end
 
     def get_project
@@ -85,13 +85,15 @@ class ProjectsController < ApplicationController
 
     def save_attachments
       params.require(:project).permit(:files => [])
-      params[:project][:files].each do |file|
-        @attachment = Attachment.new(user_id: current_user.id, file: file)
-        
-        if @attachment.save
-          @project.attachments << @attachment
-        else
-          render 'new'
+      unless params[:project][:files].nil?
+        params[:project][:files].each do |file|
+          @attachment = Attachment.new(user_id: current_user.id, file: file)
+          
+          if @attachment.save
+            @project.attachments << @attachment
+          else
+            render 'new'
+          end
         end
       end
     end

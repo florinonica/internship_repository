@@ -31,26 +31,34 @@ function display(i) {
 
 <div id="attachments">
   <% @ticket.attachments.each do |asset| %>
-    <% if asset.is_image?%>
-      <%= image_tag asset.file.url, :size => '100x100' %>
+    <% unless asset.comment_id.presence %>
+      <% if asset.is_image?%>
+        <a class="fancybox" rel="group" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a>
+      <% elsif asset.is_video?%>
+        <%= video_tag asset.file.url, size: "100x100", controls: true, autobuffer: true, poster:"video.png" %>
+      <% elsif asset.is_audio?%>
+        <%= audio_tag asset.file.url, controls: true %>
+      <% else %>
+        <%= link_to "Download", asset.file.url, :target=> "_blank" %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
 
 <p>
-  <% if current_user.can_delete_ticket(@ticket) %>
+  <% if current_user.can_delete_ticket?(@ticket) %>
     <%=link_to 'Delete', [@ticket.project, @ticket], method: :delete,
               data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"%> |
     <%= link_to 'Edit', edit_project_ticket_path(@ticket.project, @ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"} %> 
   <% end %>
 </p><br>
 
-<% if current_user.can_add_subtask_or_bug(@ticket) && !@ticket.task.presence%>
+<% if current_user.can_add_subtask_or_bug?(@ticket) && !@ticket.task.presence%>
   <button class="btn btn-info collapsed" onclick="display(2)">
     <span class="glyphicon glyphicon-collapse-down"></span> 
-    <% if current_user.is_tester(@ticket.project_id) %>
+    <% if current_user.is_tester?(@ticket.project_id) %>
       Add Bug 
-    <% elsif current_user.is_dev(@ticket.project_id)%>
+    <% elsif current_user.is_dev?(@ticket.project_id)%>
       Add Subtask
     <% else %>
       Add Bug/Subtask
@@ -82,9 +90,9 @@ function display(i) {
       </div>
     </div>
     <br>
-    <% if current_user.is_tester(@ticket.project_id)  %>
+    <% if current_user.is_tester?(@ticket.project_id)  %>
       <%= form.hidden_field :type, :value => "Bug"%>
-    <% elsif current_user.is_dev(@ticket.project_id) %>
+    <% elsif current_user.is_dev?(@ticket.project_id) %>
       <%= form.hidden_field :type, :value => "Task"%>
     <% else %>
       <div class="form-group">

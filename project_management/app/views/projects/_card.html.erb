@@ -1,11 +1,13 @@
+
+
 <div class="cards-container">
   <div class="cards-container-head">
     <div class="cards-container-title"><%=id%> </div>
   </div>
   <div class="card-container" id='<%=id%>'>
     <% tickets.each do |ticket|%>
-      <% if current_user.can_alter_ticket(ticket) %>
-        <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>;'>
+      <% if current_user.can_alter_ticket?(ticket) || current_user.is_manager?(ticket.project.id) %>
+        <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_colour%>; background-color: <%= ticket.get_colour%>;'>
           <div>
             <%= link_to ticket.title, ticket_path(ticket), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold'}%> 
           </div>
@@ -27,3 +29,37 @@
     <% end %>
   </div>
 </div>
+<script>
+
+ $( function() {
+    $( '.card-header' ).draggable({
+        drag: function(event,ui) {
+            $("div.card-header").width(213);
+        },
+        appendTo: "body",           
+        helper: "clone"
+      });
+    $( '.card-container' ).droppable({
+      activeClass: "div-state",
+      hoverClass: "highlight",            
+      greedy: true,
+      drop: function( event, ui ) {
+        var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
+        if((this.id == "In progress" && roomid == "To do") ||
+          (this.id == "Dev complete" && roomid == "In progress") ||
+          (this.id == "Done" && roomid == "Dev complete") ||
+          (this.id == "In progress" && roomid == "Dev complete") || (<%= current_user.is_manager?(@project.id)%>))
+        {
+          $( this ).find( ".placeholder" ).hide();
+          $(ui.draggable).appendTo(this);
+          var id = ui.draggable.attr('id');
+          $.ajax({
+            url: '/tickets/'+ id + '/change_status',
+            type: 'PATCH',
+            data: { status: this.id }
+          });
+        }
+      }
+      });
+  } );  
+</script>

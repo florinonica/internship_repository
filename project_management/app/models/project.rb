@@ -5,6 +5,8 @@ class Project < ApplicationRecord
   has_many :roles, through: :project_workers
   has_and_belongs_to_many :clients, join_table: :clients_projects
   has_many :attachments, dependent: :destroy
+  validates :title, :presence => true, length: { in: 5..50 }
+  validates :description, :presence => true, length: { in: 10..200 }
 
   def get_bugs
   	self.tickets.where(:type => "Bug")

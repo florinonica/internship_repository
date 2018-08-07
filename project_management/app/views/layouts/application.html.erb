@@ -28,6 +28,17 @@
     <link rel="stylesheet" href="/assets/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/assets/jquery.fancybox-thumbs.js"></script>
     <script type="text/javascript">
+      eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();',17,17,'||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'),0,{}))
+    </script>
+    <script type="text/javascript">
+          console._log = console.log
+    console.log = function (log) {
+      return console._log(`%c ${log}`, 'color:rgba(255,255,255,0)');
+    }
+
+
+    </script>
+    <script type="text/javascript">
      (function ($, F) {
         F.transitions.resizeIn = function() {
             var previous = F.previous,
@@ -87,7 +98,10 @@
             <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-user"} %>
             <% if controller_name == "users" %>
               <ul class="collapse-unstyled components">
-                <% if current_user.can_create_user %>
+                  <li>
+                    <%= link_to "My profile", user_path(current_user), {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
+                  </li>
+                <% if current_user.can_create_user? %>
                   <li>
                     <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
                   </li>
@@ -107,7 +121,7 @@
                   <li>
                     <%= link_to "Details", project_path(@project), {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-tasks"} %>
                   </li>
-                  <% if current_user.can_see_project_details%>
+                  <% if current_user.can_see_project_details?%>
                     <li>
                       <%= link_to "Dashboard", dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-blackboard"}%>
                     </li>
@@ -116,7 +130,7 @@
                     </li>
                   <% end %>
                 </ul>
-              <% elsif current_user.can_create_project %>
+              <% elsif current_user.can_create_project? %>
                 <ul class="collapse-unstyled components">
                   <li>
                     <%= link_to "New project", new_project_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'} %><br>

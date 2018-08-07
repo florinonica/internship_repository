@@ -1,12 +1,3 @@
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-
 <p>
   <%= comment.commenter %>
 </p>
@@ -18,7 +9,13 @@
 <div id="attachments">
   <% comment.attachments.each do |asset| %>
     <% if asset.is_image?%>
-      <%= image_tag asset.file.url, :size => '100x100' %>
+      <a class="fancybox" rel="<%=comment.id%>" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a>
+    <% elsif asset.is_video?%>
+      <%= video_tag asset.file.url, size: "100x100", controls: true, autobuffer: true, poster:"video.png" %>
+    <% elsif asset.is_audio?%>
+      <%= audio_tag asset.file.url, controls: true %>
+    <% else %>
+      <%= link_to "Download", asset.file.url, :target=> "_blank" %>
     <% end %>
   <% end %>
 </div>

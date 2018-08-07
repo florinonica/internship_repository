@@ -1,10 +1,10 @@
 <h1>Welcome</h1>
 
-<% if current_user.can_create_user %>
+<% if current_user.can_create_user? %>
   <%= link_to "Add User", new_user_path, {:style => 'color:#0079bf; font-size: 17px; font-weight: bold'} %><br>
 <% end %>
 
-<% if current_user.can_see_all_users || current_user.can_see_employees %>
+<% if current_user.can_see_all_users? || current_user.can_see_employees? %>
   <%= link_to "Users", users_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-user"}%><br>
 <% end %>
 

@@ -15,14 +15,14 @@
       <td class="col-xs-3"><%= pw.user.full_name %></td>
       <td class="col-xs-3"><%= pw.role.role_type %>
       <td class="col-xs-3"><%= pw.user.email %></td>
-      <% if current_user.can_assign_employees(@project.id) %>
+      <% if current_user.can_assign_employees?(@project.id) %>
         <td><%= link_to 'Remove', controller: "projects", action: "remove_employee", id: @project.id, employee_id: pw.user.id %></td>
       <% end %>
     </tr>
   <% end %>
 </table>
 <br>
-<% if current_user.can_assign_employees(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees).count > 0%>
+<% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees).count > 0%>
   <%= form_for @project, :url => {:action => :add_employees} do |form| %>
     <%= form.hidden_field :role_id, :value => '2' %>
     <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
@@ -36,7 +36,7 @@
   <% end %>
 <% end %>
 
-<% if current_user.can_assign_employees(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees).count > 0%>
+<% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees).count > 0%>
   <%= form_for @project, :url => {:action => :add_employees} do |form| %>
     <%= form.hidden_field :role_id, :value => '3' %>
     <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>

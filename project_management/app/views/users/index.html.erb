@@ -2,7 +2,7 @@
 <%= link_to "Back", root_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>
 <br>
 <br>
-<% if current_user.can_see_all_users %>
+<% if current_user.can_see_all_users? %>
   <table cellpadding=15 cellspacing=15>
     <tr>
       <th></th>
@@ -19,14 +19,14 @@
         <td class="col-xs-3"><%= user.type %></td>
         <td class="col-xs-3"><%= user.email %></td>
         <td class="col-xs-2"><%= link_to 'Profile', user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-user"} %></td>
-        <% if current_user.can_delete_user %>
+        <% if current_user.can_delete_user? %>
           <td class="col-xs-2"><%= link_to 'Edit', edit_user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"}%></td>
           <td class="col-xs-2"><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"%></td>
         <% end %>
       </tr>
     <% end %>
   </table>
-<% elsif current_user.can_see_employees %>
+<% elsif current_user.can_see_employees? %>
   <table cellpadding=15 cellspacing=15>
     <tr>
       <th></th>

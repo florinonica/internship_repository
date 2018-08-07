@@ -1,9 +1,4 @@
 <%= form_with(model: [ @project, @project.tickets.build ], local: true) do |form| %>
-  <%# if @project.project_workers.find_by(:user_id current_user.id).role_id = 3 %>
-    <%#= form.hidden_field :type, :value => "Bug"%>
-  <%# else %>
-    <%#= form.hidden_field :type, :value => "Task"%>
-  <%# end %>
   <%= form.hidden_field :type, :value => "Task"%>
   <%= form.hidden_field :status, :value => "To do"%>
   <div class="row">
