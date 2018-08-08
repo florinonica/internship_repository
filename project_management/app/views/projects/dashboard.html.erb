@@ -18,18 +18,18 @@
  </head>
 
 <style>
-    body {background-color: #0079bf;
+    body {background-color: white;
       font-color: white;}
 </style>
 
 <body>
 <div class="board-container">
   <div class="board-content">
+    <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
+      <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:#0079bf; font-size: 17.5px; width: 200px' %>
+    <% end %>
     <div class="cards-container-head">
-      <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'><%=@project.title%></div>
-        <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
-          <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:#0079bf; font-size: 17.5px;' %>
-        <% end %>
+      <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'></div>
     </div>
     <div class="cards">
       <div  id="m" class="cards">
@@ -47,5 +47,7 @@
     </div>
   </div>
 </div>
-<%= button_to "New task", new_project_ticket_path(@project), :method => "get", :class => "form-submit-button"%>
 </body>
+
+<%#= button_to "New task", new_project_ticket_path(@project), :method => "get", :class => "form-submit-button"%> 
+        

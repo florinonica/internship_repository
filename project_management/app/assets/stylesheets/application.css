@@ -4,7 +4,8 @@
 */
 
 body {  padding-top: 110px; 
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Calibri', sans-serif;
+
 }
 *= require lightbox
 .hidden { display: none; }
@@ -12,11 +13,11 @@ body {  padding-top: 110px;
 .round-image-50 {
     background-color: white;
     border: 1px solid #d9d9d9;
-    border-radius: 40px;
-    -moz-border-radius: 40px;
-    -webkit-border-radius: 40px;
-    height: 80px;
-    width: 80px;
+    border-radius: 35px;
+    -moz-border-radius: 35px;
+    -webkit-border-radius: 35px;
+    height: 70px;
+    width: 70px;
     overflow: hidden;
     text-align: center;
     img { width: 100% }
@@ -221,13 +222,14 @@ color:#fff;
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 200px;
+    max-width: 200px;
     height :100vh;
     position: fixed;
-    top: 110;
+    margin-top: -30px;
+    top: 100;
     left: 0;
-    background: #27A9A9;
+    background: #0A9AAD;
     color: #fff;
     transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
     transform-origin: center left; /* Set the transformed position of sidebar to center left side. */
@@ -317,8 +319,9 @@ color:#fff;
 }
 
 .board-container {
-  padding: 0px;
-  margin: 0px;
+
+  margin: -30px -190px;
+  width: 1800px;
   display: flex;
   flex-direction: column;
 }
@@ -342,8 +345,8 @@ color:#fff;
 .board-content {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 5px;
-  background-color: #0079bf;
+  padding: 10px;
+  background-color: #03C3DC;
   white-space: nowrap;
   height: 100%;
   width: 100%;
@@ -352,44 +355,45 @@ color:#fff;
 .cards {
   height: 100%;
   overflow-y: auto;
-  padding-bottom: 20px;
+  margin-top: 0px;
+  margin-left: 10px;
   display:inline-block;
 }
 
 .cards-container {
-  width: 265px;
+  width: 400px;
   display: inline-block;
   height: 100%;
   overflow: hidden;
-  min-height: 100px;
+  min-height: 50px;
   background-color: #dbdbdb;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
+  border-radius: 5px;
   padding-bottom: 20px;
-  margin-right: 10px;
+
   vertical-align: top;
+  border-left: 5px solid #dbdbdb;
+  border-right: 5px solid #dbdbdb;
 }
 
 .cards-container-head {
   position: relative;
-  padding: 10px 15px;
-  margin-bottom: 5px;
+  padding: 5px 15px;
   display:flex;
 }
 
 .cards-container-title {
   font-weight: bold;
+  padding: 0px 25px;
   font-size: 20px;
   white-space: normal;
-  width: 100%;
-
+  width: 75%;
 }
 
 .card-container {
   width: 100%;
-  margin: 0 auto 10px;
+  margin: 0 ;
   background-color: #fff;
-  min-height: 100px;
+  min-height: 671px;
   border-radius: 1px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   transition: 0.15s;
@@ -401,7 +405,7 @@ color:#fff;
   border-top: 5px solid #dbdbdb;
   border-left: 5px solid #dbdbdb;
   border-right: 5px solid #dbdbdb;
-  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-color: #0079bf;
   border-radius: 5px;
   size: fixed;
   white-space: normal;
@@ -410,13 +414,13 @@ color:#fff;
   background-color: white;
   display: flex;
   width: fixed;
-  height: 100px;
+  height: 150px;
   overflow-y: scroll;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .card-header-1 {

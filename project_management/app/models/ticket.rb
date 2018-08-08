@@ -23,11 +23,20 @@ class Ticket < ApplicationRecord
   	when "High"
   		return "#F81115"
   	when "Medium"
-  		return "#F4E518"
+  		return "#D8D51E"
   	when "Low"
   		return "#28ED42"
   	else
   		return "#fff"
   	end
   end
+
+  def get_class
+    "#198DE8"
+  end
+
+  def get_glyph
+    "glyphicon glyphicon-tasks"
+  end
+  
 end

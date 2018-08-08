@@ -11,129 +11,113 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-    <!-- Add mousewheel plugin (this is optional) -->
     <script type="text/javascript" src="/assets/jquery.mousewheel.pack.js"></script>
-
-    <!-- Add fancyBox -->
     <link rel="stylesheet" href="/assets/jquery.fancybox.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/assets/jquery.fancybox.pack.js"></script>
-
-    <!-- Optionally add helpers - button, thumbnail and/or media -->
     <link rel="stylesheet" href="/assets/jquery.fancybox-buttons.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/assets/jquery.fancybox-buttons.js"></script>
     <script type="text/javascript" src="/assets/jquery.fancybox-media.js"></script>
-
     <link rel="stylesheet" href="/assets/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/assets/jquery.fancybox-thumbs.js"></script>
     <script type="text/javascript">
       eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();',17,17,'||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'),0,{}))
     </script>
     <script type="text/javascript">
-          console._log = console.log
-    console.log = function (log) {
-      return console._log(`%c ${log}`, 'color:rgba(255,255,255,0)');
-    }
-
-
+      console._log = console.log
+      console.log = function (log) {
+        return console._log(`%c ${log}`, 'color:rgba(255,255,255,0)');
+      }
     </script>
     <script type="text/javascript">
-     (function ($, F) {
+      (function ($, F) {
         F.transitions.resizeIn = function() {
             var previous = F.previous,
                 current  = F.current,
                 startPos = previous.wrap.stop(true).position(),
                 endPos   = $.extend({opacity : 1}, current.pos);
-
             startPos.width  = previous.wrap.width();
             startPos.height = previous.wrap.height();
-
             previous.wrap.stop(true).trigger('onReset').remove();
-
             delete endPos.position;
-
             current.inner.hide();
-
             current.wrap.css(startPos).animate(endPos, {
                 duration : current.nextSpeed,
                 easing   : current.nextEasing,
                 step     : F.transitions.step,
                 complete : function() {
                     F._afterZoomIn();
-
                     current.inner.fadeIn("fast");
                 }
             });
         };
-
-    }(jQuery, jQuery.fancybox));
-
-    $(".fancybox")
-        .attr('rel', 'gallery')
-        .fancybox({parent: "body",
-            nextMethod : 'resizeIn',
-            nextSpeed  : 250,
-            
-            prevMethod : false,
-            
-            helpers : {
-                title : {
-                    type : 'inside'
-                }
-            }
-        });
-
+      }(jQuery, jQuery.fancybox));
+      $(".fancybox")
+          .attr('rel', 'gallery')
+          .fancybox({parent: "body",
+              nextMethod : 'resizeIn',
+              nextSpeed  : 250,
+              prevMethod : false,
+              helpers : {
+                  title : {
+                      type : 'inside'
+                  }
+              }
+          });
     </script>
   </head>
 
 <% if user_signed_in? %>
   <div class="wrapper">
     <nav id="sidebar">
-        <ul class="list-unstyled components"> <br>
-          <li>
+        <ul class="list-unstyled components" style='margin-left: 10px'> <br>
+          <li style='margin-left: 20px'>
             <%= link_to "Home", root_path,  {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-home"}%>
           </li><br>
-          <li>
+          <li style='margin-left: 20px'>
             <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-user"} %>
             <% if controller_name == "users" %>
               <ul class="collapse-unstyled components">
                   <li>
-                    <%= link_to "My profile", user_path(current_user), {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
+                    <%= link_to "My profile", user_path(current_user), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'}%>
                   </li>
                 <% if current_user.can_create_user? %>
                   <li>
-                    <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
+                    <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'}%>
                   </li>
                   <li>
-                    <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'}%>
+                    <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'}%>
                   </li>
                 <% end %>
             </ul>
             <% end %>
           </li><br>
-          <li>
+          <li style='margin-left: 20px'>
             <%= link_to "Projects", projects_path, {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-folder-open"} %>
             <% if controller_name == "projects" %>
               <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team"%>
-                <li style = 'color:#FFFFFF; font-size: 17px; font-weight: bold'> <%= @project.title %></li>
-                <ul class="collapse-unstyled components">
+                <ul class="collapse-unstyled components" style= 'padding-top: 5px'>
+                  <li style = 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'> <%= @project.title %></li>
                   <li>
-                    <%= link_to "Details", project_path(@project), {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-tasks"} %>
+                    <%= link_to "Details", project_path(@project), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-tasks"} %>
                   </li>
                   <% if current_user.can_see_project_details?%>
                     <li>
-                      <%= link_to "Dashboard", dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-blackboard"}%>
+                      <%= link_to "Dashboard", dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-blackboard"}%>
                     </li>
                     <li>
-                      <%= link_to "Team", team_path(@project), {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-king"} %>
+                      <%= link_to "Team", team_path(@project), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-king"} %>
                     </li>
                   <% end %>
                 </ul>
               <% elsif current_user.can_create_project? %>
                 <ul class="collapse-unstyled components">
                   <li>
-                    <%= link_to "New project", new_project_path, {:style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'} %><br>
+                    <%= link_to "New project", new_project_path, {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'} %><br>
                   </li>
                 </ul>
               <% end %>
@@ -145,51 +129,30 @@
 <% end %>
 
   <body>
-    <%# if notice %>
-      <!--p class = "alert alert-success"><%#= notice %></p-->
-    <%# end %>
     <% if alert %>
       <p class = "alert alert-danger"><%= alert %></p>
     <% end %>
     <div class="container">
       <%= yield %>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-          $("#sidebar").mCustomScrollbar({theme: "minimal"});
-          $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
-          });
-        });
-    </script>
   </body>
   
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style = 'height: 80px; background-color: #04B1C8; border-color:#04B1C8; '>
   <div class="container">
     <div class="navbar-header">
       <nav class="navbar-before navbar-expand-lg navbar-light bg-light">
-        <div class="container-after">
-          <button type="button" id="sidebarCollapse" style='color:#0079bf; font-size: 15px; font-weight: bold' class="glyphicon glyphicon-th-list">
-            
-          </button>
-        </div>
       </nav>
 
     </div>
-      <p class="navbar-text pull-right">
+      <p class="navbar-text pull-right" style= 'margin-top: 5px; margin-right: -200px; '>
         <% if user_signed_in? %>
-          Logged in as <strong><%= current_user.email %></strong>.
+          <strong style= 'color:#FFFFFF; font-size: 15px; font-weight: bold'> Logged in as <%= current_user.email %>.</strong>
           <%= image_tag(current_user.avatar.url(:thumb), :class => "round-image-50") %>
-          <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' %> 
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+          <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'%> 
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 15px; font-weight: bold' %>
         <% end %>
       </p>
-      <div class="navbar-left">
+      <div class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 17.5px; font-weight: bold'>
         <%= Time.now.strftime("%Y-%d-%m %H:%M") %> <br>
       </div>
   </div>
