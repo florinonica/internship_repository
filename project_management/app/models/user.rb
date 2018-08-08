@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable, :registerable
+         :recoverable, :rememberable, :trackable, :validatable, :registerable, authentication_keys: [:login]
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -17,6 +17,21 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  attr_writer :login
+
+  def login
+    @login || username || email
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_h).where(["username = :value OR email = :value", { :value => login.downcase }]).first
+    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+      where(conditions.to_h).first
+    end
   end
 
   def get_projects

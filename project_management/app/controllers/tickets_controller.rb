@@ -17,7 +17,7 @@ class TicketsController < ApplicationController
     @ticket = @project.tickets.new ticket_params
     @ticket.owner_id = current_user.id
 
-    unless (params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty?) #blank
+    unless (params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty? )
       @ticket.dev_id = params[:ticket][:dev_id]
     end
     save_attachments
