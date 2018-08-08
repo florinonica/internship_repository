@@ -99,12 +99,15 @@
           <li style='margin-left: 20px'>
             <%= link_to "Projects", projects_path, {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-folder-open"} %>
             <% if controller_name == "projects" %>
-              <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team"%>
+              <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team" || action_name == "files"%>
                 <ul class="collapse-unstyled components" style= 'padding-top: 5px'>
                   <li style = 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'> <%= @project.title %></li>
                   <li>
                     <%= link_to "Details", project_path(@project), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-tasks"} %>
                   </li>
+                  <li>
+                      <%= link_to "Files", files_path(@project),  {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-file"}%>
+                    </li>
                   <% if current_user.can_see_project_details?%>
                     <li>
                       <%= link_to "Dashboard", dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-blackboard"}%>

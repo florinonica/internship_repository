@@ -17,10 +17,12 @@ Rails.application.routes.draw do
   get 'projects/:id/remove_employee' => 'projects#remove_employee'
   patch 'tickets/:id/change_status' => 'tickets#change_status', :as => :change_status
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
+  get 'projects/:id/files' => 'projects#files', :as => :files
   get 'projects/:id/team' => 'projects#team', :as => :team
   get 'users/type' => 'users#custom_index', :as => :type
   get 'users/:id/remove_role' => 'users#remove_role'
   resources :clients, param: :client_id
+  resources :attachments
   resources :tickets do
     resources :comments
   end

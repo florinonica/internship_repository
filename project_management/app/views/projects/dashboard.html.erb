@@ -26,7 +26,7 @@
 <div class="board-container">
   <div class="board-content">
     <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
-      <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:#0079bf; font-size: 17.5px; width: 200px' %>
+      <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:#0079bf; font-size: 17.5px; width: 100px' %>
     <% end %>
     <div class="cards-container-head">
       <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'></div>

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :get_project, only: [:show, :edit, :update, :destroy, :dashboard, :team, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
+  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
 
   def index
     @projects = Project.all
@@ -43,6 +43,9 @@ class ProjectsController < ApplicationController
   end
 
   def team
+  end
+
+  def files
   end
 
   def add_client

@@ -425,24 +425,26 @@ color:#fff;
 
 .card-header-1 {
   padding: 10px 10px;
-  border-bottom: 3px solid #dbdbdb;
-  border-top: 3px solid #dbdbdb;
-  border-left: 3px solid #dbdbdb;
-  border-right: 3px solid #dbdbdb;
-  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 1px;
+  border-bottom: 5px solid #dbdbdb;
+  border-top: 5px solid #dbdbdb;
+  border-left: 5px solid #dbdbdb;
+  border-right: 5px solid #dbdbdb;
+  border-color: #0079bf;
+  border-radius: 5px;
+  size: fixed;
   white-space: normal;
   word-break: break-all;
   word-wrap: break-word;
+  background-color: white;
   display: flex;
   width: fixed;
-  height: 100px;
+  height: 150px;
   overflow-y: scroll;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 html {
