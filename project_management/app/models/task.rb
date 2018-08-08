@@ -4,7 +4,7 @@ class Task < Ticket
     Ticket.model_name
   end
 
-  def get_class
+  def get_class_colour
   	(task_id.presence ? "#C0BA10" : "#198DE8")
   end
 

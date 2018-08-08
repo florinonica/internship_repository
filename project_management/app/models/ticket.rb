@@ -31,7 +31,7 @@ class Ticket < ApplicationRecord
   	end
   end
 
-  def get_class
+  def get_class_colour
     "#198DE8"
   end
 

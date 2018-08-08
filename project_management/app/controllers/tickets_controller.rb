@@ -20,9 +20,9 @@ class TicketsController < ApplicationController
     unless (params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty? )
       @ticket.dev_id = params[:ticket][:dev_id]
     end
-    save_attachments
 
     if @ticket.save
+      save_attachments
       redirect_to dashboard_path(@project)
     else
       render 'new'

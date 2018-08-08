@@ -12,7 +12,7 @@
   <div class="card-container" id='<%=id%>'>
     <% tickets.each do |ticket|%>
       <% if current_user.can_alter_ticket?(ticket) || current_user.is_manager?(ticket.project.id) %>
-        <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_class%>; background-color: <%= ticket.get_class%>; '>
+        <div class="card-header" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_class_colour%>; background-color: <%= ticket.get_class_colour%>; '>
           <div style='background-color: <%= ticket.get_colour%>; width: 100%; border-bottom: 3px solid <%= ticket.get_colour%>; border-top: 3px solid <%= ticket.get_colour%>; border-left: 3px solid <%= ticket.get_colour%>; border-right: 3px solid <%= ticket.get_colour%>; border-radius: 5px;' >
             <div class='<%= ticket.get_glyph%>' style='font-size: 20px'></div>
             <%= link_to ticket.title, ticket_path(ticket), {:style => 'margin-left: 20px; color: white; font-size: 17.5px; font-weight: bold'}%> 
@@ -25,7 +25,7 @@
           <%= ticket.description %>
         </div>
       <% else %>
-        <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_class%>; background-color: <%= ticket.get_class%>;'>
+        <div class="card-header-1" id=<%=ticket.id%> style = 'border-color: <%= ticket.get_class_colour%>; background-color: <%= ticket.get_class_colour%>;'>
           <div style='background-color: <%= ticket.get_colour%>; width: 100%; border-bottom: 3px solid <%= ticket.get_colour%>; border-top: 3px solid <%= ticket.get_colour%>; border-left: 3px solid <%= ticket.get_colour%>; border-right: 3px solid <%= ticket.get_colour%>; border-radius: 5px;' >
             <div class='<%= ticket.get_glyph%>' style='font-size: 20px'></div>
             <%= link_to ticket.title, ticket_path(ticket), {:style => 'margin-left: 20px; color: white; font-size: 17.5px; font-weight: bold'}%> 
@@ -79,3 +79,4 @@
   drag: function(event,ui) {
             $("div.card-header").width(213);
         },<p-->
+        

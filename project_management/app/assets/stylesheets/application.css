@@ -320,7 +320,7 @@ color:#fff;
 
 .board-container {
 
-  margin: -30px -190px;
+  margin: -35px -190px;
   width: 1800px;
   display: flex;
   flex-direction: column;
@@ -371,8 +371,8 @@ color:#fff;
   padding-bottom: 20px;
 
   vertical-align: top;
-  border-left: 5px solid #dbdbdb;
-  border-right: 5px solid #dbdbdb;
+  border-left: 7px solid #dbdbdb;
+  border-right: 7px solid #dbdbdb;
 }
 
 .cards-container-head {
@@ -393,7 +393,7 @@ color:#fff;
   width: 100%;
   margin: 0 ;
   background-color: #fff;
-  min-height: 671px;
+  min-height: 676px;
   border-radius: 1px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   transition: 0.15s;

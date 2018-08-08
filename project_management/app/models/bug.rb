@@ -4,7 +4,7 @@ class Bug < Ticket
     Ticket.model_name
   end
 
-  def get_class
+  def get_class_colour
     "#F66903"
   end
 
