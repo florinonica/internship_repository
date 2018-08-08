@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
     save_attachments
+    
     if @comment.save
       redirect_to ticket_path(@ticket)
     else

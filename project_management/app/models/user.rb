@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :email, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates :username, uniqueness: true
   has_many :tickets, foreign_key: :owner_id
   has_many :tasks, foreign_key: :dev_id
   has_many :bugs, foreign_key: :bug_id
@@ -19,11 +20,7 @@ class User < ApplicationRecord
   end
 
   def get_projects
-    if self.type == "Superuser"
-      Project.all
-    else
-      self.projects
-    end
+    (type == "Superuser" ? Project.all : projects)
   end
 
   def can_see_projects?

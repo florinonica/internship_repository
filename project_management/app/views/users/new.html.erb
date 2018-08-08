@@ -1,8 +1,6 @@
 <h2>Create User</h2>
 
-<%#= form_with model: @user, local: true do |f| %>
 <%= form_for User.new, url: create_user_path do |f| %>
-  <%#= devise_error_messages! %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -97,4 +95,3 @@
 <% end %>
 <br>
 <%= link_to "Back", :back %>
-<%#= render "users/shared/links" %>

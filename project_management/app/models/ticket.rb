@@ -10,7 +10,6 @@ class Ticket < ApplicationRecord
   validates :title, :presence => true, length: { in: 3..50 }
   validates :description, :presence => true, length: { in: 10..200 }
 
-
   def self.search(search)
     unless search=="All"
       where('type LIKE ?', "%#{search}%")
@@ -20,7 +19,7 @@ class Ticket < ApplicationRecord
   end
   
   def get_colour
-  	case self.priority 
+  	case priority 
   	when "High"
   		return "#F81115"
   	when "Medium"

@@ -85,6 +85,7 @@ class ProjectsController < ApplicationController
 
     def save_attachments
       params.require(:project).permit(:files => [])
+      
       unless params[:project][:files].nil?
         params[:project][:files].each do |file|
           @attachment = Attachment.new(user_id: current_user.id, file: file)

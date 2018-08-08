@@ -9,22 +9,22 @@ class Project < ApplicationRecord
   validates :description, :presence => true, length: { in: 10..200 }
 
   def get_bugs
-  	self.tickets.where(:type => "Bug")
+  	tickets.where(:type => "Bug")
   end
 
   def get_tasks_to_do
-  	self.tickets.where(:status => "To do")
+  	tickets.where(:status => "To do")
   end
 
   def get_tasks_in_progress
-  	self.tickets.where(:status => "In progress")
+  	tickets.where(:status => "In progress")
   end
 
   def get_tasks_dev_complete
-  	self.tickets.where(:status => "Dev complete")
+  	tickets.where(:status => "Dev complete")
   end
 
   def get_tasks_done
-  	self.tickets.where(:status => "Done")
+  	tickets.where(:status => "Done")
   end
 end

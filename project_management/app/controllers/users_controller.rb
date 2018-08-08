@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      save_roles
+      #save_roles
       redirect_to users_path
     else
       render 'edit'
@@ -49,5 +49,13 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-
+    def save_roles
+      params.require(:user).permit(:role_ids => [])
+      
+      unless params[:user][:role_ids].nil?
+        params[:user][:role_ids].each do |rol|
+          @user.roles << Role.find(rol)
+        end
+      end
+    end
 end
