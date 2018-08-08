@@ -87,21 +87,23 @@
       <%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "off" %>
     </div>
-  </div>
+  </div><br>
 
-    <br>
-  <h4>Select roles(employee only)</h4>
-  <br>
-  <div class="row">
-    <div class="col-xs-5">
-      <%= f.collection_check_boxes :role_ids, Role.all - @user.roles, :id, :role_type, multiple: true, include_hidden: false, include_blank: false do |b|%>
-          <br>
-          <%= b.check_box %>
-          <%= b.label %>
-      <%end %>
-    </div>
-  </div>
-<br>
+  <% if @user.can_have_roles?%>
+    <% if (Role.all - @user.roles).count > 0 %>
+      <h4>Select roles(employee only)</h4>
+      <br>
+      <div class="row">
+        <div class="col-xs-5">
+          <%= f.collection_check_boxes :role_ids, Role.all - @user.roles, :id, :role_type, multiple: true, include_hidden: false, include_blank: false do |b|%>
+              <br>
+              <%= b.check_box %>
+              <%= b.label %>
+          <%end %>
+        </div>
+      </div><br>
+    <% end %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Update", {class: "btn btn-info collapsed"} %>

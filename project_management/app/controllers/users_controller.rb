@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :get_user, only: [:show, :edit, :update, :destroy]
+  before_action :get_user, only: [:show, :edit, :update, :destroy, :remove_role]
 
   def index
     @users = User.paginate(:page => params[:page], per_page:5)
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
     if @user.save
-      #save_roles
+      save_roles
       redirect_to root_path
     else
       render 'new'
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      #save_roles
+      save_roles
       redirect_to users_path
     else
       render 'edit'
@@ -39,10 +39,16 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def remove_role
+    @role = Role.find(params[:role_id])
+    @user.roles = @user.roles - [@role]
+    redirect_to user_path(@user)
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :nickname, :position, :email, :password, :password_confirmation, :type, :avatar)
+      params.require(:user).permit(:first_name, :role_ids, :last_name, :username, :nickname, :position, :email, :password, :password_confirmation, :type, :avatar)
     end
 
     def get_user

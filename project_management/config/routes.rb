@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
   get 'projects/:id/team' => 'projects#team', :as => :team
   get 'users/type' => 'users#custom_index', :as => :type
+  get 'users/:id/remove_role' => 'users#remove_role'
   resources :clients, param: :client_id
   resources :tickets do
     resources :comments

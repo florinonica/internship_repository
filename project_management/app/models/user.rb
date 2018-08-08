@@ -19,6 +19,8 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  attr_accessor :role_ids
+
   attr_writer :login
 
   def login
@@ -111,6 +113,10 @@ class User < ApplicationRecord
   end
 
   def can_add_subtask_or_bug?(ticket)
+    false
+  end
+
+  def can_have_roles?
     false
   end
 

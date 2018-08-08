@@ -51,4 +51,8 @@ class Employee < User
     false
   end
 
+  def can_have_roles?
+    true
+  end
+
 end
