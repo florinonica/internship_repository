@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_02_091844) do
+ActiveRecord::Schema.define(version: 2018_08_09_101928) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "file_file_name"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2018_08_02_091844) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "updated_at", null: false
-    t.string "type"
+    t.integer "type"
     t.index ["dev_id"], name: "index_tickets_on_dev_id"
     t.index ["owner_id"], name: "index_tickets_on_owner_id"
     t.index ["project_id"], name: "index_tickets_on_project_id"
@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(version: 2018_08_02_091844) do
     t.string "encrypted_password", default: "", null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
-    t.string "type", default: "", null: false
     t.string "nickname", default: ""
     t.string "address", default: ""
     t.string "position", default: ""
@@ -129,6 +128,7 @@ ActiveRecord::Schema.define(version: 2018_08_02_091844) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

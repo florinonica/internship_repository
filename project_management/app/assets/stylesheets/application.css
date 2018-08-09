@@ -321,7 +321,7 @@ color:#fff;
 .board-container {
 
   margin: -35px -190px;
-  width: 1800px;
+  width: 1720px;
   display: flex;
   flex-direction: column;
 }
@@ -331,11 +331,11 @@ color:#fff;
   background-color: grey;
   display: flex;
   flex-direction: row;
-  padding: 5px;
+  padding: 0px;
 }
 
 .board-top-menu-item {
-  padding: 5px;
+  padding: 0px;
 }
 
 .board-top-menu-item:hover {
@@ -345,7 +345,7 @@ color:#fff;
 .board-content {
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 10px;
+  padding: 5px;
   background-color: #03C3DC;
   white-space: nowrap;
   height: 100%;
@@ -377,7 +377,7 @@ color:#fff;
 
 .cards-container-head {
   position: relative;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display:flex;
 }
 
@@ -394,7 +394,7 @@ color:#fff;
   width: 100%;
   margin: 0 ;
   background-color: #fff;
-  min-height: 675px;
+  min-height: 685px;
   border-radius: 1px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   transition: 0.15s;

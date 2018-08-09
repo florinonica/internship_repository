@@ -10,6 +10,10 @@ class Ticket < ApplicationRecord
   validates :title, :presence => true, length: { in: 3..50 }
   validates :description, :presence => true, length: { in: 10..200 }
 
+  before_create :set_type
+
+  enum type: {'Task' => 0, 'Bug' => 1}
+
   def self.search(search)
     unless search=="All"
       where('type LIKE ?', "%#{search}%")
@@ -38,5 +42,11 @@ class Ticket < ApplicationRecord
   def get_glyph
     "glyphicon glyphicon-tasks"
   end
+
+  private
+
+    def set_type
+      self.type = self.class.name
+    end
   
 end

@@ -24,15 +24,16 @@
 
 <body>
 <div class="board-container">
-  <div class="board-content">
+  <div class="board-content" >
+    <div style='text-align: left'>
     <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
-      <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px' %>
-    <% end %>
+      <%= select_tag :search, options_for_select(["All", "Bug", "Task"], :selected => params[:search]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
+    <% end %></div>
     <div class="cards-container-head">
       <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'></div>
     </div>
     <div class="cards">
-      <div  id="m" class="cards">
+      <div  id="m" class="cards" >
         <%= render partial: "card", locals: {id: "To do", tickets: @project.get_tasks_to_do.search(params[:search])} %>
       </div>
       <div  id="m1" class="cards">

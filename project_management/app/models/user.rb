@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :registerable, authentication_keys: [:login]
-  has_attached_file :avatar, :styles => {:large => "750x750>", :medium => "300x300>", :thumb => "100x100#" }, :default_url => "avatar.png"
+  has_attached_file :avatar, :styles => {:large => "750x750>", :medium => "300x300>", :thumb => "100x100#" }, :default_url => "generic.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email, :presence => true
@@ -14,6 +14,11 @@ class User < ApplicationRecord
   has_many :project_workers
   has_many :projects, through: :project_workers
   has_many :attachments
+  
+
+  before_create :set_type
+
+  enum type: {'Superuser' => 0, 'Employee' => 1, 'Client' => 2}
 
   def full_name
     "#{first_name} #{last_name}"
@@ -119,5 +124,11 @@ class User < ApplicationRecord
   def can_have_roles?
     false
   end
+
+  private
+
+    def set_type
+      self.type = self.class.name
+    end
 
 end
