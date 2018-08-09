@@ -1,59 +1,68 @@
+<style type="text/css">
+  body {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+</style>
+
 <p>
   <%= image_tag(@user.avatar.url(:medium)) %>
 </p>
-
+<br>
 <p>
   <strong>Name</strong>
   <%= @user.first_name + " " + @user.last_name %>
 </p>
- 
+<br>
 <p>
   <strong>Email</strong>
   <td><%= @user.email %></td>
 </p>
-
+<br>
 <p>
   <strong>Username</strong>
   <%= @user.username %>
 </p>
-
+<br>
 <p>
   <strong>Nickname</strong>
   <%= @user.nickname %>
 </p>
-
+<br>
 <p>
   <strong>User Type</strong>
   <%= @user.type %>
 </p>
-
+<br>
 <p>
   <strong>Address</strong>
   <%= @user.address %>
 </p>
-
+<br>
 <p>
   <% unless @user.is_a? Client %>
     <strong>Position</strong>
     <%= @user.position %>
   <% end %>
-</p><br>
-
+</p>
+<br>
 <p>
-  <% if @user.roles.any? %>
-    <strong>Roles</strong><br>
-    <% @user.roles.each do |role| %>
-      <%= role.role_type %>
-      <% if current_user.can_edit_user? %>
-        <%= link_to 'Remove', controller: "users", action: "remove_role", id: @user.id, role_id: role.id %> <br>
+  <% if @user.can_have_roles? %>
+    <% if @user.roles.any? %>
+      <strong>Roles</strong><br>
+      <% @user.roles.each do |role| %>
+        <%= role.role_type %>
+        <% if current_user.can_edit_user? %>
+          <%= link_to 'Remove', controller: "users", action: "remove_role", id: @user.id, role_id: role.id %> <br>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
 </p>
 
 <% if current_user.can_delete_user? %> 
-  <%= link_to 'Edit', edit_user_path(@user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"} %> | <td><%= link_to 'Destroy', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove" %>
-  </td><br>
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_user_path(@user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>  |  <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'%>
+  <br>
 <% end %>
-
-<%= link_to 'Back', users_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>
+<br>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>

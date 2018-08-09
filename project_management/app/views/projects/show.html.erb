@@ -1,3 +1,10 @@
+<style>
+body { 
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+</style>
+
 <script>
 function display() {
   var x = document.getElementById("attachments");
@@ -15,19 +22,17 @@ function display() {
   <strong style='color:#000000; font-size: 25px;'><%= @project.title %></strong>
 </p>
 <br>
+<% if @project.employees.any? %>
+  <p>
+    <strong>Manager</strong><br>
+    <%= link_to @project.employees.select{ |e| e.is_manager?(@project.id) }.first.full_name, user_path(@project.employees.select{ |e| e.is_manager?(@project.id) }) %>
+  </p>
+  <br>
+<% end %>
 <p>
+  <strong>Description</strong><br>
   <%= @project.description %>
 </p>
-
-<p>
-  <strong>Manager</strong>
-  <td><%= @project.description %></td>
-</p>
-
-<button class="btn btn-info collapsed" onclick="display()">
-  <span class="glyphicon glyphicon-collapse-down"></span> 
-    Show Attachments 
-</button>
 
 <body>
 

@@ -1,51 +1,57 @@
-<br>
-<%= link_to "Back", root_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>
-<br>
-<br>
+<style>
+body { 
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+
+</style>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, root_path, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
 <% if current_user.can_see_all_users? %>
-  <table cellpadding=15 cellspacing=15>
-    <tr>
-      <th></th>
-      <th class="col-xs-3">Name</th>
-      <th class="col-xs-3">Type</th>
-      <th class="col-xs-3">Email</th>
-      <th colspan="2"></th>
+  <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 20px; ' 
+    >
+    <tr > 
+      <th style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'></th>
+      <th class="col-xs-3" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Name</th>
+      <th class="col-xs-3" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Type</th>
+      <th class="col-xs-3" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Email</th>
+      <th class="col-xs-3" colspan="2" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'></th>
     </tr>
 
     <% @users.each do |user| %>
-      <tr>
-        <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
-        <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
-        <td class="col-xs-3"><%= user.type %></td>
-        <td class="col-xs-3"><%= user.email %></td>
-        <td class="col-xs-2"><%= link_to 'Profile', user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-user"} %></td>
-        <% if current_user.can_delete_user? %>
-          <td class="col-xs-2"><%= link_to 'Edit', edit_user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"}%></td>
-          <td class="col-xs-2"><%= link_to 'Delete', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"%></td>
-        <% end %>
+      <tr >
+        <td style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+        <td class="col-xs-2" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= user.first_name + " " + user.last_name %></td>
+        <td class="col-xs-2" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= user.type %></td>
+        <td class="col-xs-2" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= user.email %></td>
+        <td class="col-xs-2" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= link_to '<i class="glyphicon glyphicon-user"></i> Profile'.html_safe, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+        <% if current_user.can_delete_user? %> | 
+          <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+          <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'%>
+        <% end %></td>
       </tr>
     <% end %>
   </table>
 <% elsif current_user.can_see_employees? %>
-  <table cellpadding=15 cellspacing=15>
+  <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 2em;'>
     <tr>
-      <th></th>
-      <th class="col-xs-3">Name</th>
-      <th class="col-xs-3">Email</th>
+      <th class="col-xs-2" style='text-align: center'></th>
+      <th class="col-xs-2" style='text-align: center'>Name</th>
+      <th class="col-xs-2" style='text-align: center'>Email</th>
       <th colspan="2"></th>
     </tr>
 
     <% @users.where(:type => "Employee").each do |user| %>
       <tr>
-        <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
-        <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
-        <td class="col-xs-3"><%= user.email %></td>
-        <td class="col-xs-2"><%= link_to 'Profile', user_path(user), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-user"} %></td>
+        <td class="col-xs-2"><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+        <td class="col-xs-2"><%= user.first_name + " " + user.last_name %></td>
+        <td class="col-xs-2"><%= user.email %></td>
+        <td class="col-xs-2"><%= link_to '<i class="glyphicon glyphicon-user"></i> Profile'.html_safe, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td>
       </tr>
     <% end %>
   </table>
 <% else %>
   <h1 style="color:red;"> <strong>ACCES DENIED</strong></h1>
 <% end %>
-
-<%= will_paginate @users,renderer: BootstrapPagination::Rails %>
+<div style = 'text-align: center'>
+  <%= will_paginate @users, renderer: BootstrapPagination::Rails %> 
+</div>

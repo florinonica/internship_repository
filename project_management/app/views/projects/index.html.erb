@@ -1,26 +1,37 @@
-<h2>Projects</h2>
-
-<table cellpadding=15 cellspacing=15>
+<style>
+body { 
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+</style>
+<br>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+<table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 20px;'>
   <tr>
-    <th colspan="2"></th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px; font-size: 22px; font-weight: bold'>Name</th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px; font-size: 22px; font-weight: bold'>Manager</th>
+    <th class="col-xs-1" colspan="2" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'></th>
   </tr>
 
   <% current_user.get_projects.each do |project| %>
     <tr>
       <% if current_user.can_see_project_details?%>
-        <td class="col-xs-5"><%= link_to project.title, dashboard_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
+        <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'><%= link_to project.title, dashboard_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
       <% else %>
-        <td class="col-xs-5"><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
+        <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
       <% end %>
-      <% if current_user.can_edit_project? %>
-        <td class="col-xs-5"><%= link_to 'Edit', edit_project_path(project), {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-edit"}%></td>
+      <% if project.employees.any? %>
+        <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'><%= link_to project.employees.select{ |e| e.is_manager?(project.id) }.first.full_name, user_path(project.employees.select{ |e| e.is_manager?(project.id) }), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
+      <% else %>
+        <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px; font-size: 20px; font-weight: bold'>Not assigned yet<br></td>
       <% end %>
       <% if current_user.can_delete_project? %>
-        <td ><%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove"  %></td>
+        <td class="col-xs-1"style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'>
+          <%= link_to 'Edit', edit_project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold', class: "glyphicon glyphicon-edit"}%>
+          <%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold', class: "glyphicon glyphicon-remove"  %> 
+        </td>
       <% end %>
     </tr>
   <% end %>
 </table>
 <br>
-
-<%= link_to "Back", root_path, {:style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-arrow-left"} %>

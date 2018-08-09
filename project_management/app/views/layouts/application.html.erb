@@ -74,53 +74,53 @@
 <% if user_signed_in? %>
   <div class="wrapper">
     <nav id="sidebar">
-        <ul class="list-unstyled components" style='margin-left: 10px'> <br>
-          <li style='margin-left: 20px'>
-            <%= link_to "Home", root_path,  {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-home"}%>
+        <ul class="list-unstyled components" style='margin-left: 10px; '> <br>
+          <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
+            <%= link_to '<i class="glyphicon glyphicon-home"></i> Home'.html_safe, root_path,  {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px;'}%>
           </li><br>
-          <li style='margin-left: 20px'>
-            <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-user"} %>
+          <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;' >
+            <%= link_to '<i class="glyphicon glyphicon-user"></i> Users'.html_safe, users_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px;'} %>
             <% if controller_name == "users" %>
               <ul class="collapse-unstyled components">
                   <li>
-                    <%= link_to "My profile", user_path(current_user), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'}%>
+                    <%= link_to "My profile", user_path(current_user), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%>
                   </li>
                 <% if current_user.can_create_user? %>
                   <li>
-                    <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'}%>
+                    <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%>
                   </li>
                   <li>
-                    <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'}%>
+                    <%= link_to "Users", users_path, {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%>
                   </li>
                 <% end %>
             </ul>
             <% end %>
           </li><br>
-          <li style='margin-left: 20px'>
-            <%= link_to "Projects", projects_path, {:style => 'color:#FFFFFF; font-size: 20px; font-weight: bold', class: "glyphicon glyphicon-folder-open"} %>
+          <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
+            <%= link_to '<i class="glyphicon glyphicon-folder-open"></i> Projects'.html_safe, projects_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; '} %>
             <% if controller_name == "projects" %>
               <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team" || action_name == "files"%>
                 <ul class="collapse-unstyled components" style= 'padding-top: 5px'>
                   <li style = 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'> <%= @project.title %></li>
                   <li>
-                    <%= link_to "Details", project_path(@project), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-tasks"} %>
+                    <%= link_to '<i class="glyphicon glyphicon-tasks"></i> Details'.html_safe, project_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
                   <li>
-                      <%= link_to "Files", files_path(@project),  {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-file"}%>
+                      <%= link_to '<i class="glyphicon glyphicon-file"></i> Files'.html_safe, files_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>
                   <% if current_user.can_see_project_details?%>
                     <li>
-                      <%= link_to "Dashboard", dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-blackboard"}%>
+                      <%= link_to '<i class="glyphicon glyphicon-blackboard"></i> Dashboard'.html_safe, dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>
                     <li>
-                      <%= link_to "Team", team_path(@project), {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold', class: "glyphicon glyphicon-king"} %>
+                      <%= link_to '<i class="glyphicon glyphicon-king"></i> Team'.html_safe, team_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>
                   <% end %>
                 </ul>
               <% elsif current_user.can_create_project? %>
                 <ul class="collapse-unstyled components">
                   <li>
-                    <%= link_to "New project", new_project_path, {:style => 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'} %><br>
+                    <%= link_to "New project", new_project_path, {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %><br>
                   </li>
                 </ul>
               <% end %>
@@ -149,14 +149,14 @@
     </div>
       <p class="navbar-text pull-right" style= 'margin-top: 5px; margin-right: -200px; '>
         <% if user_signed_in? %>
-          <strong style= 'color:#FFFFFF; font-size: 15px; font-weight: bold'> Logged in as <%= current_user.email %>.</strong>
+          <strong style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'> Logged in as <%= current_user.email %>.</strong>
           <%= image_tag(current_user.avatar.url(:thumb), :class => "round-image-50") %>
-          <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 15px; font-weight: bold'%> 
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 15px; font-weight: bold' %>
+          <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'%> 
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
         <% end %>
       </p>
-      <div class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 17.5px; font-weight: bold'>
-        <%= Time.now.strftime("%Y-%d-%m %H:%M") %> <br>
+      <div class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+        <%= Time.now.strftime("%d-%m-%Y %H:%M") %> <br>
       </div>
   </div>
 </nav>

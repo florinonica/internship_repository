@@ -17,7 +17,9 @@ class TicketsController < ApplicationController
     @ticket = @project.tickets.new ticket_params
     @ticket.owner_id = current_user.id
 
-    unless (params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty? )
+    if params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty?
+      @ticket.dev_id = current_user.id
+    else
       @ticket.dev_id = params[:ticket][:dev_id]
     end
 
