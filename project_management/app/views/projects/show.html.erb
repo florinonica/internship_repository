@@ -27,7 +27,7 @@ body {
     <%= form.hidden_field :role_id, :value => '1' %>
     <%= form.collection_select :employee_ids, (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees), :id, :full_name, multiple: true, include_blank: false %>
     <p>
-      <%= form.submit 'Add project manager', {class: "btn btn-info collapsed"} %>
+      <%= form.submit 'Add project manager', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
     </p>
   <% end %>
 <% end %>

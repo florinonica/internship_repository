@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :clients, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
+  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :clients, :add_files, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
 
   def show
   end
@@ -81,6 +81,12 @@ class ProjectsController < ApplicationController
     @employee = Employee.find(params[:employee_id])
     @project.employees = @project.employees - [@employee]
     redirect_to team_path(@project)
+  end
+
+  def add_files
+    params.require(:project).permit(:files => [])
+    save_attachments(@project, params[:project][:files])
+    redirect_to files_path(@project)
   end
 
   private

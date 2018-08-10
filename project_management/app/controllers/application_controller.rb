@@ -10,12 +10,11 @@ class ApplicationController < ActionController::Base
 	  files.each do |file|
 	    @attachment = container.attachments.new(user_id: current_user.id, file: file)
 	      
-	    if @attachment.save
+	    if @attachment.save!
 	      container.attachments << @attachment
-	    else
-	      render 'new'
 	    end
 	  end
 	end
   end
+
 end

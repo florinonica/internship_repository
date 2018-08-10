@@ -20,14 +20,14 @@
             <div style='background-color: <%= ticket.get_colour%>; width: 100%; border-bottom: 3px solid <%= ticket.get_colour%>; border-top: 3px solid <%= ticket.get_colour%>; border-left: 3px solid <%= ticket.get_colour%>; border-right: 3px solid <%= ticket.get_colour%>; border-radius: 5px;' >
               <div class='<%= ticket.get_glyph%>' style='font-size: 20px'></div>
               <%= link_to ticket.title, ticket_path(ticket), {:style => 'margin-left: 20px; color: white; font-size: 20px; font-weight: bold'}%>
-                <div style='text-align: center'>
-                    <% if current_user.is_manager?(ticket.project.id)%>
-                    <%= link_to '  <i class="glyphicon glyphicon-edit"></i> '.html_safe, edit_project_ticket_path(ticket.project, ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> | 
-                    <%= link_to '<i class="glyphicon glyphicon-remove"></i> '.html_safe, [ticket.project, ticket], method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'%> |
-                  <% end %>
-                  <%= link_to '  <i class="glyphicon glyphicon-file"></i> '.html_safe, ticket_files_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> |
-                  <%= link_to '  <i class="glyphicon glyphicon-comment"></i> '.html_safe, comments_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> 
-                </div>
+              <div style='text-align: center'>
+                  <% if current_user.is_manager?(ticket.project.id)%>
+                  <%= link_to '  <i class="glyphicon glyphicon-edit"></i> '.html_safe, edit_project_ticket_path(ticket.project, ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> | 
+                  <%= link_to '<i class="glyphicon glyphicon-remove"></i> '.html_safe, [ticket.project, ticket], method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'%> |
+                <% end %>
+                <%= link_to '  <i class="glyphicon glyphicon-file"></i> '.html_safe, ticket_files_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> |
+                <%= link_to '  <i class="glyphicon glyphicon-comment"></i> '.html_safe, comments_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> 
+              </div>
             </div>
             <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
               <strong>Created at: </strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> 
@@ -70,7 +70,11 @@
           <div class="card-header-1" id=<%=ticket.id%> style = 'font-color:#FFFFFF; border-color: <%= ticket.get_class_colour%>; background-color: <%= ticket.get_class_colour%>;'>
             <div style='background-color: <%= ticket.get_colour%>; width: 100%; border-bottom: 3px solid <%= ticket.get_colour%>; border-top: 3px solid <%= ticket.get_colour%>; border-left: 3px solid <%= ticket.get_colour%>; border-right: 3px solid <%= ticket.get_colour%>; border-radius: 5px;' >
               <div class='<%= ticket.get_glyph%>' style='font-size: 20px'></div>
-              <%= link_to ticket.title, ticket_path(ticket), {:style => 'margin-left: 20px; color: white; font-size: 20px; font-weight: bold'}%> 
+              <%= link_to ticket.title, ticket_path(ticket), {:style => 'margin-left: 20px; color: white; font-size: 20px; font-weight: bold'}%>
+              <div style='text-align: center'>
+                <%= link_to '  <i class="glyphicon glyphicon-file"></i> '.html_safe, ticket_files_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> |
+                <%= link_to '  <i class="glyphicon glyphicon-comment"></i> '.html_safe, comments_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> 
+              </div> 
             </div>
             <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
               <strong>Created at: </strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> 

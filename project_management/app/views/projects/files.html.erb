@@ -1,6 +1,16 @@
-<div id="attachments">
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
+
+<%= form_for @project, :url => {:controller => :projects, :action => :add_files} do |form| %>
+  <%= form.label "Add files" %>
+  <%= form.file_field :files, :multiple => true %>
+  <p>
+    <%= form.submit 'Submit', {class: "btn btn-info collapsed", :style => 'font-size: 14px; font-weight: bold; font-family: "Ubuntu"'} %>
+  </p>
+<% end %>
+
+<div id="attachments"><br>
   <% @project.attachments.each do |asset| %>
-    <div >
+    <div style='display'>
         <% if asset.is_image?%>
           <a class="fancybox" rel="group" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a>
         <% elsif asset.is_video?%>
@@ -12,6 +22,6 @@
         <% end %>
         <%= link_to "Download", asset.file.url(:original, false), :target=> "_blank" %>
         <%= link_to 'Delete', attachment_path(asset), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove" %>
-    </div><br>
+    </div>
   <% end %>
 </div>

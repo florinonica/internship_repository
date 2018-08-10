@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :get_project, only: [:index, :new, :create, :edit, :update]
-  before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev, :change_status, :files, :comments, :bugs, :subtasks]
+  before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev, :change_status, :files, :add_files, :comments, :bugs, :subtasks]
 
   def index
     @tickets = @project.tickets
@@ -81,6 +81,12 @@ class TicketsController < ApplicationController
   end
 
   def comments
+  end
+
+  def add_files
+    params.require(:ticket).permit(:files => [])
+    save_attachments(@ticket, params[:ticket][:files])
+    redirect_to ticket_files_path(@ticket)
   end
 
   private
