@@ -101,10 +101,11 @@
                   <li>
                       <%= link_to '<i class="glyphicon glyphicon-file"></i> Files'.html_safe, files_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>
-                  <% if current_user.can_see_project_details?%>
+                  
                     <li>
                       <%= link_to '<i class="glyphicon glyphicon-blackboard"></i> Dashboard'.html_safe, dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>
+                    <% if current_user.can_see_project_details?%>
                     <li>
                       <%= link_to '<i class="glyphicon glyphicon-king"></i> Team'.html_safe, team_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>

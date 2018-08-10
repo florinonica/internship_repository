@@ -1,3 +1,9 @@
+<style>
+body { 
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+</style>
 <strong><h2><%= @project.title %></h2></strong>
 <br><br>
 <table cellpadding=30 cellspacing=15>
@@ -50,4 +56,4 @@
   <% end %>
 <% end %>
 
-<%= link_to "Back", :back %>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
