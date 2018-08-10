@@ -15,6 +15,10 @@ body {
   </div>
 <% end %>
 
+<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+  <strong>Created at: </strong> <%= @ticket.created_at.strftime("%d-%m-%Y %H:%M")%> 
+</div>
+
 <h4><strong>Description</strong></h4>
 <div class="row">
   <div class="col-xs-3">
@@ -29,26 +33,8 @@ body {
   <% end %>
 </p><br>
 
-<% if @ticket.subtasks.any? %>
-  <div style='color: black; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-    Subtasks<br>
-    <% @ticket.subtasks.each do |subtask| %>
-      <%= link_to subtask.title, ticket_path(subtask), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> <br>
-    <% end %>
-  </div>
-<% end %>
-
-<% if @ticket.bugs.any? %>
-  <div style='color: black; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-    Bugs<br>
-    <% @ticket.bugs.each do |bug| %>
-      <%= link_to bug.title, ticket_path(bug), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> <br>
-    <% end %>
-  </div>
-<% end %>
-
 <% if current_user.can_add_subtask_or_bug?(@ticket) && !@ticket.task.presence%>
-  <button class="btn btn-info collapsed" onclick="display(2)">
+  <button class="btn btn-info collapsed" onclick="display(2)" style='font-size: 18px; font-weight: bold; font-family: "Ubuntu"'>
     <span class="glyphicon glyphicon-collapse-down"></span> 
     <% if current_user.is_tester?(@ticket.project_id) %>
       Add Bug 
@@ -58,7 +44,7 @@ body {
       Add Bug/Subtask
     <% end %>
   </button>
-
+<br>
   <div id = "add" style ='display: none;'>
   <%= form_for [@ticket.project, Ticket.new] do |form| %>
     <%= form.hidden_field :task_id, :value => @ticket.id%>
@@ -100,46 +86,41 @@ body {
       <%= form.select :dev_id, @ticket.project.project_workers.select{|p| p.role_id == 2}.collect {|p| [Employee.find(p.user_id).full_name, p.user_id ]}, include_blank: true %>
     </p>
     <p>
-      <%= form.submit "Submit", {class: "btn btn-info collapsed"} %>
+      <%= form.submit "Submit", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
     </p>
   <% end %>
   </div>
 <% end %>
-
-  
-
-<button id="marcel" class="btn btn-info collapsed" onclick="display(1)">
-  <span class="glyphicon glyphicon-collapse-down"></span> Show comments
-</button>
-
-<div id = "comments">
-  <h4>Comments</h4>
-  <% @ticket.comments.each do |comment| %>
-     <%= render comment if (!comment.parent_id.presence && !(comment.body.nil?)) %>
+<br>
+<div class="row">
+  <% if @ticket.subtasks.any? %>
+    <div class = "col-xs-3" style='color: black; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+      Subtasks<br>
+      <% @ticket.subtasks.each do |subtask| %>
+        <%= link_to subtask.title, ticket_path(subtask), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> <br>
+      <% end %>
+    </div>
   <% end %>
-</div><br><br>
 
+  <% if @ticket.bugs.any? %>
+    <div class = "col-xs-3" style='color: black; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+      Bugs<br>
+      <% @ticket.bugs.each do |bug| %>
+        <%= link_to bug.title, ticket_path(bug), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> <br>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<br>
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
 
 <script>
 function display(i) {
-    if(i == 1) {
-        var x = document.getElementById("comments");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            $(".btn#marcel").html('<span class="glyphicon glyphicon-collapse-up"></span> Hide comments');
-        } else {
-            x.style.display = "none";
-            $(".btn#marcel").html('<span class="glyphicon glyphicon-collapse-down"></span> Show comments');
-        }
-    }
-    else{
-        var x = document.getElementById("add");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
+  var x = document.getElementById("add");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
 }
 </script>

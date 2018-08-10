@@ -1,3 +1,10 @@
+<style>
+body { 
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+</style>
+
 <h3>Clients</h3>
 <div class="tab-pane" id="clients">
   <table cellpadding=15 cellspacing=15>
@@ -29,7 +36,7 @@
       <%= b.label %>
     <%end %>
     <p>
-      <%= form.submit 'Add client', {class: "btn btn-info collapsed"} %>
+      <%= form.submit 'Add client', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
     </p>
   <% end %>
 <% end %>
