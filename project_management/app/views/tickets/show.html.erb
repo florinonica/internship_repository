@@ -40,7 +40,6 @@ body {
 
 <div id="attachments">
   <% @ticket.attachments.each do |asset| %>
-    <% unless asset.comment_id.presence %>
       <% if asset.is_image?%>
         <a class="fancybox" rel="group" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a>
       <% elsif asset.is_video?%>
@@ -50,7 +49,6 @@ body {
       <% else %>
         <%= link_to "Download", asset.file.url, :target=> "_blank" %>
       <% end %>
-    <% end %>
   <% end %>
 </div>
 

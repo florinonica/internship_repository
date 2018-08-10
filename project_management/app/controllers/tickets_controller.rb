@@ -24,7 +24,8 @@ class TicketsController < ApplicationController
     end
 
     if @ticket.save!
-      save_attachments
+      params.require(:ticket).permit(:files => [])
+      save_attachments(@ticket, params[:ticket][:files])
       redirect_to dashboard_path(@project)
     else
       render 'new'
@@ -36,7 +37,8 @@ class TicketsController < ApplicationController
 
   def update
     if @ticket.update(ticket_params)
-      save_attachments
+      params.require(:ticket).permit(:files => [])
+      save_attachments(@ticket, params[:ticket][:files])
       redirect_to dashboard_path(@ticket.project)
     else
       render 'edit'
@@ -81,22 +83,4 @@ class TicketsController < ApplicationController
     def get_ticket
       @ticket = Ticket.find(params[:id])
     end
-
-    def save_attachments
-      params.require(:ticket).permit(:files => [])
-      
-      unless params[:ticket][:files].nil?
-        params[:ticket][:files].each do |file|
-          @attachment = Attachment.new(user_id: current_user.id, file: file)
-     
-          if @attachment.save
-            @project.attachments << @attachment
-            @ticket.attachments << @attachment
-          else
-            render 'new'
-          end
-        end
-      end
-    end
-
 end

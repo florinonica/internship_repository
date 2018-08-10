@@ -1,7 +1,6 @@
 <div id="attachments">
   <% @project.attachments.each do |asset| %>
     <div >
-      <% unless asset.ticket_id.presence %>
         <% if asset.is_image?%>
           <a class="fancybox" rel="group" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a>
         <% elsif asset.is_video?%>
@@ -13,7 +12,6 @@
         <% end %>
         <%= link_to "Download", asset.file.url, :target=> "_blank" %>
         <%= link_to 'Delete', attachment_path(asset), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-remove" %>
-      <% end %>
     </div><br>
   <% end %>
 </div>

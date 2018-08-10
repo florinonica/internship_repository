@@ -10,8 +10,9 @@ class ProjectsController < ApplicationController
 	
   def create
     @project = Project.new(project_params)
-    save_attachments
     if @project.save
+      params.require(:project).permit(:files => [])
+      save_attachments(@project, params[:project][:files])
       redirect_to @project
     else
       render 'new'
@@ -23,7 +24,8 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      save_attachments
+      params.require(:project).permit(:files => [])
+      save_attachments(@project, params[:project][:files])
       redirect_to @project
     else
       render 'edit'
@@ -82,20 +84,6 @@ class ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
-    def save_attachments
-      params.require(:project).permit(:files => [])
-      
-      unless params[:project][:files].nil?
-        params[:project][:files].each do |file|
-          @attachment = Attachment.new(user_id: current_user.id, file: file)
-          
-          if @attachment.save
-            @project.attachments << @attachment
-          else
-            render 'new'
-          end
-        end
-      end
-    end
+    
 
 end

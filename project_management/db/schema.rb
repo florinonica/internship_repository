@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_09_101928) do
+ActiveRecord::Schema.define(version: 2018_08_10_053748) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "file_file_name"
@@ -18,14 +18,11 @@ ActiveRecord::Schema.define(version: 2018_08_09_101928) do
     t.integer "file_file_size"
     t.datetime "file_updated_at"
     t.integer "user_id"
-    t.integer "project_id"
-    t.integer "ticket_id"
-    t.integer "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_attachments_on_comment_id"
-    t.index ["project_id"], name: "index_attachments_on_project_id"
-    t.index ["ticket_id"], name: "index_attachments_on_ticket_id"
+    t.string "container_type"
+    t.integer "container_id"
+    t.index ["container_type", "container_id"], name: "index_attachments_on_container_type_and_container_id"
     t.index ["user_id"], name: "index_attachments_on_user_id"
   end
 
