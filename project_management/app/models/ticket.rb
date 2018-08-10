@@ -9,6 +9,7 @@ class Ticket < ApplicationRecord
   has_many :attachments, :as => :container, dependent: :destroy
   validates :title, :presence => true, length: { in: 3..50 }
   validates :description, :presence => true, length: { in: 10..200 }
+  has_paper_trail
 
   before_create :set_type
 

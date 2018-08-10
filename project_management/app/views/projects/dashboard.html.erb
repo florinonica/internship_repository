@@ -17,12 +17,12 @@
   </script>
  </head>
 
-<body>
+
 <div class="board-container">
   <div class="board-content" >
     <div style='text-align: left'>
     <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search", remote: true do%>
-      <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"] ], :selected => params[:search]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
+      <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"] ]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
     <% end %></div>
     <div class="cards-container-head">
       <div class="cards-container-title" style='color:#FFFFFF; font-size: 25px;'></div>
@@ -42,6 +42,6 @@
       </div>
     </div>
   </div>
-</div>
+</div><body>
 </body>
       
