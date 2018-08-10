@@ -1,0 +1,31 @@
+<h4>Add a comment:</h4>
+  <%= form_with(model: [ @ticket, @ticket.comments.build ]) do |form| %>
+    <p>
+      <%= form.hidden_field :commenter, :value => current_user.username %>
+    </p>
+    <div class="row">
+      <div class="col-xs-4">
+      <%= form.text_area :body, class: 'form-control' %>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= form.label :files %>
+        <%= form.file_field :files, :multiple => true %>
+      </div>
+    </div>
+    <br>
+    <p>
+      <%= form.submit "Submit", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
+    </p>
+<% end %>
+
+<div id = "comments">
+  <h4>Comments</h4>
+  <% @ticket.comments.each do |comment| %>
+     <%= render comment if (!comment.parent_id.presence && !(comment.body.nil?)) %>
+  <% end %>
+</div><br><br>
+
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>

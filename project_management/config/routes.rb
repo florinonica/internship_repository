@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
   get 'projects/:id/files' => 'projects#files', :as => :files
   get 'projects/:id/team' => 'projects#team', :as => :team
+  get 'projects/:id/clients' => 'projects#clients', :as => :clients
+  get 'tickets/:id/subtasks' => 'tickets#subtasks', :as => :subtasks
+  get 'tickets/:id/bugs' => 'tickets#bugs', :as => :bugs
+  get 'tickets/:id/comments' => 'tickets#comments', :as => :comments
+  get 'tickets/:id/files' => 'tickets#files', :as => :ticket_files
   get 'users/type' => 'users#custom_index', :as => :type
   get 'users/:id/remove_role' => 'users#remove_role'
   resources :clients, param: :client_id

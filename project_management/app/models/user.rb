@@ -125,6 +125,14 @@ class User < ApplicationRecord
     false
   end
 
+  def can_edit_comment?(id)
+    false
+  end
+
+  def can_delete_comment?(id)
+    false
+  end
+
   private
 
     def set_type

@@ -55,4 +55,12 @@ class Employee < User
     true
   end
 
+  def can_edit_comment?(id)
+    (self.id == Comment.find(id).user_id ? true : false)
+  end
+
+  def can_delete_comment?(id)
+    (self.id == Comment.find(id).user_id ? true : false)
+  end
+
 end

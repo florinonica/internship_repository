@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     if @comment.save
       params.require(:comment).permit(:files => [])
       save_attachments(@comment, params[:comment][:files])
-      redirect_to ticket_path(@ticket)
+      redirect_to comments_path(@ticket)
     else
       render 'new'
     end
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       params.require(:comment).permit(:files => [])
       save_attachments(@comment, params[:comment][:files])
-      redirect_to ticket_path(@ticket)
+      redirect_to comments_path(@ticket)
     else
       render 'edit'
     end
@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to ticket_path(@ticket)
+    redirect_to comments_path(@ticket)
   end
 
   private

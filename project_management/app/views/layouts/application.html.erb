@@ -92,23 +92,25 @@
           <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
             <%= link_to '<i class="glyphicon glyphicon-folder-open"></i> Projects'.html_safe, projects_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; '} %>
             <% if controller_name == "projects" %>
-              <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team" || action_name == "files"%>
+              <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team" || action_name == "files" || action_name == "clients"%>
                 <ul class="collapse-unstyled components" style= 'padding-top: 5px'>
-                  <li style = 'color:#FFFFFF; font-size: 17.5px; font-weight: bold'> <%= @project.title %></li>
+                  <li style = 'color:#FFFFFF; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;' > <%= @project.title %></li>
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-tasks"></i> Details'.html_safe, project_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
                   <li>
-                      <%= link_to '<i class="glyphicon glyphicon-file"></i> Files'.html_safe, files_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
-                    </li>
-                  
-                    <li>
-                      <%= link_to '<i class="glyphicon glyphicon-blackboard"></i> Dashboard'.html_safe, dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
-                    </li>
-                    <% if current_user.can_see_project_details?%>
-                    <li>
-                      <%= link_to '<i class="glyphicon glyphicon-king"></i> Team'.html_safe, team_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
-                    </li>
+                    <%= link_to '<i class="glyphicon glyphicon-tower"></i> Clients'.html_safe, clients_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                  </li>
+                  <li>
+                    <%= link_to '<i class="glyphicon glyphicon-file"></i> Files'.html_safe, files_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                  </li>
+                  <li>
+                    <%= link_to '<i class="glyphicon glyphicon-blackboard"></i> Dashboard'.html_safe, dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                  </li>
+                  <% if current_user.can_see_project_details?%>
+                  <li>
+                    <%= link_to '<i class="glyphicon glyphicon-king"></i> Team'.html_safe, team_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                  </li>
                   <% end %>
                 </ul>
               <% elsif current_user.can_create_project? %>
@@ -120,6 +122,25 @@
               <% end %>
             <% end %>     
           </li>
+          <% if controller_name == "tickets" && !(action_name == "create") %>
+            <li style=' border-bottom: 5px solid white; margin-right: 15px; padding-top: 5px; margin-left: 10px; text-align: left'>
+              <strong style ='color:#FFFFFF; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; ' ><%= @ticket.title%></strong>
+              <ul class="collapse-unstyled components" style= 'padding-top: 5px;'>
+                <li>
+                  <%= link_to '<i class="glyphicon glyphicon-blackboard"></i> Dashboard'.html_safe, dashboard_path(@ticket.project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                </li>
+                <li>
+                <%= link_to '<i class="glyphicon glyphicon-tasks"></i> Details'.html_safe, ticket_path(@ticket), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                </li>
+                <li>
+                  <%= link_to '<i class="glyphicon glyphicon-file"></i> Files'.html_safe, ticket_files_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                </li>
+                <li>
+                  <%= link_to '<i class="glyphicon glyphicon-comment"></i> Comments'.html_safe, comments_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                </li>
+              </ul>
+            </li>
+          <% end %>
         </ul>
     </nav>
   </div>

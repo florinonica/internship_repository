@@ -1,5 +1,5 @@
 <div id="attachments">
-  <% @project.attachments.each do |asset| %>
+  <% @ticket.attachments.each do |asset| %>
     <div >
         <% if asset.is_image?%>
           <a class="fancybox" rel="group" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a>

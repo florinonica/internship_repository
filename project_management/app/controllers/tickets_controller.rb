@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :get_project, only: [:index, :new, :create, :edit, :update]
-  before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev, :change_status]
+  before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev, :change_status, :files, :comments, :bugs, :subtasks]
 
   def index
     @tickets = @project.tickets
@@ -69,6 +69,18 @@ class TicketsController < ApplicationController
     @project = @ticket.project
     @ticket.destroy
     redirect_to dashboard_path(@project)
+  end
+
+  def files
+  end
+
+  def bugs
+  end
+
+  def subtasks
+  end
+
+  def comments
   end
 
   private

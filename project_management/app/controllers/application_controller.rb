@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 	    @attachment = container.attachments.new(user_id: current_user.id, file: file)
 	      
 	    if @attachment.save
-	      @project.attachments << @attachment
+	      container.attachments << @attachment
 	    else
 	      render 'new'
 	    end

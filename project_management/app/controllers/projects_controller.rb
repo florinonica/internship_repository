@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
+  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :clients, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
 
   def show
   end
@@ -43,22 +43,30 @@ class ProjectsController < ApplicationController
   def team
   end
 
+  def clients
+  end
+
   def files
   end
 
   def add_client
     @client = Client.find(params[:project][:client_id])
     @project.clients << @client
-    redirect_to project_path(@project)
+    redirect_to clients_path(@project)
   end
 
   def add_employees
-    params[:project][:employee_ids].each do |e|
-      @projectWorker = ProjectWorker.new
-      @projectWorker.project_id = params[:id]
-      @projectWorker.user_id = e
-      @projectWorker.role_id = params[:project][:role_id]
-      @projectWorker.save
+    if params[:project][:role_id] == '1' && !ProjectWorker.find_by(role_id: params[:project][:role_id]).nil?
+      @projectWorker = ProjectWorker.find_by(role_id: params[:project][:role_id])
+      @projectWorker.update(:user_id => params[:project][:employee_ids])
+    else
+      params[:project][:employee_ids].each do |e|
+        @projectWorker = ProjectWorker.new
+        @projectWorker.project_id = params[:id]
+        @projectWorker.user_id = e
+        @projectWorker.role_id = params[:project][:role_id]
+        @projectWorker.save
+      end
     end
     redirect_to team_path(@project)
   end
@@ -66,7 +74,7 @@ class ProjectsController < ApplicationController
   def remove_client
     @client = Client.find(params[:client_id])
     @project.clients = @project.clients - [@client]
-    redirect_to project_path(@project)
+    redirect_to clients_path(@project)
   end
 
   def remove_employee

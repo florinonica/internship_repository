@@ -1,0 +1,35 @@
+<h3>Clients</h3>
+<div class="tab-pane" id="clients">
+  <table cellpadding=15 cellspacing=15>
+    <tr>
+      <th class="col-xs-2">         </th>
+      <th class="col-xs-3">Name </th>
+      <th class="col-xs-3">Email</th>
+      <th colspan="2"></th>
+    </tr>
+
+    <% @project.clients.each do |user| %>
+      <tr>
+        <td><%= image_tag(user.avatar.url(:thumb), :class => "round-image-50") %></td>
+        <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
+        <td class="col-xs-3"><%= user.email %></td>
+        <% if current_user.can_add_clients? %>
+          <td><%= link_to 'Remove', controller: "projects", action: "remove_client", id: @project.id, client_id: user.id %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<% if current_user.can_add_clients? && (Client.all - @project.clients).count > 0 %>
+  <%= form_for @project, :url => {:action => :add_client} do |form| %>
+    <%= form.collection_check_boxes :client_id, (Client.all - @project.clients), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+      <br>
+      <%= b.check_box %>
+      <%= b.label %>
+    <%end %>
+    <p>
+      <%= form.submit 'Add client', {class: "btn btn-info collapsed"} %>
+    </p>
+  <% end %>
+<% end %>
