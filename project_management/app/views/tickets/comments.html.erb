@@ -1,4 +1,5 @@
-<% render 'comments/form' %>
+
+<%= link_to '<i class="glyphicon glyphicon-comment"></i> Add comment'.html_safe, new_ticket_comment_path(@ticket), {class: "btn btn-info collapsed", :style => 'color:white; font-size: 18px; font-weight: bold, background-color: white'} %>
 
 <div id = "comments">
   <h4>Comments</h4>

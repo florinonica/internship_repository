@@ -17,7 +17,8 @@ class CommentsController < ApplicationController
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
     params.require(:comment).permit(:files => [])
-      save_attachments(@comment, params[:comment][:files])
+    save_attachments(@comment, params[:comment][:files])
+    
     if @comment.save
       redirect_to comments_path(@ticket)
     else

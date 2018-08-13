@@ -17,14 +17,16 @@ class TicketsController < ApplicationController
   def create
     @ticket = @project.tickets.new ticket_params
     @ticket.owner_id = current_user.id
-    puts @ticket.owner_id
+
     if params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty?
       @ticket.dev_id = current_user.id
     else
       @ticket.dev_id = params[:ticket][:dev_id]
     end
+    
     params.require(:ticket).permit(:files => [])
     save_attachments(@ticket, params[:ticket][:files])
+
     if @ticket.save
       
       redirect_to dashboard_path(@project)
