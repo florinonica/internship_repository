@@ -23,12 +23,15 @@ class TicketsController < ApplicationController
     else
       @ticket.dev_id = params[:ticket][:dev_id]
     end
-
-    if @ticket.save!
-      params.require(:ticket).permit(:files => [])
-      save_attachments(@ticket, params[:ticket][:files])
+    params.require(:ticket).permit(:files => [])
+    save_attachments(@ticket, params[:ticket][:files])
+    if @ticket.save
+      
       redirect_to dashboard_path(@project)
     else
+      @ticket.attachments.each do |file|
+        file.destroy
+      end
       render 'new'
     end
   end
@@ -37,9 +40,9 @@ class TicketsController < ApplicationController
   end
 
   def update
+    params.require(:ticket).permit(:files => [])
+    save_attachments(@ticket, params[:ticket][:files])
     if @ticket.update(ticket_params)
-      params.require(:ticket).permit(:files => [])
-      save_attachments(@ticket, params[:ticket][:files])
       redirect_to dashboard_path(@ticket.project)
     else
       render 'edit'

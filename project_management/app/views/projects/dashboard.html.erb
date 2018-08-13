@@ -21,8 +21,8 @@
 <div class="board-container">
   <div class="board-content" >
     <div style='text-align: left; display: flex; margin-left: 10px; padding-bottom: 0px'>
-      <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search", remote: true do%>
-        <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"] ], :selected => params[:search]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
+      <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
+        <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
       <% end %>
       <%= form_tag undo_path , method: :patch, :id=> "undo" ,:url => {:controller => :tickets, :action => :undo} do %>
         <%= submit_tag 'Undo', style: 'color:black; font-size: 15.5px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center'%>

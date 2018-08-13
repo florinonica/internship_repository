@@ -16,12 +16,14 @@ class CommentsController < ApplicationController
   def create
     @comment = @ticket.comments.new comment_params
     @comment.user_id = current_user.id
-    
-    if @comment.save
-      params.require(:comment).permit(:files => [])
+    params.require(:comment).permit(:files => [])
       save_attachments(@comment, params[:comment][:files])
+    if @comment.save
       redirect_to comments_path(@ticket)
     else
+      @comment.attachments.each do |file|
+        file.destroy
+      end
       render 'new'
     end
   end
@@ -30,9 +32,9 @@ class CommentsController < ApplicationController
   end
 
   def update
+    params.require(:comment).permit(:files => [])
+    save_attachments(@comment, params[:comment][:files])
     if @comment.update(comment_params)
-      params.require(:comment).permit(:files => [])
-      save_attachments(@comment, params[:comment][:files])
       redirect_to comments_path(@ticket)
     else
       render 'edit'

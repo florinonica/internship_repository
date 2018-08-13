@@ -10,17 +10,15 @@ class Ticket < ApplicationRecord
   validates :title, :presence => true, length: { in: 3..50 }
   validates :description, :presence => true, length: { in: 10..200 }
   has_paper_trail
+  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :comments
 
   before_create :set_type
 
   enum type: {'Task' => 0, 'Bug' => 1}
 
   def self.search(search)
-    unless search=="All"
-      where('type LIKE ?', "%#{search}%")
-    else
-      all
-    end
+    (search=="All" ? all : where('type LIKE ?', "%#{search}%"))
   end
 
   def get_owner
