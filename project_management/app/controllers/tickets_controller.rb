@@ -89,6 +89,12 @@ class TicketsController < ApplicationController
     redirect_to ticket_files_path(@ticket)
   end
 
+  def undo
+    @ticket = Ticket.order("updated_at").last.paper_trail.previous_version
+    @ticket.save   
+    redirect_to dashboard_path(@ticket.project)  
+  end
+
   private
     def ticket_params
       params.require(:ticket).permit(:owner_id, :title, :description, :attachment, :project_id, :dev_id, :priority, :status, :task_id, :type)
