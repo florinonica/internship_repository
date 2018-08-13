@@ -137,6 +137,14 @@ class User < ApplicationRecord
     false
   end
 
+  def can_delete_attachment?(attachment)
+    false
+  end
+
+  def can_add_attachment?
+    false
+  end
+
   private
 
     def set_type

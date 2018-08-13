@@ -63,4 +63,12 @@ class Employee < User
     (self.id == Comment.find(id).user_id ? true : false)
   end
 
+  def can_delete_attachment?(attachment)
+    (attachments.include?(attachment) ? true : false)
+  end
+
+  def can_add_attachment?
+    true
+  end
+
 end

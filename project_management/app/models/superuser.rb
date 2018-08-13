@@ -76,4 +76,12 @@ class Superuser < User
     true
   end
 
+  def can_delete_attachment?(attachment)
+    true
+  end
+
+  def can_add_attachment?
+    true
+  end
+
 end

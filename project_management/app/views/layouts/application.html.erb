@@ -61,25 +61,26 @@
                   }
               }
           }); 
-          $(".fancybox2").fancybox({
-              beforeLoad: function() {
-                  inlineTarget = this.href;
-                  parentNodename = $(inlineTarget).parent().get(0).tagName.toLowerCase();
-                  $(inlineTarget).parent(parentNodename).addClass("returnTo");
-              },
-              afterClose: function() {
-                  $(inlineTarget).appendTo(".returnTo");
-                  $(".returnTo").removeClass("returnTo");
-                  $(inlineTarget).show();
-              },
-              fitToView: false,
-              width: '70%',
-              height: '70%',
-              autoSize: true,
-              closeClick: false,
-              openEffect: 'none',
-              closeEffect: 'none'
-          });      
+      $(".fancybox2").fancybox({
+
+          beforeLoad: function() {
+              inlineTarget = this.href;
+              parentNodename = $(inlineTarget).parent().get(0).tagName.toLowerCase();
+              $(inlineTarget).parent(parentNodename).addClass("returnTo");
+          },
+          afterClose: function() {
+              $(inlineTarget).appendTo(".returnTo");
+              $(".returnTo").removeClass("returnTo");
+              $(inlineTarget).show();
+          },
+
+          width : 1000,
+          autoResize: true,
+          autoHeight: true,
+          closeClick: false,
+          openEffect: 'none',
+          closeEffect: 'none'
+      });      
     </script>
   </head>
 
