@@ -418,7 +418,8 @@ color:#fff;
   color: white;
   display: flex;
   width: fixed;
-  height: 175px;
+  height: auto;
+
   overflow-y: scroll;
   flex-direction: column;
   justify-content: space-between;
