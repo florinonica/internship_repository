@@ -24,6 +24,10 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def self.search(search)
+    (search=="All" ? all : where('type LIKE ?', "%#{search}%"))
+  end
+
   attr_accessor :role_ids
 
   attr_writer :login

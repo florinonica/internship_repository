@@ -21,7 +21,7 @@ body {
         <td class="col-xs-3"><%= user.first_name + " " + user.last_name %></td>
         <td class="col-xs-3"><%= user.email %></td>
         <% if current_user.can_add_clients? %>
-          <td><%= link_to 'Remove', controller: "projects", action: "remove_client", id: @project.id, client_id: user.id %></td>
+          <td style = 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'><%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, controller: "projects", action: "remove_client", id: @project.id, client_id: user.id %></td>
         <% end %>
       </tr>
     <% end %>

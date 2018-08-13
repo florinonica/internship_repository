@@ -22,7 +22,7 @@ body {
 </p>
 
 <br>
-<% if current_user.can_change_manager? %>
+<% if current_user.can_change_manager? && (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees).count > 0 %>
   <%= form_for @project, :url => {:action => :add_employees} do |form| %>
     <%= form.hidden_field :role_id, :value => '1' %>
     <%= form.collection_select :employee_ids, (Employee.select{ |e| e.roles.include?(Role.first) } - @project.employees), :id, :full_name, multiple: true, include_blank: false %>
@@ -34,8 +34,9 @@ body {
 
 <br>
 <% if current_user.can_delete_project? %>
-  <%= link_to 'Edit', edit_project_path(@project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold', class: "glyphicon glyphicon-edit"} %> | <%= link_to 'Delete', project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold', class: "glyphicon glyphicon-remove" %>
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_project_path(@project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> | 
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Remove'.html_safe, project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"' %>
 <% end %>
 <br>
-
+<br>
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, projects_path, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>

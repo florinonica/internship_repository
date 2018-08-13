@@ -29,8 +29,8 @@ body {
       <% end %>
       <% if current_user.can_delete_project? %>
         <td class="col-xs-1"style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'>
-          <%= link_to 'Edit', edit_project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold', class: "glyphicon glyphicon-edit"}%>
-          <%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold', class: "glyphicon glyphicon-remove"  %> 
+          <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%> |
+          <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'  %> 
         </td>
       <% end %>
     </tr>
