@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :clients, :add_files, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
 
+  def index
+    @projects = current_user.get_projects.paginate(:page => params[:page], per_page:5)
+  end
+
   def show
   end
 

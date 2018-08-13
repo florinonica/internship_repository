@@ -15,7 +15,7 @@ body {
     <% end %>
   </tr>
 
-  <% current_user.get_projects.each do |project| %>
+  <% @projects.each do |project| %>
     <tr>
       <% if current_user.can_see_project_details?%>
         <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'><%= link_to project.title, dashboard_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br></td>
@@ -37,3 +37,6 @@ body {
   <% end %>
 </table>
 <br>
+<div style = 'text-align: center'>
+  <%= will_paginate @projects, renderer: BootstrapPagination::Rails %> 
+</div>
