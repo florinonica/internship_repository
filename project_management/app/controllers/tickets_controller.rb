@@ -4,6 +4,7 @@ class TicketsController < ApplicationController
 
   def index
     @tickets = @project.tickets
+
   end
 
   def show
@@ -50,10 +51,10 @@ class TicketsController < ApplicationController
       when "To do"
         @ticket.update(:status => params[:status])
       when "In progress"
-        if @ticket.status == "Dev complete"
-          @ticket.update(:status => params[:status])
-        else
+        if @ticket.status == "To do"
           @ticket.update(:status => params[:status], :start_at => Time.now)
+        else
+          @ticket.update(:status => params[:status])
         end
       when "Dev complete"
         @ticket.update(:status => params[:status], :completed_at => Time.now)
@@ -62,7 +63,7 @@ class TicketsController < ApplicationController
       else
         raise "invalid status"
     end
-    redirect_to dashboard_path(@ticket.project)
+    #redirect_to dashboard_path(@ticket.project)
   end
 
   def destroy
@@ -90,8 +91,11 @@ class TicketsController < ApplicationController
   end
 
   def undo
-    @ticket = Ticket.order("updated_at").last.paper_trail.previous_version
-    @ticket.save   
+    @ticket = Ticket.order("updated_at").last
+    if current_user.can_alter_ticket?(@ticket)
+      @ticket = @ticket.paper_trail.previous_version
+      @ticket.save   
+    end
     redirect_to dashboard_path(@ticket.project)  
   end
 
