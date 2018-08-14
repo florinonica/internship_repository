@@ -454,26 +454,23 @@ color:#fff;
 }
 
 .card-header-2 {
-  padding: 20px 10px;
-  border-bottom: 5px solid #dbdbdb;
-  border-top: 5px solid #dbdbdb;
-  border-left: 5px solid #dbdbdb;
-  border-right: 5px solid #dbdbdb;
-  border-radius: 5px;
+  padding: 20px 20px;
+  border-radius: 10px;
+  border-top-right-radius: 10px;
   white-space: normal;
   word-break: break-all;
   word-wrap: break-word;
   background-color: white;
   font-family: "Ubuntu";
-  font-size: 16px;
+  font-size: 18px;
   display: flex;
-  width: 650px;
+  width: 600px;
   overflow-y: scroll;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 30px;
   margin-bottom: 30px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
 html {
