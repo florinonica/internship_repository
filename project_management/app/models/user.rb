@@ -129,6 +129,10 @@ class User < ApplicationRecord
     false
   end
 
+  def can_comment?
+    false
+  end
+
   def can_edit_comment?(id)
     false
   end

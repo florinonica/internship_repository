@@ -71,4 +71,8 @@ class Employee < User
     true
   end
 
+  def can_comment?
+    true
+  end
+
 end

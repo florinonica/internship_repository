@@ -84,4 +84,8 @@ class Superuser < User
     true
   end
 
+  def can_comment?
+    true
+  end
+
 end
