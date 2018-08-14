@@ -453,6 +453,29 @@ color:#fff;
   margin-bottom: 5px;
 }
 
+.card-header-2 {
+  padding: 20px 10px;
+  border-bottom: 5px solid #dbdbdb;
+  border-top: 5px solid #dbdbdb;
+  border-left: 5px solid #dbdbdb;
+  border-right: 5px solid #dbdbdb;
+  border-radius: 5px;
+  white-space: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: white;
+  font-family: "Ubuntu";
+  font-size: 16px;
+  display: flex;
+  width: 650px;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 30px;
+}
+
 html {
     overflow-x: hidden;
 }
