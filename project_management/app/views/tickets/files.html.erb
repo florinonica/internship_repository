@@ -23,7 +23,9 @@
           <%= link_to asset.file_file_name, asset.file.url, :target=> "_blank", :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-save"%>
         <% end %>
         <%= link_to "Download", asset.file.url(:original, false), :target=> "_blank", :style => 'color:#0079bf; font-size: 18px; font-weight: bold'%><br>
-        <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, attachment_path(asset), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold' %>
+        <% if current_user.can_delete_attachment?(asset) %>
+          <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, attachment_path(asset), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold' %>
+        <% end %>
     </div><br>
   <% end %>
 </div>

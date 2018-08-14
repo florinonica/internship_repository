@@ -1,13 +1,13 @@
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
 <br>
 <% if current_user.is_manager?(@project.id) %>
-<%= form_for @project, :url => {:controller => :projects, :action => :add_files} do |form| %>
-  <%= form.label "Add files", style: 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"' %>
-  <%= form.file_field :files, :multiple => true %>
-  <p>
-    <%= form.submit 'Submit', {class: "btn btn-info collapsed", :style => 'font-size: 14px; font-weight: bold; font-family: "Ubuntu"'} %>
-  </p>
-<% end %>
+  <%= form_for @project, :url => {:controller => :projects, :action => :add_files} do |form| %>
+    <%= form.label "Add files", style: 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"' %>
+    <%= form.file_field :files, :multiple => true %>
+    <p>
+      <%= form.submit 'Submit', {class: "btn btn-info collapsed", :style => 'font-size: 14px; font-weight: bold; font-family: "Ubuntu"'} %>
+    </p>
+  <% end %>
 <% end %>
 <br><br>
 <row id="attachments" style='display: flex; width: 1200px; flex-wrap: wrap;'>
@@ -24,8 +24,9 @@
         <% else %>
           <%= link_to asset.file_file_name, asset.file.url, :target=> "_blank", :style => 'color:#0079bf; font-size: 15px; font-weight: bold', class: "glyphicon glyphicon-save"%>
         <% end %>
-        
-        <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, attachment_path(asset), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold' %>
+        <% if current_user.can_delete_attachment?(asset) %>
+          <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete'.html_safe, attachment_path(asset), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold' %>
+        <% end %>
     </div>
   <% end %>
-</div>
+</row>

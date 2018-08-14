@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'tickets/:id/bugs' => 'tickets#bugs', :as => :bugs
   get 'tickets/:id/comments' => 'tickets#comments', :as => :comments
   get 'tickets/:id/files' => 'tickets#files', :as => :ticket_files
+  get 'users/:id/files' => 'users#files', :as => :user_files
   get 'users/type' => 'users#custom_index', :as => :type
   get 'users/:id/remove_role' => 'users#remove_role'
   resources :clients, param: :client_id

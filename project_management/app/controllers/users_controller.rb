@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :get_user, only: [:show, :edit, :update, :destroy, :remove_role]
+  before_action :get_user, only: [:show, :edit, :update, :destroy, :remove_role, :files]
 
   def index
     @users = User.paginate(:page => params[:page], per_page:5)
@@ -43,6 +43,9 @@ class UsersController < ApplicationController
     @role = Role.find(params[:role_id])
     @user.roles = @user.roles - [@role]
     redirect_to user_path(@user)
+  end
+
+  def files
   end
 
   private
