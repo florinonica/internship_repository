@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :users, except: :create
   resources :projects do
-  	resources :tickets do
-  	 resources :comments
-    end
+  	resources :tickets
+    resources :posts
   end
   post 'create_user' => 'users#create', as: :create_user   
   patch 'projects/:id/add_client' => 'projects#add_client'
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
   get 'projects/:id/files' => 'projects#files', :as => :files
   get 'projects/:id/team' => 'projects#team', :as => :team
+  get 'projects/:id/message_board' => 'projects#message_board', :as => :message_board
   get 'projects/:id/clients' => 'projects#clients', :as => :clients
   get 'tickets/:id/subtasks' => 'tickets#subtasks', :as => :subtasks
   get 'tickets/:id/bugs' => 'tickets#bugs', :as => :bugs

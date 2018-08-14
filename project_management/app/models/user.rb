@@ -150,6 +150,10 @@ class User < ApplicationRecord
     false
   end
 
+  def is_client?(project)
+    false
+  end
+
   private
 
     def set_type

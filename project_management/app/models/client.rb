@@ -5,4 +5,7 @@ class Client < User
     User.model_name
   end
   
+  def is_client?(project)
+    (projects.include?(project) ? true : false)
+  end
 end

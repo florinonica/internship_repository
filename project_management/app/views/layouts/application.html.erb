@@ -118,6 +118,11 @@
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-tasks"></i> Details'.html_safe, project_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
+                  <% if current_user.is_manager?(@project.id) || current_user.is_client?(@project) %>
+                    <li>
+                      <%= link_to '<i class="glyphicon glyphicon-comment"></i> Message Board'.html_safe, message_board_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                    </li>
+                  <% end %>
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-tower"></i> Clients'.html_safe, clients_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>

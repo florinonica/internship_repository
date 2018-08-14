@@ -20,7 +20,7 @@ class PostsController < ApplicationController
     save_attachments(@post, params[:post][:files])
     
     if @post.save
-      redirect_to posts_path(@project)
+      redirect_to message_board_path(@project)
     else
       @post.attachments.each do |file|
         file.destroy
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:files => [])
     save_attachments(@post, params[:post][:files])
     if @post.update(post_params)
-      redirect_to posts_path(@project)
+      redirect_to message_board_path(@project)
     else
       render 'edit'
     end
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path(@project)
+    redirect_to message_board_path(@project)
   end
 
   private
@@ -60,4 +60,4 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 end
-end
+

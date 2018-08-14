@@ -9,6 +9,7 @@ class Project < ApplicationRecord
   validates :description, :presence => true, length: { in: 10..200 }
   accepts_nested_attributes_for :attachments
   has_many :posts, dependent: :destroy
+  accepts_nested_attributes_for :posts
 
   def get_bugs
   	tickets.where(:type => "Bug")

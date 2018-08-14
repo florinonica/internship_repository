@@ -1,0 +1,12 @@
+
+
+<div id = "posts">
+  <% @project.posts.each do |post| %>
+     <%= post.body %>
+  <% end %>
+</div><br><br>
+
+
+<%= link_to '<i class="glyphicon glyphicon-comment"></i> Post message'.html_safe, new_project_post_path(@project), {class: "btn btn-info collapsed", :style => 'color:white; font-size: 18px; font-weight: bold, background-color: white'} %>
+
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
