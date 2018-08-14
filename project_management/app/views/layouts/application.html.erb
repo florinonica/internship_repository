@@ -112,7 +112,7 @@
           <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
             <%= link_to '<i class="glyphicon glyphicon-folder-open"></i> Projects'.html_safe, projects_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; '} %>
             <% if controller_name == "projects" %>
-              <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team" || action_name == "files" || action_name == "clients"%>
+              <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "team" || action_name == "files" || action_name == "clients" || action_name == "message_board"%>
                 <ul class="collapse-unstyled components" style= 'padding-top: 5px'>
                   <li style = 'color:#FFFFFF; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;' > <%= @project.title %></li>
                   <li>

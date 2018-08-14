@@ -4,56 +4,75 @@ body {
     font-size: 18px;
 }
 </style>
-<strong><h2><%= @project.title %></h2></strong>
-<br><br>
-<table cellpadding=30 cellspacing=15>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+
+<table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 20px; '>
   <tr>
-    <th >      </th>
-    <th class="col-xs-2">Name</th>
-    <th class="col-xs-2">Function</th>
-    <th class="col-xs-2">Email</th>
-    <th class="col-xs-2" colspan="2"></th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>      </th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Name</th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Function</th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Email</th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'></th>
   </tr>
 
-  <% @project.project_workers.each do |pw| %>
+  <% @project.project_workers.paginate(:page => params[:page], per_page:5).each do |pw| %>
     <tr>
-      <td ><%= image_tag(pw.user.avatar.url(:thumb), :class => "round-image-50") %></td>
-      <td class="col-xs-3"><%= pw.user.full_name %></td>
-      <td class="col-xs-3"><%= pw.role.role_type %>
-      <td class="col-xs-3"><%= pw.user.email %></td>
+      <td style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= image_tag(pw.user.avatar.url(:thumb), :class => "round-image-50") %></td>
+      <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= pw.user.full_name %></td>
+      <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= pw.role.role_type %>
+      <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= pw.user.email %></td>
       <% if current_user.can_assign_employees?(@project.id) %>
-        <td><%= link_to 'Remove', controller: "projects", action: "remove_employee", id: @project.id, employee_id: pw.user.id %></td>
+        <td style='font-size: 20px; font-weight: bold; font-family: "Ubuntu"; border-bottom: 2px solid; padding-bottom: 20px'><%= link_to '<i class="glyphicon glyphicon-remove"></i> Remove'.html_safe, controller: "projects", action: "remove_employee", id: @project.id, employee_id: pw.user.id%></td>
       <% end %>
     </tr>
   <% end %>
 </table>
+
+<div style = 'text-align: center'>
+  <%= will_paginate @project.project_workers.paginate(:page => params[:page], per_page:5), renderer: BootstrapPagination::Rails %> 
+</div>
+
 <br>
-<% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees).count > 0%>
-  <%= form_for @project, :url => {:action => :add_employees} do |form| %>
-    <%= form.hidden_field :role_id, :value => '2' %>
-    <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-      <br>
-      <%= b.check_box %>
-      <%= b.label %>
-    <%end %>
-    <p>
-      <%= form.submit 'Add developer' %>
-    </p>
-  <% end %>
-<% end %>
+<div style="display: flex">
+  <div style="margin-left: 100px">
+    <% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees).count > 0%>
+      <strong style='font-size: 20px; text-align: center'>Available Devs</strong>
+      <%= form_for @project, :url => {:action => :add_employees} do |form| %>
+        <%= form.hidden_field :role_id, :value => '2' %>
+        <div style='overflow-y: scroll; height: 200px; width: 300px; margin-top: 20px'>
+          <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+            <div style='margin-bottom: 10px; margin-top: 10px'>
+              <%= b.check_box %>
+              <%= b.label %>
+            </div>
+          <%end %>
+        </div><br>
+        <p>
+          <%= form.submit 'Add developers' %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
 
-<% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees).count > 0%>
-  <%= form_for @project, :url => {:action => :add_employees} do |form| %>
-    <%= form.hidden_field :role_id, :value => '3' %>
-    <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-      <br>
-      <%= b.check_box %>
-      <%= b.label %>
-    <%end %>
-    <p>
-      <%= form.submit 'Add tester' %>
-    </p>
-  <% end %>
-<% end %>
-
-<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+  <div style="margin-left:auto; margin-right: 100px;">
+    <% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees).count > 0%>
+    <strong style='font-size: 20px; text-align: center;'>Available Testers</strong><br>
+      <%= form_for @project, :url => {:action => :add_employees} do |form| %>
+        <%= form.hidden_field :role_id, :value => '3' %>
+        <div style='overflow-y: scroll; height: 200px; width: 300px; margin-top: 20px'>
+          <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+            <div style='margin-bottom: 10px; margin-top: 10px'>
+              <%= b.check_box %>
+              <%= b.label %>
+            </div>
+          <%end %>
+        </div><br>
+        <p>
+          <%= form.submit 'Add testers' %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<br>
+<br>
