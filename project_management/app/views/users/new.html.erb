@@ -97,7 +97,6 @@
     </div>
   </div>
 <br>
-
   <div class="row">
     <div class="col-xs-5">
       <%= f.collection_check_boxes :role_ids, Role.all, :id, :role_type, multiple: true, include_hidden: false, include_blank: false do |b|%>

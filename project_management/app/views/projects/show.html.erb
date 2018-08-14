@@ -4,7 +4,8 @@ body {
     font-size: 20px;
 }
 </style>
-
+<div style="margin-left: 100px">
+<br>
 <p>
   <strong style='color:#000000; font-size: 25px;'><%= @project.title %></strong>
 </p><br>
@@ -39,6 +40,12 @@ body {
   </p>
   <br>
 <% end %>
+
+<p>
+  <strong>Started at</strong><br>
+  <%= @project.created_at.strftime("%d-%m-%Y") %>
+</p>
+<br>
 <p>
   <strong>Description</strong><br>
   <%= @project.description %>
@@ -57,9 +64,10 @@ body {
 
 <br>
 <% if current_user.can_delete_project? %>
-  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_project_path(@project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> | 
-  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Remove'.html_safe, project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"' %>
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_project_path(@project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %> | 
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Remove'.html_safe, project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"' %>
 <% end %>
 <br>
 <br>
-<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, projects_path, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, projects_path, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>
+</div>
