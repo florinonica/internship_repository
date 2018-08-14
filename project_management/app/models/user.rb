@@ -11,9 +11,10 @@ class User < ApplicationRecord
   has_many :tickets, foreign_key: :owner_id
   has_many :tasks, foreign_key: :dev_id
   has_many :bugs, foreign_key: :bug_id
-  has_many :project_workers
+  has_many :project_workers, dependent: :destroy
   has_many :projects, through: :project_workers
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
+  has_many :posts, dependent: :destroy
   
 
   before_create :set_type

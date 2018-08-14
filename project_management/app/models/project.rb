@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
   has_many :tickets, foreign_key: :project_id, dependent: :destroy
-  has_many :project_workers
+  has_many :project_workers, dependent: :destroy
   has_many :employees, through: :project_workers, source: :user
   has_many :roles, through: :project_workers
   has_and_belongs_to_many :clients, join_table: :clients_projects
@@ -8,6 +8,7 @@ class Project < ApplicationRecord
   validates :title, :presence => true, length: { in: 5..50 }
   validates :description, :presence => true, length: { in: 10..200 }
   accepts_nested_attributes_for :attachments
+  has_many :posts, dependent: :destroy
 
   def get_bugs
   	tickets.where(:type => "Bug")
