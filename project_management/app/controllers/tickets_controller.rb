@@ -34,7 +34,12 @@ class TicketsController < ApplicationController
       @ticket.attachments.each do |file|
         file.destroy
       end
-      render 'new'
+      if @ticket.task_id.nil?
+        render 'new'
+      else
+        flash[:error] = @ticket.errors.full_messages.join("<br>").html_safe
+        redirect_to ticket_path(@ticket.task_id)
+      end
     end
   end
 

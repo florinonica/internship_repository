@@ -59,22 +59,24 @@
                   }
               }
           }); 
-      $(".fancybox2").fancybox({
-          helpers : { 
-           overlay: {
-            css: {'background-color': '#03C3DC'} // or your preferred hex color value
-           } // overlay 
-          },
-          beforeLoad: function() {
-              $(this.href).height('auto');
-          },
-          onUpdate: function() {
-              $(this.previous.href).height('170');
-          },
-          closeClick: false,
-          openEffect: 'none',
-          closeEffect: 'none'
-      });    
+      $(".fancybox2").attr('rel', 'gallery')
+        .fancybox({
+            helpers : { 
+             overlay: {
+              css: {'background-color': '#03C3DC'} // or your preferred hex color value
+             } // overlay 
+            },
+            beforeLoad: function() {
+                $(this.href).height('auto');
+            },
+            arrows: false,
+            border: 0,
+            margin: [0,0,0,0],
+            padding: [0,0,0,0],
+            closeClick: false,
+            openEffect: 'none',
+            closeEffect: 'none'
+        });    
     </script>
   </head>
 
