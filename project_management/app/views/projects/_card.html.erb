@@ -30,7 +30,7 @@
                 <% if current_user.can_comment? %>
                   <%= link_to '  <i class="glyphicon glyphicon-comment"></i> '.html_safe, comments_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> | 
                 <% end %>
-                <a href="#<%=ticket.id%>" class="fancybox2" style = ' color: white; font-size: 18px; font-weight: bold'><span class="glyphicon glyphicon-zoom-in"></span></a>
+                <a href="#<%=ticket.id%>" rel="group" class="fancybox2" style = ' color: white; font-size: 18px; font-weight: bold'><span class="glyphicon glyphicon-zoom-in"></span></a>
               </div>
             </div>
             <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
@@ -83,7 +83,7 @@
                 <% if current_user.can_comment? %>
                   <%= link_to '  <i class="glyphicon glyphicon-comment"></i> '.html_safe, comments_path(ticket), {:style => 'color:white; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> | 
                 <% end %>
-                <a href="#<%=ticket.id%>" class="fancybox2" style = ' color: white; font-size: 18px; font-weight: bold'><span class="glyphicon glyphicon-zoom-in"></span></a>
+                <a href="#<%=ticket.id%>" rel="group" class="fancybox2" style = ' color: white; font-size: 18px; font-weight: bold'><span class="glyphicon glyphicon-zoom-in"></span></a>
               </div> 
             </div>
             <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
@@ -156,7 +156,7 @@
         }
       }
       });
-  } );  
+  });  
 </script>
 
 <!--p>

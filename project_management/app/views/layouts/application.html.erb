@@ -60,24 +60,21 @@
               }
           }); 
       $(".fancybox2").fancybox({
+          helpers : { 
+           overlay: {
+            css: {'background-color': '#03C3DC'} // or your preferred hex color value
+           } // overlay 
+          },
           beforeLoad: function() {
-              inlineTarget = this.href;
-              parentNodename = $(inlineTarget).parent().get(0).tagName.toLowerCase();
-              $(inlineTarget).parent(parentNodename).addClass("returnTo");
+              $(this.href).height('auto');
           },
-          afterClose: function() {
-              $(inlineTarget).appendTo(".returnTo");
-              $(".returnTo").removeClass("returnTo");
-              $(inlineTarget).show();
+          onUpdate: function() {
+              $(this.previous.href).height('170');
           },
-          fitToView: false,
-          width : 1000,
-          autoResize: true,
-          autoHeight: true,
           closeClick: false,
           openEffect: 'none',
           closeEffect: 'none'
-      });      
+      });    
     </script>
   </head>
 
