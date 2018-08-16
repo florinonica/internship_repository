@@ -154,6 +154,10 @@ class User < ApplicationRecord
     false
   end
 
+  def can_undo?
+    true
+  end
+
   private
 
     def set_type

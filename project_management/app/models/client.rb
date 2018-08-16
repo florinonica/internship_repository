@@ -8,4 +8,8 @@ class Client < User
   def is_client?(project)
     (projects.include?(project) ? true : false)
   end
+
+  def can_undo?
+    false
+  end
 end

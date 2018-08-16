@@ -24,8 +24,10 @@
       <%= form_tag dashboard_path, :method => 'get', :id => "tickets_search" do%>
         <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
       <% end %>
-      <%= form_tag undo_path , method: :patch, :id=> "undo" ,:url => {:controller => :tickets, :action => :undo} do %>
-        <%= submit_tag 'Undo', style: 'color:black; font-size: 15.5px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center'%>
+      <% if current_user.can_undo?%>
+        <%= form_tag undo_path , method: :patch, :id=> "undo" ,:url => {:controller => :tickets, :action => :undo} do %>
+          <%= submit_tag 'Undo', style: 'color:black; font-size: 15.5px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center'%>
+        <% end %>
       <% end %>
     </div>
     <div class="cards-container-head">
