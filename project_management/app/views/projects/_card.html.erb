@@ -1,4 +1,4 @@
-
+<body>
 <div class="cards-container">
   <div class="cards-container-head">
     <div class="cards-container-title"><%=id%> </div>
@@ -52,7 +52,7 @@
             <div style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>Description</div>
             <%= ticket.description %>
 
-            <div class="row" style="text-align: center">
+            <div class="row" style="text-align: center; width:350px">
               <% if ticket.subtasks.any? %>
                 <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
                   Subtasks<br>
@@ -129,7 +129,7 @@
     <% end %>
   </div>
 </div>
-
+</body>
 <script>
  $(document).on('mouseover', function() {
     $( '.card-header' ).draggable({
