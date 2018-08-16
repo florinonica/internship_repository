@@ -8,7 +8,7 @@ class Ticket < ApplicationRecord
   has_many :bugs, class_name: "Bug", foreign_key: :task_id, dependent: :destroy
   has_many :attachments, :as => :container, dependent: :destroy
   validates :title, :presence => true, length: { in: 3..50 }
-  validates :description, :presence => true, length: { in: 10..200 }
+  validates :description, :presence => true, length: { in: 10..1000 }
   has_paper_trail
   accepts_nested_attributes_for :attachments
   accepts_nested_attributes_for :comments
@@ -18,6 +18,16 @@ class Ticket < ApplicationRecord
   enum type: {'Task' => 0, 'Bug' => 1}
 
   def self.search(search)
+
+    #if search == "All" && searchp == "All"
+     # return all
+    #elsif search == "All" && searchp != "All"
+     # return where('priority LIKE ?', "%#{searchp}%").where('type LIKE ?', "%#{search}%")
+    #elsif search != "All" && searchp == "All"
+     # return where('type LIKE ?', "%#{search}%")
+    #else
+     # return where('priority LIKE ?', "%#{searchp}%").where('type LIKE ?', "%#{search}%")
+    #end
     (search=="All" ? all : where('type LIKE ?', "%#{search}%"))
   end
 
@@ -36,7 +46,7 @@ class Ticket < ApplicationRecord
   	when "Medium"
   		return "#D8D51E"
   	when "Low"
-  		return "#28ED42"
+  		return "#0BB308"
   	else
   		return "#fff"
   	end

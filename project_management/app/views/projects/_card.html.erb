@@ -34,7 +34,7 @@
               </div>
             </div>
             <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
-              <strong>Created at: </strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> 
+              Created at: <strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> </strong>
             </div>
             <% if ticket.task.presence %>
               <div>
@@ -42,10 +42,10 @@
               </div>
             <% end %>
             <% if current_user.can_see_project_details?%>
-              <div style='font-weight: bold'>
+              <div>
                 Creator: <%= link_to ticket.get_owner.full_name, user_path(ticket.get_owner), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
               </div>
-              <div style='font-weight: bold'>
+              <div>
                 Assigned Dev: <%= link_to ticket.get_dev.full_name, user_path(ticket.get_dev), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
               </div>
             <% end %>
@@ -87,7 +87,7 @@
               </div> 
             </div>
             <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
-              <strong>Created at: </strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> 
+              Created at: <strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> </strong>
             </div>
             <% if ticket.task.presence %>
               <div>
@@ -95,10 +95,10 @@
               </div>
             <% end %>
             <% if current_user.can_see_project_details?%>
-              <div style='font-weight: bold'>
+              <div>
                 Creator: <%= link_to ticket.get_owner.full_name, user_path(ticket.get_owner), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
               </div>
-              <div style='font-weight: bold'>
+              <div>
                 Assigned Dev: <%= link_to ticket.get_dev.full_name, user_path(ticket.get_dev), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
               </div>
             <% end %>
