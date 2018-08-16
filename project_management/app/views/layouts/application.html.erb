@@ -62,13 +62,16 @@
       $(".fancybox2").fancybox({
             helpers : { 
              overlay: {
-              css: {'background-color': '#03C3DC'} // or your preferred hex color value
-             } // overlay 
+              css: {'background-color': '#03C3DC'} 
+             } 
             },
             beforeLoad: function() {
                 $(this.href).height('auto');
             },
             beforeChange: function() {
+                $(this.href).height('170');
+            },
+            beforeClose: function() {
                 $(this.href).height('170');
             },
             parent: "body",

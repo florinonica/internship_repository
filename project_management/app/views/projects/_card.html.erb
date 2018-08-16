@@ -33,12 +33,12 @@
                 <a href="#<%=ticket.id%>" rel="group" class="fancybox2" style = ' color: white; font-size: 18px; font-weight: bold'><span class="glyphicon glyphicon-zoom-in"></span></a>
               </div>
             </div>
-            <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+            <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif; border-bottom: 2px solid white'>
               Created at: <strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> </strong>
             </div>
             <% if ticket.task.presence %>
               <div>
-                Parent task: <%= link_to ticket.task.title, ticket_path(ticket.task), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> 
+                Parent task: <strong> <%= link_to ticket.task.title, ticket_path(ticket.task), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> </strong>
               </div>
             <% end %>
             <% if current_user.can_see_project_details?%>
@@ -49,9 +49,10 @@
                 Assigned Dev: <%= link_to ticket.get_dev.full_name, user_path(ticket.get_dev), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
               </div>
             <% end %>
-            <div style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>Description</div>
-            <%= ticket.description %>
-
+            <div style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif; border-bottom: 2px solid white'>Description</div>
+            <div style='border-bottom: 2px solid white'>
+              <%= ticket.description %>
+            </div>
             <div class="row" style="text-align: center; width:350px">
               <% if ticket.subtasks.any? %>
                 <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
@@ -63,7 +64,7 @@
               <% end %>
 
               <% if ticket.bugs.any? %>
-                <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+                <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif; '>
                   Bugs<br>
                   <% ticket.bugs.each do |bug| %>
                     <%= link_to bug.title, ticket_path(bug), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> <br>
@@ -86,12 +87,12 @@
                 <a href="#<%=ticket.id%>" rel="group" class="fancybox2" style = ' color: white; font-size: 18px; font-weight: bold'><span class="glyphicon glyphicon-zoom-in"></span></a>
               </div> 
             </div>
-            <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+            <div style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif; border-bottom: 2px solid white'>
               Created at: <strong> <%= ticket.created_at.strftime("%d-%m-%Y")%> </strong>
             </div>
             <% if ticket.task.presence %>
               <div>
-                Parent task: <%= link_to ticket.task.title, ticket_path(ticket.task), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
+                Parent task: <strong> <%= link_to ticket.task.title, ticket_path(ticket.task), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> </strong>
               </div>
             <% end %>
             <% if current_user.can_see_project_details?%>
@@ -102,8 +103,10 @@
                 Assigned Dev: <%= link_to ticket.get_dev.full_name, user_path(ticket.get_dev), {:style => 'color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
               </div>
             <% end %>
-            <div style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>Description</div>
-            <%= ticket.description %>
+            <div style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif; border-bottom: 2px solid white'>Description</div>
+            <div style='border-bottom: 2px solid white'>
+              <%= ticket.description %>
+            </div>
             <div class="row" style="text-align: center">
               <% if ticket.subtasks.any? %>
                 <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
