@@ -17,7 +17,7 @@ class Ticket < ApplicationRecord
 
   enum type: {'Task' => 0, 'Bug' => 1}
 
-  def self.search(search)
+  def self.search(search,user)
 
     #if search == "All" && searchp == "All"
      # return all
@@ -28,7 +28,16 @@ class Ticket < ApplicationRecord
     #else
      # return where('priority LIKE ?', "%#{searchp}%").where('type LIKE ?', "%#{search}%")
     #end
-    (search=="All" ? all : where('type LIKE ?', "%#{search}%"))
+    #(search=="All" ? all : where('type LIKE ?', "%#{search}%"))
+    if search == "All"
+      return all
+    elsif search == "Only mine - Dev"
+      return where('dev_id LIKE ?', "%#{user.id}%")
+    elsif search == "Only mine - Owner"
+      return where('owner_id LIKE ?', "%#{user.id}%")
+    else
+      return where('type LIKE ?', "%#{search}%")
+    end
   end
 
   def get_owner
