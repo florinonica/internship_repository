@@ -55,7 +55,7 @@ class Ticket < ApplicationRecord
   	when "Medium"
   		return "#F9EC02"
   	when "Low"
-  		return "#0FD4EF"
+  		return "#0BA6BB"
   	else
   		return "#fff"
   	end

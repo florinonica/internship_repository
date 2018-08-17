@@ -12,6 +12,11 @@ body {
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
 <br>
 <h3><strong><%= @ticket.title %></strong></h3><br>
+<% if @ticket.task.presence %>
+  <div>
+    <strong>Parent task:  <%= link_to @ticket.task.title, ticket_path(@ticket.task), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> </strong>
+  </div>
+<% end %>
 <% if current_user.can_see_project_details? %>
   <div style='font-weight: bold; padding-bottom: 5px'>
     Creator: <%= link_to @ticket.get_owner.full_name, user_path(@ticket.get_owner), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
@@ -22,14 +27,14 @@ body {
 <% end %>
 
 <div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; padding-bottom: 5px'>
-  <strong>Created at: </strong> <%= @ticket.created_at.strftime("%d-%m-%Y %H:%M")%> 
+  <strong>Created at: </strong> <%= @ticket.created_at.strftime("%d-%B-%Y %H:%M")%> 
 </div>
 
 <div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; padding-bottom: 5px'>
   <% if @ticket.start_at.nil?%>
     TBA
   <% else %>
-    <strong>Started at: </strong> <%= @ticket.start_at.strftime("%d-%m-%Y %H:%M")%> 
+    <strong>Started at: </strong> <%= @ticket.start_at.strftime("%d-%B-%Y %H:%M")%> 
   <% end %>
 </div>
 
@@ -37,7 +42,7 @@ body {
   <% if @ticket.completed_at.nil?%>
     <strong>Development complete at: </strong>TBA 
   <% else %>
-    <strong>Development complete at: </strong> <%= @ticket.completed_at.strftime("%d-%m-%Y %H:%M")%>
+    <strong>Development complete at: </strong> <%= @ticket.completed_at.strftime("%d-%B-%Y %H:%M")%>
   <% end %>
 </div>
 
@@ -45,7 +50,7 @@ body {
   <% if @ticket.end_at.nil?%>
     <strong>Done at: </strong>TBA
   <% else %>
-    <strong>Done at: </strong> <%= @ticket.end_at.strftime("%d-%m-%Y %H:%M")%>
+    <strong>Done at: </strong> <%= @ticket.end_at.strftime("%d-%B-%Y %H:%M")%>
   <% end %> 
 </div>
 

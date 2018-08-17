@@ -68,11 +68,7 @@ class ProjectsController < ApplicationController
   def add_employees
     if params[:project][:role_id] == '1'
       if @project.project_workers.count == 0
-        @projectWorker = ProjectWorker.new
-        @projectWorker.project_id = params[:id]
-        @projectWorker.user_id = params[:project][:employee_ids]
-        @projectWorker.role_id = params[:project][:role_id]
-        @project.project_workers << @projectWorker
+        save_pw(params[:id], params[:project][:employee_ids], params[:project][:role_id])
       else
         @projectWorker = @project.project_workers.find_by(role_id: '1')
         @projectWorker.update(:user_id => params[:project][:employee_ids])
@@ -80,11 +76,7 @@ class ProjectsController < ApplicationController
       end
     else
       params[:project][:employee_ids].each do |e|
-        @projectWorker = ProjectWorker.new
-        @projectWorker.project_id = params[:id]
-        @projectWorker.user_id = e
-        @projectWorker.role_id = params[:project][:role_id]
-        @projectWorker.save
+        save_pw(params[:id], e, params[:project][:role_id])
       end
     end
     redirect_to team_path(@project)
@@ -117,6 +109,9 @@ class ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
-    
+    def save_pw(id, eid, rid)
+      @projectWorker = ProjectWorker.new(project_id: id, user_id: eid, role_id: rid)
+      @project.project_workers << @projectWorker
+    end
 
 end
