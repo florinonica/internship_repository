@@ -15,8 +15,7 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = @project.tickets.new ticket_params
-    @ticket.owner_id = current_user.id
+    @ticket = @project.tickets.new(ticket_params.merge(owner_id: current_user.id))
 
     if params[:ticket][:dev_id].nil? || params[:ticket][:dev_id].empty?
       @ticket.dev_id = current_user.id

@@ -14,8 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @project.posts.new post_params
-    @post.user_id = current_user.id
+    @post = @project.posts.new(post_params.merge(user_id: current_user.id))
     params.require(:post).permit(:files => [])
     save_attachments(@post, params[:post][:files])
     
