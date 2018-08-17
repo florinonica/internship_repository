@@ -53,10 +53,10 @@
             <div style='border-bottom: 2px solid white'>
               <%= ticket.description %>
             </div>
-            <div class="row" style="text-align: center; width:350px">
+            <div class="row" style="text-align: center">
               <% if ticket.subtasks.any? %>
-                <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-                  Subtasks<br>
+                <div class = "col-xs-5" style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+                  <strong>Subtasks</strong><br>
                   <% ticket.subtasks.each do |subtask| %>
                     <%= link_to subtask.title, ticket_path(subtask), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> <br>
                   <% end %>
@@ -64,8 +64,8 @@
               <% end %>
 
               <% if ticket.bugs.any? %>
-                <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif; '>
-                  Bugs<br>
+                <div class = "col-xs-5" style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif; '>
+                  <strong>Bugs</strong><br>
                   <% ticket.bugs.each do |bug| %>
                     <%= link_to bug.title, ticket_path(bug), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> <br>
                   <% end %>
@@ -109,8 +109,8 @@
             </div>
             <div class="row" style="text-align: center">
               <% if ticket.subtasks.any? %>
-                <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-                  Subtasks<br>
+                <div class = "col-xs-5" style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+                  <strong>Subtasks</strong><br>
                   <% ticket.subtasks.each do |subtask| %>
                     <%= link_to subtask.title, ticket_path(subtask), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> <br>
                   <% end %>
@@ -118,8 +118,8 @@
               <% end %>
 
               <% if ticket.bugs.any? %>
-                <div class = "col-xs-5" style='color: white; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-                  Bugs<br>
+                <div class = "col-xs-5" style='color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+                  <strong>Bugs</strong><br>
                   <% ticket.bugs.each do |bug| %>
                     <%= link_to bug.title, ticket_path(bug), {:style => 'color: white; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> <br>
                   <% end %>

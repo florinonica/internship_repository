@@ -46,6 +46,12 @@ body {
   <%= @project.created_at.strftime("%d-%m-%Y") %>
 </p>
 <br>
+
+<p>
+  <strong>Number of active tickets: </strong><%= @project.tickets.count %>
+</p>
+<br>
+
 <p>
   <strong>Description</strong><br>
   <%= @project.description %>
