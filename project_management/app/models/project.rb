@@ -8,6 +8,7 @@ class Project < ApplicationRecord
   validates :title, :presence => true, length: { in: 5..50 }
   validates :description, :presence => true, length: { in: 10..200 }
   accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :project_workers
   has_many :posts, dependent: :destroy
   accepts_nested_attributes_for :posts
 

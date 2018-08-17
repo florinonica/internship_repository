@@ -66,9 +66,18 @@ class ProjectsController < ApplicationController
   end
 
   def add_employees
-    if params[:project][:role_id] == '1' && !ProjectWorker.find_by(role_id: params[:project][:role_id]).nil?
-      @projectWorker = ProjectWorker.find_by(role_id: params[:project][:role_id])
-      @projectWorker.update(:user_id => params[:project][:employee_ids])
+    if params[:project][:role_id] == '1'
+      if @project.project_workers.count == 0
+        @projectWorker = ProjectWorker.new
+        @projectWorker.project_id = params[:id]
+        @projectWorker.user_id = params[:project][:employee_ids]
+        @projectWorker.role_id = params[:project][:role_id]
+        @project.project_workers << @projectWorker
+      else
+        @projectWorker = @project.project_workers.find_by(role_id: '1')
+        @projectWorker.update(:user_id => params[:project][:employee_ids])
+        @project.project_workers << @projectWorker
+      end
     else
       params[:project][:employee_ids].each do |e|
         @projectWorker = ProjectWorker.new
