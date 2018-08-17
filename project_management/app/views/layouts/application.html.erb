@@ -85,6 +85,26 @@
             closeEffect: 'none'
         });    
     </script>
+    <script>
+      function startTime() {
+          var today = new Date();
+          var d = today.getDate();
+          var mo = today.getMonth() + 1;
+          var y = today.getFullYear();
+          var h = today.getHours();
+          var m = today.getMinutes();
+          var s = today.getSeconds();
+          m = checkTime(m);
+          s = checkTime(s);
+          document.getElementById('txt').innerHTML =
+          d + "-" + mo + "-" + y + " " + h + ":" + m + ":" + s;
+          var t = setTimeout(startTime, 500);
+      }
+      function checkTime(i) {
+          if (i < 10) {i = "0" + i};
+          return i;
+      }
+    </script>
   </head>
 
 <% if user_signed_in? %>
@@ -180,14 +200,14 @@
   </div>
 <% end %>
 
-  <body>
+  <body onload="startTime()">
     <% if alert %>
       <p class = "alert alert-danger"><%= alert %></p>
     <% end %>
     <div class="container">
       <%= yield %>
     </div>
-  </body>
+  
   
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style = 'height: 80px; background-color: #04B1C8; border-color:#04B1C8; '>
   <div class="container">
@@ -204,9 +224,10 @@
           <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
         <% end %>
       </p>
-      <div class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-        <%= Time.now.strftime("%d-%m-%Y %H:%M") %> <br>
+      <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+        <%#= Time.now.strftime("%d-%m-%Y %H:%M") %> <br>
       </div>
   </div>
 </nav>
 </html>
+</body>
