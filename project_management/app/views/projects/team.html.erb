@@ -18,9 +18,14 @@ body {
   <br>
 
  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Team</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Add Devs</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Add Testers</a></li>
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Team</a>
+    </li>
+    <% if current_user.is_manager?(@project.id) %>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Add Devs</a>
+      </li>
+      <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Add Testers</a>
+      </li>
+    <% end %>
   </ul>
 
 
@@ -30,9 +35,11 @@ body {
   <tr>
     <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>      </th>
     <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Name</th>
-    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Function</th>
+    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Role</th>
     <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Email</th>
-    <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'></th>
+    <% if current_user.is_manager?(@project.id) %>
+      <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'></th>
+    <% end %>
   </tr>
 
   <% @project.project_workers.paginate(:page => params[:page], per_page:5).each do |pw| %>

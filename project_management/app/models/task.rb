@@ -5,7 +5,7 @@ class Task < Ticket
   end
 
   def get_class_colour
-  	(task_id.presence ? "#C0BA10" : "#198DE8")
+  	(task_id.presence ? "#F6E020" : "#28A7F0")
   end
 
   def get_glyph

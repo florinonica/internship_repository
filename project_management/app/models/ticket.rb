@@ -53,9 +53,9 @@ class Ticket < ApplicationRecord
   	when "High"
   		return "#F81115"
   	when "Medium"
-  		return "#D8D51E"
+  		return "#F9EC02"
   	when "Low"
-  		return "#0BB308"
+  		return "#0FD4EF"
   	else
   		return "#fff"
   	end
