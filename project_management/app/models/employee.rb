@@ -23,7 +23,7 @@ class Employee < User
   end
 
   def can_assign_employees?(id)
-    (is_manager(id) ? true : false)
+    (is_manager?(id) ? true : false)
   end
 
   def can_see_project_details?
@@ -32,7 +32,7 @@ class Employee < User
 
   def can_alter_ticket?(ticket)
     if (id == ticket.owner_id) || (tasks.include?(ticket) && (ticket.status =="To do" || ticket.status =="In progress")) || 
-      (is_tester?(ticket.project_id) && ticket.status =="Dev complete") || is_manager?(ticket.project_id)
+      (is_tester?(ticket.project_id) && (ticket.status =="Dev complete" || ticket.status =="Done" || ticket.status == "To do")) || is_manager?(ticket.project_id)
       return true
     end
 

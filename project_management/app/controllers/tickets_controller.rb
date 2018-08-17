@@ -61,7 +61,7 @@ class TicketsController < ApplicationController
       when "To do"
         @ticket.update(:status => params[:status])
       when "In progress"
-        if @ticket.status == "To do"
+        if @ticket.start_at.nil?
           @ticket.update(:status => params[:status], :start_at => Time.now)
         else
           @ticket.update(:status => params[:status])

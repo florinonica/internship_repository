@@ -142,15 +142,15 @@
     $( '.card-container' ).droppable({
       drop: function( event, ui ) {
         var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
+        var id = ui.draggable.attr('id');
         if((this.id == "In progress" && roomid == "To do") ||
           (this.id == "Dev complete" && roomid == "In progress") ||
           (this.id == "Done" && roomid == "Dev complete") ||
-          (this.id == "To do" && roomid == "Done") ||
-          (this.id == "To do" && roomid == "Dev complete") || (<%= current_user.is_manager?(@project.id)%>))
+          (this.id == "To do" && roomid == "Done" && <%= current_user.is_tester?(@project.id)%>) ||
+          (this.id == "To do" && roomid == "Dev complete" && <%= current_user.is_tester?(@project.id)%>) || (<%= current_user.is_manager?(@project.id)%>))
         {
           $( this ).find( ".placeholder" ).hide();
           $(ui.draggable).appendTo(this);
-          var id = ui.draggable.attr('id');
           $.ajax({
             url: '/tickets/'+ id + '/change_status',
             type: 'PATCH',
