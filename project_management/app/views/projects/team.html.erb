@@ -6,7 +6,27 @@ body {
 </style>
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
 
-<table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 20px; '>
+<script type="text/javascript">
+  $('#tabs').click(function (e) {
+    e.preventDefault()
+    $("#tabs li").removeClass('active')
+    $(this).parent().addClass('active')
+    $(this).tab('show')
+  })
+</script>
+  <br>
+  <br>
+
+ <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px'>Team</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px'>Add Devs</a></li>
+    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px'>Add Testers</a></li>
+  </ul>
+
+
+  <div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active" id="home">
+<table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 10px; '>
   <tr>
     <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>      </th>
     <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Name</th>
@@ -31,15 +51,13 @@ body {
 <div style = 'text-align: center'>
   <%= will_paginate @project.project_workers.paginate(:page => params[:page], per_page:5), renderer: BootstrapPagination::Rails %> 
 </div>
-
-<br>
-<div style="display: flex">
-  <div style="margin-left: 100px">
+  </div>
+  <div role="tabpanel" class="tab-pane fade" id="profile" style="margin-left: 100px"><br>
     <% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees).count > 0%>
-      <strong style='font-size: 20px; text-align: center'>Available Devs</strong>
+      <strong style='font-size: 20px; text-align: center'>Available Devs</strong><br>
       <%= form_for @project, :url => {:action => :add_employees} do |form| %>
         <%= form.hidden_field :role_id, :value => '2' %>
-        <div style='overflow-y: scroll; height: 200px; width: 300px; margin-top: 20px'>
+        <div style='overflow-y: scroll; height: auto; max-height:400px; width: 600px; margin-top: 20px'>
           <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(2)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
             <div style='margin-bottom: 10px; margin-top: 10px'>
               <%= b.check_box %>
@@ -53,13 +71,12 @@ body {
       <% end %>
     <% end %>
   </div>
-
-  <div style="margin-left:auto; margin-right: 100px;">
+  <div role="tabpanel" class="tab-pane fade" id="messages" style="margin-left: 100px"><br>
     <% if current_user.can_assign_employees?(@project.id) && (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees).count > 0%>
     <strong style='font-size: 20px; text-align: center;'>Available Testers</strong><br>
       <%= form_for @project, :url => {:action => :add_employees} do |form| %>
         <%= form.hidden_field :role_id, :value => '3' %>
-        <div style='overflow-y: scroll; height: 200px; width: 300px; margin-top: 20px'>
+        <div style='overflow-y: scroll; height: auto; max-height:400px; width: 600px; margin-top: 20px'>
           <%= form.collection_check_boxes :employee_ids, (Employee.select{ |e| e.roles.include?(Role.find(3)) } - @project.employees), :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
             <div style='margin-bottom: 10px; margin-top: 10px'>
               <%= b.check_box %>
@@ -74,5 +91,3 @@ body {
     <% end %>
   </div>
 </div>
-<br>
-<br>

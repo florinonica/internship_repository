@@ -65,8 +65,8 @@ text-shadow:none;
 }
 
 .nav-tabs{
- 
-background-color:#C8D3DB;
+
+background-color: #0A9AAD;
  
 }
  
@@ -79,10 +79,10 @@ background-color:#C8D3DB;
  
 .nav-tabs > li > a:hover{
  
-background-color: #16A7A7 !important;
+background-color: #04B1C8 !important;
  
  
-color:#fff;
+
  
 }
  
@@ -92,9 +92,9 @@ color:#fff;
  
 .nav-tabs > li.active > a:hover{
  
-background-color: #1CC8C8 !important;
+background-color: #04B1C8 !important;
  
-color:#fff;
+
  
 }
 
