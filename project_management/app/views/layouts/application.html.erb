@@ -24,87 +24,8 @@
     <script type="text/javascript" src="/assets/jquery.fancybox-media.js"></script>
     <link rel="stylesheet" href="/assets/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/assets/jquery.fancybox-thumbs.js"></script>
-    <script type="text/javascript">
-      (function ($, F) {
-        F.transitions.resizeIn = function() {
-            var previous = F.previous,
-                current  = F.current,
-                startPos = previous.wrap.stop(true).position(),
-                endPos   = $.extend({opacity : 1}, current.pos);
-            startPos.width  = previous.wrap.width();
-            startPos.height = previous.wrap.height();
-            previous.wrap.stop(true).trigger('onReset').remove();
-            delete endPos.position;
-            current.inner.hide();
-            current.wrap.css(startPos).animate(endPos, {
-                duration : current.nextSpeed,
-                easing   : current.nextEasing,
-                step     : F.transitions.step,
-                complete : function() {
-                    F._afterZoomIn();
-                    current.inner.fadeIn("fast");
-                }
-            });
-        };
-      }(jQuery, jQuery.fancybox));
-      $(".fancybox")
-          .attr('rel', 'gallery')
-          .fancybox({parent: "body",
-              nextMethod : 'resizeIn',
-              nextSpeed  : 250,
-              prevMethod : false,
-              helpers : {
-                  title : {
-                      type : 'inside'
-                  }
-              }
-          }); 
-      $(".fancybox2").fancybox({
-            helpers : { 
-             overlay: {
-              css: {'background-color': '#03C3DC'} 
-             } 
-            },
-            beforeLoad: function() {
-                $(this.href).height('auto');
-            },
-            beforeChange: function() {
-                $(this.href).height('170');
-            },
-            beforeClose: function() {
-                $(this.href).height('170');
-            },
-            parent: "body",
-            width: 1000,
-            arrows: false,
-            border: 0,
-            margin: [0,0,0,0],
-            padding: [0,0,0,0],
-            closeClick: false,
-            openEffect: 'none',
-            closeEffect: 'none'
-        });    
-    </script>
-    <script>
-      function startTime() {
-          var today = new Date();
-          var d = today.getDate();
-          var mo = today.getMonth() + 1;
-          var y = today.getFullYear();
-          var h = today.getHours();
-          var m = today.getMinutes();
-          var s = today.getSeconds();
-          m = checkTime(m);
-          s = checkTime(s);
-          document.getElementById('txt').innerHTML =
-          d + "-" + mo + "-" + y + " " + h + ":" + m + ":" + s;
-          var t = setTimeout(startTime, 500);
-      }
-      function checkTime(i) {
-          if (i < 10) {i = "0" + i};
-          return i;
-      }
-    </script>
+    
+    
   </head>
 
 <% if user_signed_in? %>
@@ -210,34 +131,32 @@
   </div>
 <% end %>
 
-  <body onload="startTime()">
-    <% if alert %>
-      <p class = "alert alert-danger"><%= alert %></p>
-    <% end %>
-    <div class="container">
-      <%= yield %>
-    </div>
-  
-  
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style = 'height: 80px; background-color: #04B1C8; border-color:#04B1C8; '>
+<body onload="startTime()">
+  <% if alert %>
+    <p class = "alert alert-danger"><%= alert %></p>
+  <% end %>
   <div class="container">
-    <div class="navbar-header">
-      <nav class="navbar-before navbar-expand-lg navbar-light bg-light">
-      </nav>
-
-    </div>
-      <p class="navbar-text pull-right" style= 'margin-top: 5px; margin-right: -200px; '>
-        <% if user_signed_in? %>
-          <strong style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'> Logged in as <%= current_user.email %>.</strong>
-          <%= image_tag(current_user.avatar.url(:thumb), :class => "round-image-50") %>
-          <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'%> 
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
-        <% end %>
-      </p>
-      <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-        <%#= Time.now.strftime("%d-%m-%Y %H:%M") %> <br>
-      </div>
+    <%= yield %>
   </div>
-</nav>
-</html>
+
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style = 'height: 80px; background-color: #04B1C8; border-color:#04B1C8; '>
+    <div class="container">
+      <div class="navbar-header">
+        <nav class="navbar-before navbar-expand-lg navbar-light bg-light">
+        </nav>
+
+      </div>
+        <p class="navbar-text pull-right" style= 'margin-top: 5px; margin-right: -200px; '>
+          <% if user_signed_in? %>
+            <strong style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'> Logged in as <%= current_user.email %>.</strong>
+            <%= image_tag(current_user.avatar.url(:thumb), :class => "round-image-50") %>
+            <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'%> 
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
+          <% end %>
+        </p>
+        <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+        </div>
+    </div>
+  </nav>
 </body>
+</html>

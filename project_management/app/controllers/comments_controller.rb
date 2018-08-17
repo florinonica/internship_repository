@@ -15,7 +15,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @ticket.comments.new(comment_params.merge(user_id: current_user.id))
-
     params.require(:comment).permit(:files => [])
     save_attachments(@comment, params[:comment][:files])
     

@@ -101,12 +101,16 @@ class TicketsController < ApplicationController
 
   def undo
     @ticket = Ticket.order("updated_at").last
-    if current_user.can_alter_ticket?(@ticket) 
-      @ticket.versions.last.destroy
-      @ticket = @ticket.paper_trail.previous_version
-      @ticket.save   
-    end
-    redirect_to dashboard_path(@ticket.project)  
+    if current_user.current_sign_in_at <= @ticket.updated_at
+      if current_user.can_alter_ticket?(@ticket) 
+        @ticket.versions.last.destroy
+        @ticket = @ticket.paper_trail.previous_version
+        @ticket.save   
+      end
+      redirect_to dashboard_path(@ticket.project)
+    else
+      redirect_to dashboard_path(@ticket.project)
+    end  
   end
 
   private

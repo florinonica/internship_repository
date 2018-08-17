@@ -1,21 +1,3 @@
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript">
-    $(document).on('turbolinks:load', function() {
-      $(function() {
-        $("#users_search").change(function() {
-          $.get($("#users_search").attr("action"), $("#users_search").serialize(), null, "script");
-          return false;
-        });
-      });
-    });
-  </script>
- </head>
-
 <style>
 body { 
     font-family: 'Ubuntu', sans-serif;
