@@ -9,21 +9,23 @@ body {
     <%= flash[:error].html_safe %>
   </p>
 <% end %>
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+<br>
 <h3><strong><%= @ticket.title %></strong></h3><br>
 <% if current_user.can_see_project_details? %>
-  <div style='font-weight: bold'>
+  <div style='font-weight: bold; padding-bottom: 5px'>
     Creator: <%= link_to @ticket.get_owner.full_name, user_path(@ticket.get_owner), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
   </div>
-  <div style='font-weight: bold'>
+  <div style='font-weight: bold; padding-bottom: 5px'>
     Assigned Dev: <%= link_to @ticket.get_dev.full_name, user_path(@ticket.get_dev), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> 
   </div>
 <% end %>
 
-<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; padding-bottom: 5px'>
   <strong>Created at: </strong> <%= @ticket.created_at.strftime("%d-%m-%Y %H:%M")%> 
 </div>
 
-<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; padding-bottom: 5px'>
   <% if @ticket.start_at.nil?%>
     TBA
   <% else %>
@@ -31,7 +33,7 @@ body {
   <% end %>
 </div>
 
-<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; padding-bottom: 5px'>
   <% if @ticket.completed_at.nil?%>
     <strong>Development complete at: </strong>TBA 
   <% else %>
@@ -39,7 +41,7 @@ body {
   <% end %>
 </div>
 
-<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
+<div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; padding-bottom: 5px'>
   <% if @ticket.end_at.nil?%>
     <strong>Done at: </strong>TBA
   <% else %>
@@ -119,28 +121,6 @@ body {
   <% end %>
   </div>
 <% end %>
-<br>
-<div class="row">
-  <% if @ticket.subtasks.any? %>
-    <div class = "col-xs-3" style='color: black; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-      Subtasks<br>
-      <% @ticket.subtasks.each do |subtask| %>
-        <%= link_to subtask.title, ticket_path(subtask), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> <br>
-      <% end %>
-    </div>
-  <% end %>
-
-  <% if @ticket.bugs.any? %>
-    <div class = "col-xs-3" style='color: black; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-      Bugs<br>
-      <% @ticket.bugs.each do |bug| %>
-        <%= link_to bug.title, ticket_path(bug), {:style => 'color: #0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%> <br>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-<br>
-<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
 
 <script>
 function display(i) {
