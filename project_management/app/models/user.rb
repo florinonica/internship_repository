@@ -158,7 +158,7 @@ class User < ApplicationRecord
     true
   end
 
-  def has_unread_ticket_messages
+  def get_unread_ticket_messages_count
     count = 0
     tickets.each do |t|
       count += t.comments.select{|c| c.unread?(self)}.count
@@ -166,7 +166,7 @@ class User < ApplicationRecord
     count
   end
 
-  def has_unread_project_messages
+  def get_unread_project_messages_count
     count = 0
     get_projects.each do |p|
       if is_manager?(p.id)
@@ -176,8 +176,8 @@ class User < ApplicationRecord
     count
   end
 
-  def has_unread_messages
-    has_unread_project_messages + has_unread_ticket_messages
+  def get_unread_messages_count
+    get_unread_project_messages_count + get_unread_ticket_messages_count
   end
 
   def get_unread_ticket_messages
@@ -193,7 +193,7 @@ class User < ApplicationRecord
   def get_unread_project_messages
     messages = []
     get_projects.each do |p|
-      if is_manager?(p.id) && p.posts.select{|post| post.unread?(self)}.any?
+      if (is_manager?(p.id)) && p.posts.select{|post| post.unread?(self)}.any?
         messages.push(p) 
       end
     end

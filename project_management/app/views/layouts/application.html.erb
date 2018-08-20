@@ -159,7 +159,7 @@
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
               <a class="fa fa-envelope" href='<%=unread_path(current_user)%>'>
                 <span class="fa fa-comment"></span>
-                <span class="num"><%=current_user.has_unread_messages%></span>
+                <span class="num"><%=current_user.get_unread_messages_count%></span>
               </a>
           </div>
         <% end %>

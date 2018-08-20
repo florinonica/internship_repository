@@ -12,4 +12,26 @@ class Client < User
   def can_undo?
     false
   end
+
+  def get_unread_project_messages_count
+    count = 0
+    get_projects.each do |p|
+      count += p.posts.select{|post| post.unread?(self)}.count
+    end
+    count
+  end
+
+  def get_unread_project_messages
+    messages = []
+    get_projects.each do |p|
+      if p.posts.select{|post| post.unread?(self)}.any?
+        messages.push(p) 
+      end
+    end
+    messages
+  end
+
+  def get_unread_messages_count
+    get_unread_project_messages_count
+  end
 end

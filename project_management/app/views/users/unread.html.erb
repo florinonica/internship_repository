@@ -8,53 +8,78 @@ body {
 <br><br>
 
  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Tickets</a>
-    </li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Projects</a>
-    </li>
+    <% if current_user.can_see_project_details? %>
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Tickets</a>
+      </li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Projects</a>
+      </li>
+    <% else %>
+      <li role="presentation" lass="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Projects</a>
+      </li>
+    <% end %>
   </ul>
 
 
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane fade in active" id="home">
-    <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 10px; '>
-      <tr>
-        <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Title</th>
-        <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Unread messages</th>
-      </tr>
-
-      <% current_user.get_unread_ticket_messages.each do |pw| %>
+  <% if current_user.can_see_project_details? %>
+    <div role="tabpanel" class="tab-pane fade in active" id="home">
+      <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 10px; '>
         <tr>
-          <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
-            <%= link_to pw.title, comments_path(pw),  {:style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
-          </td>
-          <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= pw.comments.select{|c| c.unread?(current_user)}.count %></td>
-      <% end %>
-    </table>
+          <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Title</th>
+          <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Unread messages</th>
+        </tr>
 
-    <div style = 'text-align: center'>
-      <%#= will_paginate current_user.get_unread_ticket_messages.paginate(:page => params[:page], per_page:5), renderer: BootstrapPagination::Rails %> 
+        <% current_user.get_unread_ticket_messages.each do |pw| %>
+          <tr>
+            <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
+              <%= link_to pw.title, comments_path(pw),  {:style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+            </td>
+            <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
+              <%= pw.comments.select{|c| c.unread?(current_user)}.count %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     </div>
-  </div>
 
-  <div role="tabpanel" class="tab-pane fade" id="profile"><br>
-    <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 10px; '>
-      <tr>
-        <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Title</th>
-        <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Unread messages</th>
-      </tr>
-
-      <% current_user.get_unread_project_messages.each do |pw| %>
+    <div role="tabpanel" class="tab-pane fade" id="profile" style='margin-top: -25px'><br>
+      <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 10px; '>
         <tr>
-          <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
-            <%= link_to pw.title, message_board_path(pw),  {:style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
-          </td>
-          <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'><%= pw.posts.select{|p| p.unread?(current_user)}.count %></td>
-      <% end %>
-    </table>
+          <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Title</th>
+          <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Unread messages</th>
+        </tr>
 
-    <div style = 'text-align: center'>
-      <%#= will_paginate @project.project_workers.paginate(:page => params[:page], per_page:5), renderer: BootstrapPagination::Rails %> 
+        <% current_user.get_unread_project_messages.each do |pw| %>
+          <tr>
+            <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
+              <%= link_to pw.title, message_board_path(pw),  {:style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+            </td>
+            <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
+              <%= pw.posts.select{|p| p.unread?(current_user)}.count %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     </div>
-  </div>
+  <% else %>
+    <div role="tabpanel" class="tab-pane fade in active" id="profile" ><br>
+        <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 10px; '>
+          <tr>
+            <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Title</th>
+            <th class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>Unread messages</th>
+          </tr>
+
+          <% current_user.get_unread_project_messages.each do |pw| %>
+            <tr>
+              <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
+                <%= link_to pw.title, message_board_path(pw),  {:style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+              </td>
+              <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 20px'>
+                <%= pw.posts.select{|p| p.unread?(current_user)}.count %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+  <% end %>
 </div>
