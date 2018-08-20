@@ -9,7 +9,7 @@ class Ticket < ApplicationRecord
   has_many :attachments, :as => :container, dependent: :destroy
   validates :title, :presence => true, length: { in: 3..50 }
   validates :description, :presence => true, length: { in: 10..1000 }
-  has_paper_trail
+  has_paper_trail on: [:update]
   accepts_nested_attributes_for :attachments
   accepts_nested_attributes_for :comments
 
