@@ -101,19 +101,18 @@ class TicketsController < ApplicationController
   def undo
     @ticket = Ticket.order("updated_at").select{|t| t.versions.count > 1}.last
     if current_user.current_sign_in_at <= @ticket.updated_at
-      puts "Marcel"
-      #if current_user.can_alter_ticket?(@ticket) 
-        Ticket.record_timestamps = false
+      if current_user.can_alter_ticket?(@ticket) 
+        #Ticket.record_timestamps = false
         updated_at = @ticket.paper_trail.previous_version.updated_at
         @ticket = @ticket.paper_trail.previous_version
         @ticket.updated_at = updated_at
-        #@ticket.versions.where(item_id: @ticket.id).last.destroy
+        @ticket.versions.where(item_id: @ticket.id).last.destroy
         @ticket.save  
         @ticket.versions.where(item_id: @ticket.id).last.destroy
         @ticket.update(:updated_at => @ticket.versions.where(item_id: @ticket.id).last.created_at)
         @ticket.versions.where(item_id: @ticket.id).last.destroy
-        Ticket.record_timestamps = true 
-      #end
+        #Ticket.record_timestamps = true 
+      end
       redirect_to dashboard_path(@ticket.project)
     else
       redirect_to dashboard_path(@ticket.project)
