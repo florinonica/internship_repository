@@ -98,7 +98,6 @@ function checkTime(i) {
   return i;
 }
 
-
 $(document).on('turbolinks:load', function() {
   $(function() {
     $("#tickets_search").change(function() {
@@ -128,9 +127,9 @@ function display(i) {
 }
 
 $('#tabs').click(function (e) {
-    e.preventDefault()
-    $("#tabs li").removeClass('active')
-    $(this).parent().addClass('active')
-    $(this).tab('show')
-  })
+	e.preventDefault()
+	$("#tabs li").removeClass('active')
+	$(this).parent().addClass('active')
+	$(this).tab('show')
+})
 

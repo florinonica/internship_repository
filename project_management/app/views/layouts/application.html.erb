@@ -24,8 +24,6 @@
     <script type="text/javascript" src="/assets/jquery.fancybox-media.js"></script>
     <link rel="stylesheet" href="/assets/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/assets/jquery.fancybox-thumbs.js"></script>
-    
-    
   </head>
 
 <% if user_signed_in? %>
@@ -154,15 +152,9 @@
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
           <% end %>
         </p>
-        <% if user_signed_in? %>
-          <div class="navbar-text pull-left" style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-              <a class="fa fa-envelope" href='<%=unread_path(current_user)%>'>
-                <span class="fa fa-comment"></span>
-                <span class="num"><%=current_user.get_unread_messages_count%></span>
-              </a>
-          </div>
-        <% end %>
+        <div id="messages">
+          <%= render :partial => "shared/counts" %>
+        </div>
         <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
         </div>
     </div>

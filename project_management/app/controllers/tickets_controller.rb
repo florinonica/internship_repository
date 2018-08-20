@@ -90,7 +90,9 @@ class TicketsController < ApplicationController
   end
 
   def comments
-    @ticket.comments.mark_as_read! :all, for: current_user
+    @ticket.comments.each do |c|
+     c.mark_as_read! for: current_user
+    end
   end
 
   def add_files

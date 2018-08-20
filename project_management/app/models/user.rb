@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: true
   has_many :tickets, foreign_key: :owner_id
   has_many :tasks, foreign_key: :dev_id
-  has_many :bugs, foreign_key: :bug_id
+  has_many :bugs, foreign_key: :tester_id
   has_many :project_workers, dependent: :destroy
   has_many :projects, through: :project_workers
   has_many :attachments, dependent: :destroy
@@ -163,6 +163,11 @@ class User < ApplicationRecord
     tickets.each do |t|
       count += t.comments.select{|c| c.unread?(self)}.count
     end
+    if tasks.any?
+      tasks.each do |t|
+        count += t.comments.select{|c| c.unread?(self)}.count
+      end
+    end 
     count
   end
 
@@ -185,6 +190,13 @@ class User < ApplicationRecord
     tickets.each do |t|
       if t.comments.select{|c| c.unread?(self)}.any?
         messages.push(t) 
+      end
+    end
+    if tasks.any?
+      tasks.each do |t|
+        if t.comments.select{|c| c.unread?(self)}.any?
+          messages.push(t) 
+        end
       end
     end
     messages
