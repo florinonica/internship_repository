@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :projects, through: :project_workers
   has_many :attachments, dependent: :destroy
   has_many :posts, dependent: :destroy
-  
+  acts_as_reader
 
   before_create :set_type
 
@@ -156,6 +156,48 @@ class User < ApplicationRecord
 
   def can_undo?
     true
+  end
+
+  def has_unread_ticket_messages
+    count = 0
+    tickets.each do |t|
+      count += t.comments.select{|c| c.unread?(self)}.count
+    end
+    count
+  end
+
+  def has_unread_project_messages
+    count = 0
+    get_projects.each do |p|
+      if is_manager?(p.id)
+        count += p.posts.select{|post| post.unread?(self)}.count
+      end
+    end
+    count
+  end
+
+  def has_unread_messages
+    has_unread_project_messages + has_unread_ticket_messages
+  end
+
+  def get_unread_ticket_messages
+    messages = []
+    tickets.each do |t|
+      if t.comments.select{|c| c.unread?(self)}.any?
+        messages.push(t) 
+      end
+    end
+    messages
+  end
+
+  def get_unread_project_messages
+    messages = []
+    get_projects.each do |p|
+      if is_manager?(p.id) && p.posts.select{|post| post.unread?(self)}.any?
+        messages.push(p) 
+      end
+    end
+    messages
   end
 
   private

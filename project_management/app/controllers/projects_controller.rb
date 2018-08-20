@@ -57,6 +57,7 @@ class ProjectsController < ApplicationController
   end
 
   def message_board
+    @project.posts.mark_as_read! :all, for: current_user
   end
 
   def add_client

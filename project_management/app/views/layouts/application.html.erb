@@ -154,6 +154,15 @@
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
           <% end %>
         </p>
+        <% if user_signed_in? %>
+          <div class="navbar-text pull-left" style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+              <a class="fa fa-envelope" href='<%=unread_path(current_user)%>'>
+                <span class="fa fa-comment"></span>
+                <span class="num"><%=current_user.has_unread_messages%></span>
+              </a>
+          </div>
+        <% end %>
         <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
         </div>
     </div>

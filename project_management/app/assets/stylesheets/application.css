@@ -483,3 +483,25 @@ html {
 
 }
 
+a.fa-envelope {
+  position: relative;
+  font-size: 3em;
+  color: white;
+  cursor: pointer;
+}
+span.fa-comment {
+  position: absolute;
+  font-size: 0.8em;
+  top: -10px;
+  color: red;
+  right: -10px;
+}
+span.num {
+  position: absolute;
+  font-size: 0.4em;
+  font-weight: bold;
+  font-family: "Ubuntu";
+  top: -1px;
+  color: #fff;
+  right: -5px;
+}

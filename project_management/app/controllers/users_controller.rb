@@ -50,6 +50,9 @@ class UsersController < ApplicationController
   def files
   end
 
+  def unread
+  end
+
   private
 
     def user_params
