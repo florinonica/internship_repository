@@ -31,11 +31,10 @@ class Employee < User
   end
 
   def can_alter_ticket?(ticket)
-    if (id == ticket.owner_id) || (tasks.include?(ticket) && (ticket.status =="To do" || ticket.status =="In progress")) || 
-      (is_tester?(ticket.project_id) && (ticket.status =="Dev complete" || ticket.status =="Done" || ticket.status == "To do")) || is_manager?(ticket.project_id)
+
+    if (id == ticket.owner_id) || (tasks.include?(ticket)) || (is_tester?(ticket.project_id) ) || is_manager?(ticket.project_id)
       return true
     end
-
     false
   end
 
