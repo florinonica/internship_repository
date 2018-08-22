@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :get_project, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :get_post, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   def index
     @posts = @project.posts
@@ -19,6 +20,7 @@ class PostsController < ApplicationController
     save_attachments(@post, params[:post][:files])
     
     if @post.save
+      sync_new @post
       redirect_to message_board_path(@project)
     else
       @post.attachments.each do |file|
@@ -26,6 +28,7 @@ class PostsController < ApplicationController
       end
       render 'new'
     end
+    
   end
 
   def edit

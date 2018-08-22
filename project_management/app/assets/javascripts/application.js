@@ -15,8 +15,8 @@
 //= require jquery.mousewheel.pack
 //= require jquery.fancybox.pack
 //= require jquery.fancybox-buttons
+//= require sync 
 //= require turbolinks
-
 //= require_tree .
 
 (function ($, F) {
