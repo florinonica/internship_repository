@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :tickets do
     resources :comments
   end
+  mount ActionCable.server => '/cable'
   root 'welcome#index'
 
 end

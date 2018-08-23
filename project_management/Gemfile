@@ -29,7 +29,9 @@ gem 'paper_trail'
 gem 'unread'
 gem 'faye'
 gem 'thin'
-gem 'sync'
+gem 'render_sync'
+gem 'unicorn'
+gem 'redis'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

@@ -5,7 +5,8 @@ class Post < ApplicationRecord
   validates :body, :presence => true, length: { maximum: 200 }
   accepts_nested_attributes_for :attachments
   acts_as_readable on: :created_at
-
+  sync :all
+  
   def get_color
   	user = User.find(user_id)
   	if user.is_a? Client

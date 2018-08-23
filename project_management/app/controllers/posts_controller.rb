@@ -20,15 +20,17 @@ class PostsController < ApplicationController
     save_attachments(@post, params[:post][:files])
     
     if @post.save
-      sync_new @post
-      redirect_to message_board_path(@project)
+      sync_new @post, scope: @project
+      respond_to do |format|
+        format.html { redirect_to message_board_path(@project) }
+        format.json { render json: @post }
+      end
     else
       @post.attachments.each do |file|
         file.destroy
       end
       render 'new'
     end
-    
   end
 
   def edit
