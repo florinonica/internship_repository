@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = @project.posts.new(post_params.merge(user_id: current_user.id))
     params.require(:post).permit(:files => [])
     save_attachments(@post, params[:post][:files])
-    
+
     if @post.save
       sync_new @post, scope: @project
       respond_to do |format|
@@ -64,4 +64,3 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 end
-

@@ -1,35 +1,12 @@
-<%= include_sync_config %>
 <style type="text/css">
 	body {background-color: #F8F4A8;}
 </style>
-<%= form_with(model: [ @project, @project.posts.build ], local: true) do |form| %>
-  
-  <div class="row">
-    <div class="col-xs-4">
-    <%= form.text_area :body, class: 'form-control' %>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-xs-4">
-      <%= form.label :files %>
-      <%= form.file_field :files, :multiple => true %>
-    </div>
-  </div>
-  <br>
-  <p>
-    <%= form.submit "Post", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
-  </p>
-<% end %>
-<div class='board' style='overflow-y: scroll; height: 700px; width: 1700; margin: -20px -100px; margin-right: -250px; border-bottom:5px solid black'>
- <%= sync partial: 'post', collection: @project.posts.order('created_at DESC'), scope: @project %>
- <%= sync_new partial: 'post', resource: Post.new, scope: @project %>
+<div class='board' id="board" style='overflow-y: scroll; height: 700px; width: 1700; margin: -20px -100px; margin-right: -250px; border-bottom:5px solid black'>
+ <%= sync partial: 'post', collection: @project.posts, scope: @project, direction: :prepend %>
+ <%= sync_new partial: 'post1', resource: Post.new, scope: @project, direction: :prepend %>
 </div><br><br>
 
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
 
 
 <%= link_to '<i class="glyphicon glyphicon-comment"></i> Post message'.html_safe, new_project_post_path(@project), {class: "btn btn-info collapsed", :style => ';color:white; font-size: 18px; font-weight: bold; float: right'} %>
-
-
- 

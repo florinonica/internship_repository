@@ -6,14 +6,15 @@ class Post < ApplicationRecord
   accepts_nested_attributes_for :attachments
   acts_as_readable on: :created_at
   sync :all
-  
+  sync_touch :project, :user
+
   def get_color
   	user = User.find(user_id)
   	if user.is_a? Client
   	  return "#0079bf"
   	elsif user.is_a? Employee
   	  return "#F80602"
-  	else 
+  	else
   	  return "#F5E106"
   	end
   	return "white"
@@ -22,5 +23,5 @@ class Post < ApplicationRecord
   def is_owned?(user)
   	(user.id == user_id ? true : false)
   end
-  
+
 end

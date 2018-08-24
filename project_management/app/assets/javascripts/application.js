@@ -10,12 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery-1.10.2.min
 //= require rails-ujs
 //= require activestorage
 //= require jquery.mousewheel.pack
 //= require jquery.fancybox.pack
 //= require jquery.fancybox-buttons
-//= require sync 
+//= require sync
+//= require cable
 //= require turbolinks
 //= require_tree .
 
@@ -52,12 +54,12 @@ $(".fancybox")
               type : 'inside'
           }
       }
-  }); 
+  });
 $(".fancybox2").fancybox({
-    helpers : { 
+    helpers : {
      overlay: {
-      css: {'background-color': '#03C3DC'} 
-     } 
+      css: {'background-color': '#03C3DC'}
+     }
     },
     beforeLoad: function() {
         $(this.href).height('auto');
@@ -134,5 +136,4 @@ $('#tabs').click(function (e) {
 	$(this).tab('show')
 });
 
-
-
+$("#board").scrollTop($('#board')[0].scrollHeight)
