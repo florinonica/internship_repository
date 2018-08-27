@@ -136,23 +136,10 @@ $('#tabs').click(function (e) {
 	$(this).tab('show')
 });
 
-//$("#board").scrollTop($('#board')[0].scrollHeight)
+function scrollBoard() {
+  var element = document.getElementById("board");
+  if(element.scrollHeight - element.clientHeight <= element.scrollTop){
+    element.scrollTop = element.scrollHeight;}
+};
 
-
-function getMessages() {
-	// Prior to getting your messages.
-  const messages = document.getElementById('board');
-  shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
-  // After getting your messages.
-  if (shouldScroll) {
-    scrollToBottom();
-  }
-}
-
-function scrollToBottom() {
-  messages.scrollTop = messages.scrollHeight;
-}
-
-scrollToBottom();
-
-setInterval(getMessages, 1000);
+setInterval(scrollBoard,1000);
