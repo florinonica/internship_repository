@@ -138,7 +138,7 @@ $('#tabs').click(function (e) {
 
 function scrollBoard() {
   var element = document.getElementById("board");
-  if(element.scrollHeight - element.clientHeight <= element.scrollTop){
+  if((element.scrollHeight - element.clientHeight) <= element.scrollTop){
     element.scrollTop = element.scrollHeight;}
 };
 

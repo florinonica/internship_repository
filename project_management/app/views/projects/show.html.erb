@@ -1,10 +1,29 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Ticket with status', 'Number of tickets'],
+  ['To do', <%= @project.get_tasks_to_do.count %>],
+  ['In progress', <%= @project.get_tasks_in_progress.count %>],
+  ['Dev complete', <%= @project.get_tasks_dev_complete.count %>],
+  ['Done', <%= @project.get_tasks_done.count %>]
+]);
+  var options = {pieHole: 0.4, 'width':750, 'height':600, pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 20}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20,}};
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
 <style>
-body { 
+body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 20px;
 }
 </style>
-<div style="margin-left: 100px">
+
+<div style="margin-left: 100px" class="col-xs-5">
 <br>
 <p>
   <strong style='color:#000000; font-size: 25px;'><%= @project.title %></strong>
@@ -70,10 +89,13 @@ body {
 
 <br>
 <% if current_user.can_delete_project? %>
-  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_project_path(@project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %> | 
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit'.html_safe, edit_project_path(@project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %> |
   <%= link_to '<i class="glyphicon glyphicon-edit"></i> Remove'.html_safe, project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"' %>
 <% end %>
 <br>
 <br>
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, projects_path, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>
 </div>
+
+
+<div class = "col-xs-1" id="piechart"></div>
