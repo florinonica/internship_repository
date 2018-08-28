@@ -92,7 +92,7 @@
                   </li>
                 </ul>
               <% end %>
-            <% end %>     
+            <% end %>
           </li>
           <% if controller_name == "tickets" && !(action_name == "create" || action_name == "new") %>
             <li style=' border-bottom: 5px solid white; margin-right: 15px; padding-top: 5px; margin-left: 10px; text-align: left'>
@@ -107,7 +107,7 @@
                 <li>
                   <%= link_to '<i class="glyphicon glyphicon-picture"></i> Files'.html_safe, ticket_files_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                 </li>
-                
+
                 <% if current_user.can_comment? %>
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-comment"></i> Comments'.html_safe, comments_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
@@ -150,7 +150,7 @@
           <% if user_signed_in? %>
             <strong style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'> Logged in as <%= current_user.email %>.</strong>
             <%= image_tag(current_user.avatar.url(:thumb), :class => "round-image-50") %>
-            <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'%> 
+            <%= link_to "Edit Profile", edit_user_registration_path, :class => 'navbar-link' ,  :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'%>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
           <% end %>
         </p>

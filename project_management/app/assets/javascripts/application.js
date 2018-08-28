@@ -139,7 +139,7 @@ $('#tabs').click(function (e) {
 function scrollBoard() {
   var element = document.getElementById("board");
   if((element.scrollHeight - element.clientHeight) <= element.scrollTop){
-    element.scrollTop = element.scrollHeight;}
+    element.scrollTop = 0;}
 };
 
 setInterval(scrollBoard,1000);
