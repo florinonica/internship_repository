@@ -28,8 +28,8 @@ body {
       <% else %>
         <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px; font-size: 20px; font-weight: bold'>Not assigned yet<br></td>
       <% end %>
-      <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px'> <br>
-        <div class="progress" style='height: 30px;'>
+      <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 15px'> <br>
+        <div class="progress" style='height: 30px; margin-top: -15px'>
           <div><strong style='text-align: center; '>
         <%=project.get_progress_percent.to_s + '%'%> </strong></div>
          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="70"
