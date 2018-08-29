@@ -142,4 +142,4 @@ function scrollBoard() {
     element.scrollTop = 0;}
 };
 
-setInterval(scrollBoard,1000);
+setInterval(scrollBoard,10000);

@@ -33,24 +33,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-    params.require(:post).permit(:files => [])
-    save_attachments(@post, params[:post][:files])
-    if @post.update(post_params)
-      redirect_to message_board_path(@project)
-    else
-      render 'edit'
-    end
-  end
-
-  def destroy
-    @post.destroy
-    redirect_to message_board_path(@project)
-  end
-
   private
     def post_params
       params.require(:post).permit(:body, :user_id, :project_id)
