@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_20_082943) do
+ActiveRecord::Schema.define(version: 2018_08_29_074318) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "file_file_name"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 2018_08_20_082943) do
     t.integer "role_id", null: false
     t.index ["employee_id"], name: "index_employee_roles_on_employee_id"
     t.index ["role_id"], name: "index_employee_roles_on_role_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "project_id"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_events_on_project_id"
   end
 
   create_table "posts", force: :cascade do |t|
