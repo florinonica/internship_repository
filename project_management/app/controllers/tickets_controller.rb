@@ -22,12 +22,12 @@ class TicketsController < ApplicationController
     else
       @ticket.dev_id = params[:ticket][:dev_id]
     end
-    
+
     params.require(:ticket).permit(:files => [])
     save_attachments(@ticket, params[:ticket][:files])
 
     if @ticket.save
-      
+      add_event(@ticket.project, @ticket.title + " was added to dashboard.")
       redirect_to dashboard_path(@project)
     else
       @ticket.attachments.each do |file|
@@ -62,13 +62,17 @@ class TicketsController < ApplicationController
       when "In progress"
         if @ticket.start_at.nil?
           @ticket.update(:status => params[:status], :start_at => Time.now)
+          add_event(@ticket.project, "Development started on " + @ticket.title)
         else
           @ticket.update(:status => params[:status])
+          add_event(@ticket.project, "Development restarted on " + @ticket.title)
         end
       when "Dev complete"
         @ticket.update(:status => params[:status], :completed_at => Time.now)
+        add_event(@ticket.project, "Development complete on " + @ticket.title)
       when "Done"
         @ticket.update(:status => params[:status], :end_at => Time.now)
+        add_event(@ticket.project, @ticket.title + " is fully completed")
       else
         raise "invalid status"
     end
@@ -104,22 +108,22 @@ class TicketsController < ApplicationController
   def undo
     @ticket = Ticket.order("updated_at").select{|t| t.versions.count > 1}.last
     if current_user.current_sign_in_at <= @ticket.updated_at
-      if current_user.can_alter_ticket?(@ticket) 
+      if current_user.can_alter_ticket?(@ticket)
         #Ticket.record_timestamps = false
         updated_at = @ticket.paper_trail.previous_version.updated_at
         @ticket = @ticket.paper_trail.previous_version
         @ticket.updated_at = updated_at
         @ticket.versions.where(item_id: @ticket.id).last.destroy
-        @ticket.save  
+        @ticket.save
         @ticket.versions.where(item_id: @ticket.id).last.destroy
         @ticket.update(:updated_at => @ticket.versions.where(item_id: @ticket.id).last.created_at)
         @ticket.versions.where(item_id: @ticket.id).last.destroy
-        #Ticket.record_timestamps = true 
+        #Ticket.record_timestamps = true
       end
       redirect_to dashboard_path(@ticket.project)
     else
       redirect_to dashboard_path(@ticket.project)
-    end  
+    end
   end
 
   private

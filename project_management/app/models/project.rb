@@ -11,6 +11,8 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :project_workers
   has_many :posts, dependent: :destroy
   accepts_nested_attributes_for :posts
+  has_many :events, dependent: :destroy
+  accepts_nested_attributes_for :events
 
   def get_bugs
   	tickets.where(:type => "Bug")

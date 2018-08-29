@@ -11,19 +11,20 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
   end
-	
+
   def create
     @project = Project.new(project_params)
     params.require(:project).permit(:files => [])
     save_attachments(@project, params[:project][:files])
     if @project.save
+      add_event(@project, "Project was created.")
       redirect_to @project
     else
       @project.attachments.each do |file|
         file.destroy
       end
       render 'new'
-    end 
+    end
   end
 
   def edit
@@ -57,7 +58,7 @@ class ProjectsController < ApplicationController
   end
 
   def message_board
-    @project.posts.each do |p| 
+    @project.posts.each do |p|
       p.mark_as_read! for: current_user
     end
   end

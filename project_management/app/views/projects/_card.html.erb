@@ -4,10 +4,8 @@
     <div class="cards-container-title"><%=id%> </div>
     <% if id == "To do" %>
       <div class="cards-container-title">
-        <% if tickets.count > 0 %>
-          <% if current_user.is_manager?(tickets.first.project.id) %>
-            <%= link_to '<i class="glyphicon glyphicon-plus"></i> New task'.html_safe, new_project_ticket_path(@project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold, background-color: black'} %>
-          <% end %>
+        <% if current_user.is_manager?(project.id) %>
+          <%= link_to '<i class="glyphicon glyphicon-plus"></i> New task'.html_safe, new_project_ticket_path(project), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold, background-color: black'} %>
         <% end %>
       </div>
     <% end %>
