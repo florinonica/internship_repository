@@ -110,7 +110,6 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
-
 $(document).on('turbolinks:load', function() {
   $(function() {
     $("#users_search").change(function() {
