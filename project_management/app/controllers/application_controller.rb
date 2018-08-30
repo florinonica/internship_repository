@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   layout "application"
   before_action :authenticate_user!
+  respond_to :html, :js
 
   def save_attachments(container, files)
 
@@ -23,6 +24,10 @@ class ApplicationController < ActionController::Base
     if @event.save
       project.events << @event
       sync_new @event, scope: @project
+      respond_to do |format|
+        
+        format.json { render json: @event }
+      end
     end
   end
 

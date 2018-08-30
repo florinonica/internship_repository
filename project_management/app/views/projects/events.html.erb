@@ -5,10 +5,11 @@ body {
 }
 </style>
 
-<div >
-	<%= sync_new partial: 'event', resource: Event.new, direction: :prepend, scope: @project %>
-  <%= sync partial: 'event', collection: @project.events.order("created_at DESC"), direction: :prepend, scope: @project %>
-
-</div><br><br>
-
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
+<br><br>
+
+<div >
+	<%= sync_new partial: 'event', resource: Event.new, direction: :prepend %>
+  <%= sync partial: 'event', collection: @project.events.order("created_at DESC"), direction: :prepend %>
+
+</div>
