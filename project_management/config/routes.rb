@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   	resources :tickets
     resources :posts
   end
-  post 'create_user' => 'users#create', as: :create_user   
+  post 'create_user' => 'users#create', as: :create_user
   patch 'projects/:id/add_client' => 'projects#add_client'
   patch 'projects/:id/add_project_manager' => 'projects#add_project_manager'
   patch 'projects/:id/assign_dev' => 'tickets#assign_dev'
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   patch 'tickets/:id/add_files' => 'tickets#add_files'
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
   get 'projects/:id/files' => 'projects#files', :as => :files
+  get 'projects/:id/events' => 'projects#events', :as => :events
   get 'projects/:id/team' => 'projects#team', :as => :team
   get 'projects/:id/message_board' => 'projects#message_board', :as => :message_board
   get 'projects/:id/clients' => 'projects#clients', :as => :clients

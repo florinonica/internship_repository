@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
     if @event.save
       project.events << @event
+      sync_new @event, scope: @project
     end
   end
 
