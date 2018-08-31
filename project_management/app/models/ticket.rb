@@ -47,9 +47,9 @@ class Ticket < ApplicationRecord
   def get_dev
     User.find(dev_id)
   end
-  
+
   def get_colour
-  	case priority 
+  	case priority
   	when "High"
   		return "#F81115"
   	when "Medium"
@@ -74,5 +74,5 @@ class Ticket < ApplicationRecord
     def set_type
       self.type = self.class.name
     end
-  
+
 end
