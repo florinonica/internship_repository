@@ -7,4 +7,6 @@ class Comment < ApplicationRecord
   validates :body, :presence => true, length: { maximum: 200 }
   accepts_nested_attributes_for :attachments
   acts_as_readable on: :created_at
+  sync :all
+  sync_touch :ticket, :user
 end

@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :get_ticket, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :get_comment, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   def index
     @comments = @ticket.comments
@@ -17,9 +18,13 @@ class CommentsController < ApplicationController
     @comment = @ticket.comments.new(comment_params.merge(user_id: current_user.id))
     params.require(:comment).permit(:files => [])
     save_attachments(@comment, params[:comment][:files])
-    
+
     if @comment.save
-      redirect_to comments_path(@ticket)
+      sync_new @comment, scope: @ticket
+      respond_to do |format|
+        format.html { redirect_to comments_path(@ticket) }
+        format.json { render json: @comment }
+      end
     else
       @comment.attachments.each do |file|
         file.destroy
@@ -35,7 +40,12 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:files => [])
     save_attachments(@comment, params[:comment][:files])
     if @comment.update(comment_params)
-      redirect_to comments_path(@ticket)
+      sync_destroy @comment, scope: @ticket
+      sync_new @comment, scope: @ticket
+      respond_to do |format|
+        format.html { redirect_to comments_path(@ticket) }
+        format.json { head :no_content }
+      end
     else
       render 'edit'
     end
@@ -43,7 +53,11 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to comments_path(@ticket)
+    sync_destroy @comment, scope: @ticket
+    respond_to do |format|
+      format.html { redirect_to comments_path(@ticket) }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -59,4 +73,3 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 end
-
