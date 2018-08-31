@@ -167,7 +167,7 @@ class User < ApplicationRecord
       tasks.each do |t|
         count += t.comments.select{|c| c.unread?(self)}.count
       end
-    end 
+    end
     count
   end
 
@@ -189,13 +189,13 @@ class User < ApplicationRecord
     messages = []
     tickets.each do |t|
       if t.comments.select{|c| c.unread?(self)}.any?
-        messages.push(t) 
+        messages.push(t)
       end
     end
     if tasks.any?
       tasks.each do |t|
         if t.comments.select{|c| c.unread?(self)}.any?
-          messages.push(t) 
+          messages.push(t)
         end
       end
     end
@@ -206,7 +206,7 @@ class User < ApplicationRecord
     messages = []
     get_projects.each do |p|
       if (is_manager?(p.id)) && p.posts.select{|post| post.unread?(self)}.any?
-        messages.push(p) 
+        messages.push(p)
       end
     end
     messages
