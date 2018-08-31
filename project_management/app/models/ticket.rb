@@ -19,16 +19,6 @@ class Ticket < ApplicationRecord
 
   def self.search(search,user)
 
-    #if search == "All" && searchp == "All"
-     # return all
-    #elsif search == "All" && searchp != "All"
-     # return where('priority LIKE ?', "%#{searchp}%").where('type LIKE ?', "%#{search}%")
-    #elsif search != "All" && searchp == "All"
-     # return where('type LIKE ?', "%#{search}%")
-    #else
-     # return where('priority LIKE ?', "%#{searchp}%").where('type LIKE ?', "%#{search}%")
-    #end
-    #(search=="All" ? all : where('type LIKE ?', "%#{search}%"))
     if search == "All"
       return all
     elsif search == "Only mine - Dev"
