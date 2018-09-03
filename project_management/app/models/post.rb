@@ -10,6 +10,7 @@ class Post < ApplicationRecord
 
   def get_color
   	user = User.find(user_id)
+    
   	if user.is_a? Client
   	  return "#0079bf"
   	elsif user.is_a? Employee

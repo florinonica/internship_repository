@@ -1,10 +1,10 @@
 class Client < User
   has_and_belongs_to_many :projects, join_table: :clients_projects
-  
+
   def self.model_name
     User.model_name
   end
-  
+
   def is_client?(project)
     (projects.include?(project) ? true : false)
   end
@@ -24,8 +24,9 @@ class Client < User
   def get_unread_project_messages
     messages = []
     get_projects.each do |p|
+      
       if p.posts.select{|post| post.unread?(self)}.any?
-        messages.push(p) 
+        messages.push(p)
       end
     end
     messages

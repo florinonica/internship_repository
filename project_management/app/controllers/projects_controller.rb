@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     params.require(:project).permit(:files => [])
     save_attachments(@project, params[:project][:files])
+
     if @project.save
       add_event(@project, "Project was created.")
       redirect_to @project
@@ -33,6 +34,7 @@ class ProjectsController < ApplicationController
   def update
     params.require(:project).permit(:files => [])
     save_attachments(@project, params[:project][:files])
+
     if @project.update(project_params)
       redirect_to @project
     else
@@ -73,7 +75,9 @@ class ProjectsController < ApplicationController
   end
 
   def add_employees
+
     if params[:project][:role_id] == '1'
+
       if @project.project_workers.count == 0
         save_pw(params[:id], params[:project][:employee_ids], params[:project][:role_id])
       else
@@ -81,6 +85,7 @@ class ProjectsController < ApplicationController
         @projectWorker.update(:user_id => params[:project][:employee_ids])
         @project.project_workers << @projectWorker
       end
+      
     else
       params[:project][:employee_ids].each do |e|
         save_pw(params[:id], e, params[:project][:role_id])

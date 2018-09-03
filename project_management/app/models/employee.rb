@@ -43,10 +43,11 @@ class Employee < User
   end
 
   def can_add_subtask_or_bug?(ticket)
+    
     if is_tester?(ticket.project_id) || is_manager?(ticket.project_id) || id == ticket.dev_id
       return true
     end
-    
+
     false
   end
 

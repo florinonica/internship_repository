@@ -35,6 +35,7 @@ class Project < ApplicationRecord
   end
 
   def get_progress_percent
+    
     if tickets.count == 0 || tickets.where(:status => "Done").count == 0
       return 0.0
     else

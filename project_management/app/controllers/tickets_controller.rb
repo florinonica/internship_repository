@@ -33,6 +33,7 @@ class TicketsController < ApplicationController
       @ticket.attachments.each do |file|
         file.destroy
       end
+
       if @ticket.task_id.nil?
         render 'new'
       else
@@ -48,6 +49,7 @@ class TicketsController < ApplicationController
   def update
     params.require(:ticket).permit(:files => [])
     save_attachments(@ticket, params[:ticket][:files])
+
     if @ticket.update(ticket_params)
       redirect_to dashboard_path(@ticket.project)
     else
@@ -60,6 +62,7 @@ class TicketsController < ApplicationController
       when "To do"
         @ticket.update(:status => params[:status])
       when "In progress"
+
         if @ticket.start_at.nil?
           @ticket.update(:status => params[:status], :start_at => Time.now)
           add_event(@ticket.project, "Development started on " + @ticket.title)
@@ -107,7 +110,9 @@ class TicketsController < ApplicationController
 
   def undo
     @ticket = Ticket.order("updated_at").select{|t| t.versions.count > 1}.last
+
     if current_user.current_sign_in_at <= @ticket.updated_at
+      
       if current_user.can_alter_ticket?(@ticket)
         updated_at = @ticket.paper_trail.previous_version.updated_at
         @ticket = @ticket.paper_trail.previous_version

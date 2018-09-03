@@ -11,5 +11,4 @@ body {
 <div style='overflow-y: scroll; height: 650px; box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.1); border-left: 10px solid black'>
 	<%= sync_new partial: 'event', resource: Event.new, direction: :prepend %>
   <%= sync partial: 'event', collection: @project.events.order("created_at DESC"), direction: :prepend %>
-
 </div>
