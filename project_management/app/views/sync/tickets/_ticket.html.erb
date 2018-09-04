@@ -7,11 +7,13 @@
       <div  style='text-align: center'>
         <%= link_to ticket.title, ticket_path(ticket), {:style => 'margin-left: 0px; color:#0079bf; font-size: 20px; font-weight: bold'}%>
         <div style='text-align: center'>
-            <% if current_user.is_manager?(ticket.project.id)%>
+
+          <% if current_user.is_manager?(ticket.project.id)%>
             <%= link_to '  <i class="glyphicon glyphicon-edit"></i> '.html_safe, edit_project_ticket_path(ticket.project, ticket), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> |
             <%= link_to '<i class="glyphicon glyphicon-remove"></i> '.html_safe, [ticket.project, ticket], method: :delete, data: { confirm: 'Are you sure?' }, :style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'%> |
           <% end %>
           <%= link_to '  <i class="glyphicon glyphicon-picture"></i> '.html_safe, ticket_files_path(ticket), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> |
+
           <% if current_user.can_comment? %>
             <%= link_to '  <i class="glyphicon glyphicon-comment"></i> '.html_safe, comments_path(ticket), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %> |
           <% end %>
@@ -22,11 +24,13 @@
     <div style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif; border-bottom: 2px solid black'>
       Created at: <strong> <%= ticket.created_at.strftime("%-d/%b/%Y")%> </strong>
     </div>
+
     <% if ticket.task.presence %>
       <div>
         Parent task: <strong> <%= link_to ticket.task.title, ticket_path(ticket.task), {:style => 'color:#0079bf; font-size: 18px; font-family: "Ubuntu", sans-serif;'}%> </strong>
       </div>
     <% end %>
+
     <% if current_user.can_see_project_details?%>
       <div>
         Creator: <%= link_to ticket.get_owner.full_name, user_path(ticket.get_owner), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%>
@@ -40,6 +44,7 @@
       <%= ticket.description %>
     </div>
     <div class="row" style="text-align: center">
+
       <% if ticket.subtasks.any? %>
         <div class = "col-xs-5" style='color: black; font-size: 18px; font-family: "Ubuntu", sans-serif;'>
           <strong>Subtasks</strong><br>
