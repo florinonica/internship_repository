@@ -6,6 +6,7 @@
    <%= post.body %>
    <% post.attachments.each do |asset| %>
    <div style='display: inline-block; width: 100px; '>
+     
       <% if asset.is_image?%>
         <a class="fancybox" rel="group" href='<%=asset.file.url%>' ><img src='<%=asset.file.url%>' height=100 width=100 alt="" /></a><%= link_to "Download", asset.file.url(:original, false), :target=> "_blank", :style => 'color:#0079bf; font-size: 18px; font-weight: bold'%><br>
       <% elsif asset.is_video?%>

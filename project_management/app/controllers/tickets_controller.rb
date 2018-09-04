@@ -112,7 +112,7 @@ class TicketsController < ApplicationController
     @ticket = Ticket.order("updated_at").select{|t| t.versions.count > 1}.last
 
     if current_user.current_sign_in_at <= @ticket.updated_at
-      
+
       if current_user.can_alter_ticket?(@ticket)
         updated_at = @ticket.paper_trail.previous_version.updated_at
         @ticket = @ticket.paper_trail.previous_version
