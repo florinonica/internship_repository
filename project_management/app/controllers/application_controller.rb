@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
       project.events << @event
       sync_new @event, scope: @project
       respond_to do |format|
-        
         format.json { render json: @event }
       end
     end
