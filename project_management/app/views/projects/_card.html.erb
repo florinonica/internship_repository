@@ -1,7 +1,7 @@
 <body>
 <div class="cards-container">
   <div class="cards-container-head">
-    <div class="cards-container-title"><%=id%> </div>
+    <div class="cards-container-title"><%=id+' '+count.to_s%> </div>
     <% if id == "To do" %>
       <div class="cards-container-title">
         <% if current_user.is_manager?(project.id) %>
