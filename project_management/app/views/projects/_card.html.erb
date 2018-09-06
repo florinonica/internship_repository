@@ -11,7 +11,7 @@
     <% end %>
   </div>
   <div class="card-container" id='<%=id%>'>
-    <% if tickets.count > 0 %>
+    <% if count > 0 %>
       <% tickets.each do |ticket|%>
         <% if current_user.can_alter_ticket?(ticket) || current_user.is_manager?(ticket.project.id) %>
           <div class="card-header" id='<%=ticket.id%>' style = ' border-color: lightgrey; '>

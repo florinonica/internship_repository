@@ -69,7 +69,7 @@
                     <%= link_to '<i class="glyphicon glyphicon-tasks"></i> Details'.html_safe, project_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
                   <li>
-                    <%= link_to '<i class="glyphicon glyphicon-th-list"></i> Events Log'.html_safe, events_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
+                    <%= link_to '<i class="glyphicon glyphicon-th-list"></i> Event Log'.html_safe, events_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
                   <% if current_user.is_manager?(@project.id) || current_user.is_client?(@project) %>
                     <li>
