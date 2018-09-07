@@ -165,7 +165,7 @@
             <%= sync partial: 'user', resource: current_user %>
           <% end %>
           <% if user_signed_in? %>
-            <%= sync_new partial: 'user', resource: User.new %>
+            <%= sync_new partial: 'user1', resource: User.new %>
           <% end %>
         </div>
         <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>

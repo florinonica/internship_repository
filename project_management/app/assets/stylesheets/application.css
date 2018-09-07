@@ -3,7 +3,7 @@
 *= require fancybox
 */
 
-body {  padding-top: 110px; 
+body {  padding-top: 110px;
     font-family: 'Ubuntu', sans-serif;
     color: white;
 }
@@ -67,38 +67,38 @@ text-shadow:none;
 .nav-tabs{
 
 background-color: #0A9AAD;
- 
+
 }
- 
- 
- 
+
+
+
 .nav-tabs > li > a{
- 
- 
+
+
 }
- 
+
 .nav-tabs > li > a:hover{
- 
-background-color: #04B1C8 !important;
- 
- 
 
- 
+background-color: #04B1C8 !important;
+
+
+
+
 }
- 
+
 .nav-tabs > li.active > a,
- 
-.nav-tabs > li.active > a:focus,
- 
-.nav-tabs > li.active > a:hover{
- 
-background-color: #04B1C8 !important;
- 
 
- 
+.nav-tabs > li.active > a:focus,
+
+.nav-tabs > li.active > a:hover{
+
+background-color: #04B1C8 !important;
+
+
+
 }
 
-.modal-login {      
+.modal-login {
         color: #636363;
         width: 350px;
     }
@@ -108,7 +108,7 @@ background-color: #04B1C8 !important;
         border: none;
     }
     .modal-login .modal-header {
-        border-bottom: none;   
+        border-bottom: none;
         position: relative;
         justify-content: center;
     }
@@ -122,13 +122,13 @@ background-color: #04B1C8 !important;
     }
     .modal-login .form-control, .modal-login .btn {
         min-height: 40px;
-        border-radius: 3px; 
+        border-radius: 3px;
     }
     .modal-login .close {
         position: absolute;
         top: -5px;
         right: -5px;
-    }   
+    }
     .modal-login .modal-footer {
         background: #ecf0f1;
         border-color: #dee4e7;
@@ -140,7 +140,7 @@ background-color: #04B1C8 !important;
     }
     .modal-login .modal-footer a {
         color: #999;
-    }       
+    }
     .modal-login .avatar {
         position: absolute;
         margin: 0 auto;
