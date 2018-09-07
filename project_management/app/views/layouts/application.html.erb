@@ -160,7 +160,11 @@
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', :style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;' %>
           <% end %>
         </p>
-        
+        <div id="messages">
+          <% if user_signed_in? && current_user.get_unread_messages_count > 0 %>
+            <%= sync_new partial: 'user', resource: User.new %>
+          <% end %>
+        </div>
         <div id='txt' class="navbar-text pull-left" style= 'margin-top: 25px; color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'>
         </div>
     </div>

@@ -21,6 +21,7 @@ class PostsController < ApplicationController
 
     if @post.save
       sync_new @post, scope: @project
+      sync_new current_user
       respond_to do |format|
         format.html { redirect_to message_board_path(@project) }
         format.json { render json: @post }

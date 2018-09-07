@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :attachments, dependent: :destroy
   has_many :posts, dependent: :destroy
   acts_as_reader
+  sync :all
 
   before_create :set_type
 
@@ -210,7 +211,7 @@ class User < ApplicationRecord
   def get_unread_project_messages
     messages = []
     get_projects.each do |p|
-      
+
       if (is_manager?(p.id)) && p.posts.select{|post| post.unread?(self)}.any?
         messages.push(p)
       end
