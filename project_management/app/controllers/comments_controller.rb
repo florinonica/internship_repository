@@ -21,6 +21,8 @@ class CommentsController < ApplicationController
 
     if @comment.save
       sync_new @comment, scope: @ticket
+      sync_destroy current_user
+      sync_new current_user
       respond_to do |format|
         format.html { redirect_to comments_path(@ticket) }
         format.json { render json: @comment }

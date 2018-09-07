@@ -162,6 +162,9 @@
         </p>
         <div id="messages">
           <% if user_signed_in? && current_user.get_unread_messages_count > 0 %>
+            <%= sync partial: 'user', resource: current_user %>
+          <% end %>
+          <% if user_signed_in? %>
             <%= sync_new partial: 'user', resource: User.new %>
           <% end %>
         </div>
