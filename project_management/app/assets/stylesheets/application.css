@@ -229,7 +229,6 @@ background-color: #04B1C8 !important;
     transform-origin: center left;
 }
 
-
 #sidebar.active {
     margin-left: -250px;
     transform: rotateY(100deg);
@@ -313,7 +312,6 @@ background-color: #04B1C8 !important;
 }
 
 .board-container {
-
   margin: -35px -190px;
   width: 1720px;
   display: flex;
@@ -479,8 +477,6 @@ html {
 
 .cards-container-footer {
   position: relative;
-
-
 }
 
 a.fa-envelope {
