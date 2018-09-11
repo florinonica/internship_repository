@@ -17,6 +17,7 @@
 //= require jquery.fancybox.pack
 //= require jquery.fancybox-buttons
 //= require sync
+//= require bootstrap-datepicker
 //= require cable
 //= require turbolinks
 //= require_tree .
