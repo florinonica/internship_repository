@@ -134,6 +134,13 @@
           <% end %><br>
           <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
             <%= link_to '<i class="glyphicon glyphicon-list-alt"></i> Reports'.html_safe, reports_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; '} %>
+            <% if controller_name == 'reports' %>
+              <ul class="collapse-unstyled components">
+                <li>
+                  <%= link_to "New report", new_report_path, {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %><br>
+                </li>
+              </ul>
+            <% end %>
           </li>
         </ul>
     </nav>
@@ -153,9 +160,9 @@
       <div class="navbar-header">
         <nav class="navbar-before navbar-expand-lg navbar-light bg-light">
         </nav>
-
       </div>
         <p class="navbar-text pull-right" style= 'margin-top: 5px; margin-right: -200px; '>
+
           <% if user_signed_in? %>
             <strong style= 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'> Logged in as <%= current_user.email %>.</strong>
             <%= image_tag(current_user.avatar.url(:thumb), :class => "round-image-50") %>
@@ -164,9 +171,11 @@
           <% end %>
         </p>
         <div id="messages">
+
           <% if user_signed_in? && current_user.get_unread_messages_count > 0 %>
             <%= sync partial: 'user', resource: current_user %>
           <% end %>
+
           <% if user_signed_in? %>
             <%= sync_new partial: 'user1', resource: User.new %>
           <% end %>
