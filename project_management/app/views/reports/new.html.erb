@@ -1,0 +1,21 @@
+<%= form_with model: @report, local: true do |form| %>
+  <div style='overflow-y: scroll; height: auto; max-height:300px; width: 500px; margin-top: 20px'>
+    <%= form.collection_check_boxes :employee_ids, Employee.all, :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+      <div style='margin-bottom: 10px; margin-top: 10px'>
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <%end %>
+  </div>
+  <div style='overflow-y: scroll; height: auto; max-height:300px; width: 500px; margin-top: 20px'>
+    <%= form.collection_check_boxes :project_ids, Project.all, :id, :title, multiple: true, include_hidden: false, include_blank: false do |b|%>
+      <div style='margin-bottom: 10px; margin-top: 10px'>
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <%end %>
+  </div><br>
+  <p>
+    <%= form.submit 'Add employees' %>
+  </p>
+<% end %>
