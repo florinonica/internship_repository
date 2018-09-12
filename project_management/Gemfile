@@ -22,15 +22,25 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+
 gem 'paperclip'
+
 gem 'will_paginate-bootstrap'
+
 gem 'fancybox-rails'
+
 gem 'paper_trail'
+
 gem 'unread'
+
 gem 'faye'
+
 gem 'thin'
+
 gem 'render_sync'
+
 gem 'unicorn'
+
 gem 'redis'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
