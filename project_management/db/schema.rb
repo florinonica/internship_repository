@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_10_084718) do
+ActiveRecord::Schema.define(version: 2018_09_12_082707) do
 
   create_table "attachments", force: :cascade do |t|
     t.string "file_file_name"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 2018_09_10_084718) do
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "report_data"
   end
 
   create_table "roles", force: :cascade do |t|
