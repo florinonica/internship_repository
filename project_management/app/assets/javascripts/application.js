@@ -17,7 +17,6 @@
 //= require jquery.fancybox.pack
 //= require jquery.fancybox-buttons
 //= require sync
-
 //= require cable
 //= require turbolinks
 //= require_tree .

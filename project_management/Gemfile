@@ -32,8 +32,6 @@ gem 'thin'
 gem 'render_sync'
 gem 'unicorn'
 gem 'redis'
-gem 'bootstrap-datetimepicker-rails'
-gem 'momentjs-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
