@@ -8,7 +8,7 @@ body {
 <%= form_with model: @report, local: true do |form| %>
   <div style='display:flex'>
     <div>
-      <h4>Select employees </h4>
+      <h3>Select employees </h3>
       <div title='Select employees' style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
         <%= form.collection_check_boxes :employee_ids, Employee.all, :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
           <div style='margin-bottom: 10px; margin-top: 10px; margin-left: 10px;'>
@@ -20,7 +20,7 @@ body {
     </div>
 
     <div>
-      <h4>Select projects </h4>
+      <h3>Select projects </h3>
       <div style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-bottom: 40px'>
         <%= form.collection_check_boxes :project_ids, Project.all, :id, :title, multiple: true, include_hidden: false, include_blank: false do |b|%>
           <div style='margin-bottom: 10px; margin-top: 10px; margin-left: 10px;'>
@@ -35,19 +35,31 @@ body {
   <div style='display:flex'>
     <div>
       <h4>Start date </h4>
-      <%= form.date_field :start_date, {class: "glyphicon glyphicon-calendar", style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 40px;' }%>
+      <%= form.date_field :start_date, {class: "glyphicon glyphicon-calendar", style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 100px; margin-bottom: 50px;' }%>
     </div>
     <div>
       <h4>End date </h4>
-      <%= form.date_field :end_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center' %>
+      <%= form.date_field :end_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-bottom: 50px;' %>
     </div>
   </div>
 
-  <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
+  <div style='display:flex'>
+    <div>
+      <h4>Choose ticket type </h4>
+      <%= select_tag :ticket_type, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 100px' %>
+    </div>
+    <div>
+      <h4>Choose ticket status </h4>
+      <%= select_tag :ticket_status, options_for_select(["All", "To do", "In progress", "Dev complete", "Done"]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px;' %>
+    </div>
+    <div style='display:flex; margin-top: 20px' >
+      <h4 style=' margin-right: 20px;'> Include comments data <h4>
+      <%= check_box_tag :include_comments_data, checked = true, style: 'width: 100px; height: 100px'%>
+    </div>
+  </div>
 
-
-  <br><br><br>
   <p>
     <%= form.submit 'Generate report', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
   </p>
+
 <% end %>
