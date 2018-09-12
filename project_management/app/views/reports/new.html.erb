@@ -1,23 +1,53 @@
+<style>
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
+}
+</style>
+
 <%= form_with model: @report, local: true do |form| %>
-  <div style='overflow-y: scroll; height: auto; max-height:300px; width: 500px; margin-top: 20px'>
-    <%= form.collection_check_boxes :employee_ids, Employee.all, :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
-      <div style='margin-bottom: 10px; margin-top: 10px'>
-        <%= b.check_box %>
-        <%= b.label %>
+  <div style='display:flex'>
+    <div>
+      <h4>Select employees </h4>
+      <div title='Select employees' style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
+        <%= form.collection_check_boxes :employee_ids, Employee.all, :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
+          <div style='margin-bottom: 10px; margin-top: 10px; margin-left: 10px;'>
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <%end %>
       </div>
-    <%end %>
+    </div>
+
+    <div>
+      <h4>Select projects </h4>
+      <div style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-bottom: 40px'>
+        <%= form.collection_check_boxes :project_ids, Project.all, :id, :title, multiple: true, include_hidden: false, include_blank: false do |b|%>
+          <div style='margin-bottom: 10px; margin-top: 10px; margin-left: 10px;'>
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <%end %>
+      </div>
+    </div>
   </div>
-  <div style='overflow-y: scroll; height: auto; max-height:300px; width: 500px; margin-top: 20px'>
-    <%= form.collection_check_boxes :project_ids, Project.all, :id, :title, multiple: true, include_hidden: false, include_blank: false do |b|%>
-      <div style='margin-bottom: 10px; margin-top: 10px'>
-        <%= b.check_box %>
-        <%= b.label %>
-      </div>
-    <%end %>
-  </div><br>
-  <%= form.date_field :start_date %>
-  <%= form.date_field :end_date %>
+
+  <div style='display:flex'>
+    <div>
+      <h4>Start date </h4>
+      <%= form.date_field :start_date, {class: "glyphicon glyphicon-calendar", style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 40px;' }%>
+    </div>
+    <div>
+      <h4>End date </h4>
+      <%= form.date_field :end_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center' %>
+    </div>
+  </div>
+
+  <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
+
+
+  <br><br><br>
   <p>
-    <%= form.submit 'Generate report' %>
+    <%= form.submit 'Generate report', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
   </p>
 <% end %>
