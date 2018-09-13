@@ -33,28 +33,28 @@ body {
   </div>
 
   <div style='display:flex'>
-    <div>
+    <div style='color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
       <h4>Choose ticket type </h4>
-      <%= select_tag :ticket_type, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
+      <%= form.select :ticket_type, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
     </div>
-    <div>
+    <div style='color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
       <h4>Choose ticket status </h4>
-      <%= select_tag :ticket_status, options_for_select(["All", "To do", "In progress", "Dev complete", "Done"]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px;' %>
+      <%= form.select :ticket_status, options_for_select(["All", "To do", "In progress", "Dev complete", "Done"]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px;' %>
     </div>
-    <div>
+    <div style='color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
       <h4>Select chart type </h4>
-      <%= select_tag :chart_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
+      <%= form.select :chart_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 28px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
     </div>
   </div>
 
   <div style='display:flex'>
-    <div style='display:flex; margin-top: 20px; margin-right: 200px; margin-bottom: 50px;' >
+    <div style='display:flex; margin-top: 20px; margin-right: 200px;' >
       <h4 style=' margin-right: 20px;'> Include comments data <h4>
-      <%= check_box_tag :include_comments_data, style: 'width: 100px; height: 100px; '%>
+      <%= form.check_box :include_comments_data, style: 'width: 100px; height: 100px; '%>
     </div>
     <div style='display:flex; margin-top: 20px' >
       <h4 style=' margin-right: 20px;'> Make available to clients <h4>
-      <%= check_box_tag :available_to_clients, style: 'width: 100px; height: 100px'%>
+      <%= form.check_box :available_to_clients, style: 'width: 100px; height: 100px'%>
     </div>
   </div>
 

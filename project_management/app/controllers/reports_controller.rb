@@ -29,7 +29,7 @@ class ReportsController < ApplicationController
 
   private
     def report_params
-      params.require(:report).permit(:start_date, :end_date, :include_comments_data, :ticket_type, :ticket_status, :chart_type, :project_ids => [], :employee_ids => [])
+      params.require(:report).permit(:start_date, :end_date, :ticket_type, :ticket_status, :chart_type, :include_comments_data, :project_ids => [], :employee_ids => [])
     end
 
     def get_report
