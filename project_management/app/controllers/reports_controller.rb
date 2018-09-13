@@ -17,6 +17,12 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:available_to_clients)
     @report.available_to_clients = params[:report][:available_to_clients]
     if @report.save
+      params[:report][:project_ids].each do |pid|
+        @report.projects << Project.find(pid)
+      end
+      params[:report][:employee_ids].each do |eid|
+        @report.users << User.find(eid)
+      end
       redirect_to @report
     else
       render 'new'
