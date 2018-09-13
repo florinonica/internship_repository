@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :projects, through: :project_workers
   has_many :attachments, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_and_belongs_to_many :reports, join_table: :users_reports
   acts_as_reader
   sync :all
 

@@ -1,4 +1,6 @@
 class Ticket < ApplicationRecord
+  validates :title, :presence => true, length: { in: 3..50 }
+  validates :description, :presence => true, length: { in: 10..1000 }
   belongs_to :project
   belongs_to :owner, class_name: "User"
   belongs_to :dev, class_name: "User", optional: true
@@ -7,8 +9,6 @@ class Ticket < ApplicationRecord
   has_many :subtasks, class_name: "Task", foreign_key: :task_id, dependent: :destroy
   has_many :bugs, class_name: "Bug", foreign_key: :task_id, dependent: :destroy
   has_many :attachments, :as => :container, dependent: :destroy
-  validates :title, :presence => true, length: { in: 3..50 }
-  validates :description, :presence => true, length: { in: 10..1000 }
   has_paper_trail on: [:update]
   accepts_nested_attributes_for :attachments
   accepts_nested_attributes_for :comments
