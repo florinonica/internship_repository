@@ -1,24 +1,8 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-    ['Ticket with status', 'Number of tickets'],
-    ['To do', <%= @project.get_tasks_to_do.count %>],
-    ['In progress', <%= @project.get_tasks_in_progress.count %>],
-    ['Dev complete', <%= @project.get_tasks_dev_complete.count %>],
-    ['Done', <%= @project.get_tasks_done.count %>]
-  ]);
-    var options = {title: "Project status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
-      pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
-  }
-</script>
 <style>
 body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 20px;
 }
 </style>
+
+<%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, reports_path, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>

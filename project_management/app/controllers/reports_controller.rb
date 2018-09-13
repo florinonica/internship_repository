@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   before_action :get_report, only: [:show, :destroy]
 
   def index
-    @reports = Report.all
+    @reports = Report.paginate(:page => params[:page], per_page:5)
   end
 
   def show
@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:available_to_clients)
     @report.available_to_clients = params[:report][:available_to_clients]
     if @report.save
-      redirect_to reports_path
+      redirect_to @report
     else
       render 'new'
     end
