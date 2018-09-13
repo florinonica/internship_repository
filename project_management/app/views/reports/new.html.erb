@@ -46,7 +46,7 @@ body {
   <div style='display:flex'>
     <div>
       <h4>Choose ticket type </h4>
-      <%= select_tag :ticket_type, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 100px' %>
+      <%= select_tag :ticket_type, options_for_select(["All", ["Bug", "1"], ["Task", "0"]]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
     </div>
     <div>
       <h4>Choose ticket status </h4>
@@ -54,10 +54,13 @@ body {
     </div>
     <div style='display:flex; margin-top: 20px' >
       <h4 style=' margin-right: 20px;'> Include comments data <h4>
-      <%= check_box_tag :include_comments_data, checked = true, style: 'width: 100px; height: 100px'%>
+      <%= check_box_tag :include_comments_data, style: 'width: 100px; height: 100px'%>
     </div>
   </div>
-
+  <div>
+    <h4>Select chart type </h4>
+    <%= select_tag :ticket_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
+  </div>
   <p>
     <%= form.submit 'Generate report', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
   </p>
