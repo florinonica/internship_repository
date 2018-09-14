@@ -4,6 +4,24 @@ body {
     font-size: 20px;
 }
 </style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ['Ticket with status', 'Number of tickets'],
+    ['To do', ],
+    ['In progress', ],
+    ['Dev complete', ],
+    ['Done', ]
+  ]);
+    var options = {title: "Project status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
+      pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+  }
+</script>
 
 <% if current_user.can_change_report_availability? %>
   <%= form_for @report, :url => {:action => :change_availability} do |form| %>
