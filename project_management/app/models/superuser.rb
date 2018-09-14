@@ -1,5 +1,5 @@
 class Superuser < User
-  
+
   def self.model_name
     User.model_name
   end
@@ -85,6 +85,10 @@ class Superuser < User
   end
 
   def can_comment?
+    true
+  end
+
+  def can_change_report_availability?
     true
   end
 

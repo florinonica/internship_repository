@@ -5,4 +5,20 @@ body {
 }
 </style>
 
+<% if current_user.can_change_report_availability? %>
+  <%= form_for @report, :url => {:action => :change_availability} do |form| %>
+    <% if @report.is_available_to_clients? %>
+      <%= form.hidden_field :available_to_clients, :value => 0 %>
+      <p>
+        <%= form.submit "Make unavailable to clients", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
+      </p>
+    <% else %>
+      <%= form.hidden_field :available_to_clients, :value => 1 %>
+      <p>
+        <%= form.submit "Make available to clients", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
+
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, reports_path, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>

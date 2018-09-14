@@ -34,7 +34,9 @@ class ReportsController < ApplicationController
   end
 
   def change_availability
-    @report.update(:available_to_clients => params[:available_to_clients])
+    params.require(:report).permit(:available_to_clients)
+    @report.update(:available_to_clients => params[:report][:available_to_clients])
+    redirect_to @report
   end
 
   private
