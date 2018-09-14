@@ -45,6 +45,15 @@ class ReportsController < ApplicationController
     redirect_to @report
   end
 
+  def download
+    pdf = WickedPdf.new.pdf_from_string(            
+      render_to_string('download', layout: false))
+    send_data(pdf,
+      filename: 'download.pdf',
+      type: 'application/pdf',
+      disposition: 'attachment')
+  end
+
   private
     def report_params
       params.require(:report).permit(:start_date, :end_date, :ticket_type, :ticket_status, :chart_type, :include_comments_data, :project_ids => [], :employee_ids => [])
