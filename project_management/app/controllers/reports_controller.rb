@@ -6,6 +6,12 @@ class ReportsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "report"
+      end
+    end
   end
 
   def new
