@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   patch 'projects/:id/add_tester' => 'projects#add_tester'
   patch 'projects/:id/add_employees' => 'projects#add_employees'
   patch 'projects/:id/add_files' => 'projects#add_files'
+  patch 'reports/:id/change_availability' => 'reports#change_availability', :as => :change_availability
   patch 'tickets/:id/change_status' => 'tickets#change_status', :as => :change_status
   patch 'tickets/undo' => 'tickets#undo', :as => :undo
   patch 'tickets/:id/add_files' => 'tickets#add_files'

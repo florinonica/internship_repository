@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :get_report, only: [:show, :destroy]
+  before_action :get_report, only: [:show, :destroy, :change_availability]
 
   def index
     @reports = Report.paginate(:page => params[:page], per_page:5)
@@ -31,6 +31,10 @@ class ReportsController < ApplicationController
 
   def destroy
     @report.destroy
+  end
+
+  def change_availability
+    @report.update(:available_to_clients => params[:available_to_clients])
   end
 
   private
