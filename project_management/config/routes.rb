@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
   root 'welcome#index'
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  resources :users, except: :create
+  resources :attachments
   resources :projects do
   	resources :tickets
     resources :posts
   end
-  resources :attachments
+  resources :reports
   resources :tickets do
     resources :comments
   end
-  resources :reports
-
+  resources :users, except: :create
+  
   get 'projects/:id/remove_client' => 'projects#remove_client'
   get 'projects/:id/remove_employee' => 'projects#remove_employee'
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'projects/:id/team' => 'projects#team', :as => :team
   get 'projects/:id/message_board' => 'projects#message_board', :as => :message_board
   get 'projects/:id/clients' => 'projects#clients', :as => :clients
+  get 'reports/:id/download' => 'reports#download'
   get 'tickets/:id/subtasks' => 'tickets#subtasks', :as => :subtasks
   get 'tickets/:id/bugs' => 'tickets#bugs', :as => :bugs
   get 'tickets/:id/comments' => 'tickets#comments', :as => :comments
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
   get 'users/:id/unread' => 'users#unread', :as => :unread
   get 'users/type' => 'users#custom_index', :as => :type
   get 'users/:id/remove_role' => 'users#remove_role'
-  get 'reports/:id/download' => 'reports#download'
+
 
   patch 'projects/:id/add_client' => 'projects#add_client'
   patch 'projects/:id/add_project_manager' => 'projects#add_project_manager'

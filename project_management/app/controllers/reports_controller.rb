@@ -46,13 +46,8 @@ class ReportsController < ApplicationController
   end
 
   def download
-    pdf = WickedPdf.new.pdf_from_string(
-      render_to_string('show', layout: false))
-    send_data(pdf,
-      filename: 'download.pdf',
-      type: 'application/pdf',
-      disposition: 'attachment')
-    #redirect_to @report
+    pdf = WickedPdf.new.pdf_from_string(render_to_string('show', layout: false))
+    send_data(pdf, filename: 'download.pdf', type: 'application/pdf', disposition: 'attachment')
   end
 
   private
