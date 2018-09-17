@@ -4,19 +4,46 @@ body {
     font-size: 18px;
 }
 </style>
-
+<script>
+  $(document).on('turbolinks:load', function() {
+    $('#selectAll').click(function() {
+       if (this.checked) {
+           $('.c1').each(function() {
+               this.checked = true;
+           });
+       } else {
+          $('.c1').each(function() {
+               this.checked = false;
+           });
+       }
+    });
+    $('#selectAll1').click(function() {
+       if (this.checked) {
+           $('.c2').each(function() {
+               this.checked = true;
+           });
+       } else {
+          $('.c2').each(function() {
+               this.checked = false;
+           });
+       }
+    });
+  });
+</script>
 <%= form_with model: @report, local: true do |form| %>
   <div style='margin-bottom: 50px; width: 500px'>
     <%= form.label :title %><br>
     <%= form.text_field :title, class: 'form-control' %>
   </div>
+
   <div style='display:flex'>
     <div>
       <h3>Select employees </h3>
+      <input type="checkbox" id="selectAll" value="selectAll">All<br/>
       <div title='Select employees' style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
         <%= form.collection_check_boxes :employee_ids, Employee.all, :id, :full_name, multiple: true, include_hidden: false, include_blank: false do |b|%>
           <div style='margin-bottom: 10px; margin-top: 10px; margin-left: 10px;'>
-            <%= b.check_box %>
+            <%= b.check_box class: "c1" %>
             <%= b.label %>
           </div>
         <%end %>
@@ -25,10 +52,11 @@ body {
 
     <div>
       <h3>Select projects </h3>
+      <input type="checkbox" id="selectAll1" value="selectAll1">All<br/>
       <div style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-bottom: 40px'>
         <%= form.collection_check_boxes :project_ids, Project.all, :id, :title, multiple: true, include_hidden: false, include_blank: false do |b|%>
           <div style='margin-bottom: 10px; margin-top: 10px; margin-left: 10px;'>
-            <%= b.check_box %>
+            <%= b.check_box class: "c2" %>
             <%= b.label %>
           </div>
         <%end %>
