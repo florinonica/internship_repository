@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get 'users/:id/unread' => 'users#unread', :as => :unread
   get 'users/type' => 'users#custom_index', :as => :type
   get 'users/:id/remove_role' => 'users#remove_role'
+  get 'reports/:id/download' => 'reports#download'
 
   patch 'projects/:id/add_client' => 'projects#add_client'
   patch 'projects/:id/add_project_manager' => 'projects#add_project_manager'

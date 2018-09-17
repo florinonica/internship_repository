@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :get_report, only: [:show, :destroy, :change_availability]
+  before_action :get_report, only: [:show, :destroy, :change_availability, :download]
 
   def index
     @reports = Report.paginate(:page => params[:page], per_page:5)
@@ -46,12 +46,13 @@ class ReportsController < ApplicationController
   end
 
   def download
-    pdf = WickedPdf.new.pdf_from_string(            
-      render_to_string('download', layout: false))
+    pdf = WickedPdf.new.pdf_from_string(
+      render_to_string('show', layout: false))
     send_data(pdf,
       filename: 'download.pdf',
       type: 'application/pdf',
       disposition: 'attachment')
+    #redirect_to @report
   end
 
   private
