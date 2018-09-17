@@ -142,3 +142,28 @@ function scrollBoard() {
 };
 
 setInterval(scrollBoard,10000);
+
+$(document).on('turbolinks:load', function() {
+  $('#selectAll').click(function() {
+     if (this.checked) {
+         $('.c1').each(function() {
+             this.checked = true;
+         });
+     } else {
+        $('.c1').each(function() {
+             this.checked = false;
+         });
+     }
+  });
+  $('#selectAll1').click(function() {
+     if (this.checked) {
+         $('.c2').each(function() {
+             this.checked = true;
+         });
+     } else {
+        $('.c2').each(function() {
+             this.checked = false;
+         });
+     }
+  });
+});

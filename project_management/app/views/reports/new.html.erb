@@ -4,32 +4,7 @@ body {
     font-size: 18px;
 }
 </style>
-<script>
-  $(document).on('turbolinks:load', function() {
-    $('#selectAll').click(function() {
-       if (this.checked) {
-           $('.c1').each(function() {
-               this.checked = true;
-           });
-       } else {
-          $('.c1').each(function() {
-               this.checked = false;
-           });
-       }
-    });
-    $('#selectAll1').click(function() {
-       if (this.checked) {
-           $('.c2').each(function() {
-               this.checked = true;
-           });
-       } else {
-          $('.c2').each(function() {
-               this.checked = false;
-           });
-       }
-    });
-  });
-</script>
+
 <%= form_with model: @report, local: true do |form| %>
   <div style='margin-bottom: 50px; width: 500px'>
     <%= form.label :title %><br>
