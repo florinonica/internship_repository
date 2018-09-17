@@ -5,6 +5,25 @@ body {
 }
 </style>
 
+<div style='display:flex'>
+  <div>
+    <h3>Employees </h3>
+    <div title='Select employees' style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
+      <%= @report.users.each do |user| %>
+        <td class="col-xs-2"><%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><br>
+      <%end %>
+    </div>
+  </div>
+
+  <div>
+    <h3>Projects </h3>
+    <div style='overflow-y: scroll; height: auto; max-height:200px; width: 500px; margin-top: 20px; margin-bottom: 40px'>
+      <%= @report.projects.each do |project|%>
+        <td class="col-xs-2"><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><BR>
+      <%end %>
+    </div>
+  </div>
+</div>
 
 <% if current_user.can_change_report_availability? %>
   <%= form_for @report, :url => {:action => :change_availability} do |form| %>
