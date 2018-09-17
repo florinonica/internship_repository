@@ -6,6 +6,10 @@ body {
 </style>
 
 <%= form_with model: @report, local: true do |form| %>
+  <div style='margin-bottom: 50px; width: 500px'>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
   <div style='display:flex'>
     <div>
       <h3>Select employees </h3>
@@ -58,10 +62,10 @@ body {
     </div>
   </div>
 
-  <div style='display:flex'>
+  <div style='display:flex;  margin-top: -50px' >
     <div>
       <h4>Start date </h4>
-      <%= form.date_field :start_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 100px; margin-bottom: 50px;' %>
+      <%= form.date_field :start_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 100px; margin-bottom: 50px; ' %>
     </div>
     <div>
       <h4>End date </h4>
