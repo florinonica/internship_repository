@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :get_project, only: [:index, :new, :create, :edit, :update]
   before_action :get_ticket, only: [:show, :edit, :update, :destroy, :assign_dev, :change_status, :files, :add_files, :comments, :bugs, :subtasks]
+  respond_to :html, :js
 
   def index
     @tickets = @project.tickets
