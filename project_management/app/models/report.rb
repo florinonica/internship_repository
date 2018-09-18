@@ -9,7 +9,7 @@ class Report < ApplicationRecord
 
   def get_tickets
     tickets = []
-    @report.projects.each do |project|
+    projects.each do |project|
       tickets << project.tickets
     end
     tickets
@@ -18,15 +18,23 @@ class Report < ApplicationRecord
   def get_filtered_tickets
     tickets = self.get_tickets
 
-    if setting['ticket_status'] != 'All' && setting['ticket_type'] != 'All'
-      tickets.where(:status => setting['ticket_status'])
-    elsif setting['ticket_status'] != 'All'
-      tickets.where(:status => setting['ticket_status'])
-    elsif setting['ticket_type'] != 'All'
-      tickets.where(:status => setting['ticket_type'])
+    if report_data['ticket_status'] != 'All' && report_data['ticket_type'] != 'All'
+      tickets.where(:status => report_data['ticket_status'])
+    elsif report_data['ticket_status'] != 'All'
+      tickets.where(:status => report_data['ticket_status'])
+    elsif report_data['ticket_type'] != 'All'
+      tickets.where(:status => report_data['ticket_type'])
     else
       tickets
     end
+  end
+
+  def get_filtered_by_status(status)
+    tickets = []
+    projects.each do |project|
+      tickets << project.tickets.where(:status => status)
+    end
+    tickets
   end
 
   def get_comments_count

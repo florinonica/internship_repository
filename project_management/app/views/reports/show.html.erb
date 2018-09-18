@@ -5,6 +5,42 @@ body {
 }
 </style>
 
+<% if current_user.can_change_report_availability? %>
+  <%= form_for @report, :url => {:action => :change_availability} do |form| %>
+    <% if @report.is_available_to_clients? %>
+      <%= form.hidden_field :available_to_clients, :value => 0 %>
+      <p>
+        <%= form.submit "Make unavailable to clients", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
+      </p>
+    <% else %>
+      <%= form.hidden_field :available_to_clients, :value => 1 %>
+      <p>
+        <%= form.submit "Make available to clients", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Download', controller: "reports", action: "download", id: @report.id %>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ['Ticket with status', 'Number of tickets'],
+    ['To do', <%= @report.get_filtered_by_status("To do").count %>],
+    ['In progress', <%= @report.get_filtered_by_status("In progress").count %>],
+    ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
+    ['Done', <%= @report.get_filtered_by_status("Done").count %>]
+  ]);
+    var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
+      pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+  }
+</script>
+
 <div style='display:flex'>
   <div>
     <h3>Employees </h3>
@@ -23,22 +59,6 @@ body {
       <%end %>
     </div>
   </div>
+
+  <div class = "col-xs-1" id="piechart"></div>
 </div>
-
-<% if current_user.can_change_report_availability? %>
-  <%= form_for @report, :url => {:action => :change_availability} do |form| %>
-    <% if @report.is_available_to_clients? %>
-      <%= form.hidden_field :available_to_clients, :value => 0 %>
-      <p>
-        <%= form.submit "Make unavailable to clients", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
-      </p>
-    <% else %>
-      <%= form.hidden_field :available_to_clients, :value => 1 %>
-      <p>
-        <%= form.submit "Make available to clients", {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%>
-      </p>
-    <% end %>
-  <% end %>
-<% end %>
-
-<%= link_to 'Download', controller: "reports", action: "download", id: @report.id %>
