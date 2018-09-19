@@ -70,10 +70,9 @@ body {
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets completed'],
-      ['2004',  1000,      400],
-      ['2005',  1170,      460],
-      ['2006',  660,       1120],
-      ['2007',  1030,      540]
+      <% (@report.report_data['start_date'].to_date..@report.report_data['end_date'].to_date).each do |day| %>
+        [Date(<%= day.to_s %>), <%= @report.get_filtered_by_created(day).count %>, <%= @report.get_filtered_by_ended(day).count %>],
+      <% end %>
     ]);
 
     var options = {
