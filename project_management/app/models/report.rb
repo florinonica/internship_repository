@@ -15,24 +15,26 @@ class Report < ApplicationRecord
     tickets
   end
 
-  def get_filtered_tickets
-    tickets = self.get_tickets
-
-    if report_data['ticket_status'] != 'All' && report_data['ticket_type'] != 'All'
-      tickets.where(:status => report_data['ticket_status'])
-    elsif report_data['ticket_status'] != 'All'
-      tickets.where(:status => report_data['ticket_status'])
-    elsif report_data['ticket_type'] != 'All'
-      tickets.where(:status => report_data['ticket_type'])
-    else
-      tickets
-    end
-  end
+#  def get_filtered_tickets
+#    tickets = self.get_tickets
+#
+#    if report_data['ticket_status'] != 'All' && report_data['ticket_type'] != 'All'
+#      tickets.where(:status => report_data['ticket_status'])
+#    elsif report_data['ticket_status'] != 'All'
+#      tickets.where(:status => report_data['ticket_status'])
+#    elsif report_data['ticket_type'] != 'All'
+#      tickets.where(:status => report_data['ticket_type'])
+#    else
+#      tickets
+#    end
+#  end
 
   def get_filtered_by_status(status)
     tickets = []
-    projects.each do |project|
-      tickets << project.tickets.where(:status => status)
+    self.projects.each do |project|
+      project.tickets.each do |t|
+        tickets << t if t.status == status && t.created_at >= report_data['start_date'] && t.created_at <= report_data['end_date']
+      end
     end
     tickets
   end
