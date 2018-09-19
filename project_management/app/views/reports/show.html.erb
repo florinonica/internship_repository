@@ -71,7 +71,7 @@ body {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets completed'],
       <% (@report.report_data['start_date'].to_date..@report.report_data['end_date'].to_date).each do |day| %>
-        [Date(<%= day.to_s %>), <%= @report.get_filtered_by_created(day).count %>, <%= @report.get_filtered_by_ended(day).count %>],
+        ['<%= day.strftime("%Y-%-m-%-d").to_s %>', <%= @report.get_filtered_by_created(day).count %>, <%= @report.get_filtered_by_ended(day).count %>],
       <% end %>
     ]);
 

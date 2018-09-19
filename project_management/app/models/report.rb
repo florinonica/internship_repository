@@ -29,7 +29,7 @@ class Report < ApplicationRecord
     tickets = []
     self.projects.each do |project|
       project.tickets.each do |t|
-        tickets << t if t.created_at == date
+        tickets << t if t.created_at < date
       end
     end
     tickets
@@ -39,7 +39,7 @@ class Report < ApplicationRecord
     tickets = []
     self.projects.each do |project|
       project.tickets.each do |t|
-        tickets << t if t.end_at == date
+        tickets << t if t.end_at.presence && t.end_at < date
       end
     end
     tickets
