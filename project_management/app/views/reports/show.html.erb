@@ -37,46 +37,56 @@ body {
     var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
       pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    function selectHandler() {
+          var selectedItem = chart.getSelection()[0];
+          if (selectedItem) {
+            var topping = data.getValue(selectedItem.row, 0);
+            if (topping == "To do") {
+              alert(//<% @report.get_filtered_by_status("To do").each do |t| %>
+                //<%= link_to t.title, ticket_path(t) %>
+              //<% end %>
+              <%= @report.get_filtered_by_status("To do").count %>
+            );
+            }
+            else if (topping == "In progress") {
+              alert(<%= @report.get_filtered_by_status("In progress").count %>);
+            }
+            else if (topping == "Dev complete") {
+              alert(<%= @report.get_filtered_by_status("Dev complete").count %>);
+            }
+            else if (topping == "Done") {
+              alert(<%= @report.get_filtered_by_status("Done").count %>);
+            }
+          }
+        }
+    google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
   }
 </script>
 <script type='text/javascript'>
-      google.charts.load('current', {'packages':['annotationchart']});
-      google.charts.setOnLoadCallback(drawChart1);
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart1() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Date');
-        data.addColumn('number', 'Kepler-22b mission');
-        data.addColumn('string', 'Kepler title');
-        data.addColumn('string', 'Kepler text');
-        data.addColumn('number', 'Gliese 163 mission');
-        data.addColumn('string', 'Gliese title');
-        data.addColumn('string', 'Gliese text');
-        data.addRows([
-          [new Date(2314, 2, 15), 12400, undefined, undefined,
-                                  10645, undefined, undefined],
-          [new Date(2314, 2, 16), 24045, 'Lalibertines', 'First encounter',
-                                  12374, undefined, undefined],
-          [new Date(2314, 2, 17), 35022, 'Lalibertines', 'They are very tall',
-                                  15766, 'Gallantors', 'First Encounter'],
-          [new Date(2314, 2, 18), 12284, 'Lalibertines', 'Attack on our crew!',
-                                  34334, 'Gallantors', 'Statement of shared principles'],
-          [new Date(2314, 2, 19), 8476, 'Lalibertines', 'Heavy casualties',
-                                  66467, 'Gallantors', 'Mysteries revealed'],
-          [new Date(2314, 2, 20), 0, 'Lalibertines', 'All crew lost',
-                                  79463, 'Gallantors', 'Omniscience achieved']
-        ]);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Date', 'Tickets created', 'Tickets completed'],
+      ['2004',  1000,      400],
+      ['2005',  1170,      460],
+      ['2006',  660,       1120],
+      ['2007',  1030,      540]
+    ]);
 
-        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+    var options = {
+      title: 'Progress timeline',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
 
-        var options = {
-          displayAnnotations: true
-        };
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-        chart.draw(data, options);
-      }
-    </script>
+    chart.draw(data, options);
+  }
+</script>
 
 <div style='display:flex'>
   <div>
@@ -84,7 +94,7 @@ body {
     <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
       <% @report.users.each do |user| %>
         <td class="col-xs-2"><%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><br>
-      <%end %>
+      <% end %>
     </div>
   </div>
 
@@ -93,7 +103,7 @@ body {
     <div style='margin-top: 20px; margin-bottom: 40px'>
       <% @report.projects.each do |project|%>
         <td class="col-xs-2"><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><BR>
-      <%end %>
+      <% end %>
     </div>
   </div>
 
