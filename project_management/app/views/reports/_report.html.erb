@@ -90,25 +90,26 @@ body {
 <div style='display:flex'>
   <div>
     <h3>Employees </h3>
-    <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
+    <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
       <% @report.users.each do |user| %>
-        <td class="col-xs-2"><%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><br>
+        <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
       <% end %>
     </div>
   </div>
 
   <div>
     <h3>Projects </h3>
-    <div style='margin-top: 20px; margin-bottom: 40px'>
+    <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
       <% @report.projects.each do |project|%>
-        <td class="col-xs-2"><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><BR>
+        <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
       <% end %>
     </div>
   </div>
-  <div class = "col-xs-1">
-    <div id="donutchart"></div>
-    <div id="piechart" style='width: 900px; height: 500px;'></div>
-  </div>
+  <div id="donutchart" style='margin-top: -50px;'></div>
+
 </div>
 
-<div id='chart_div' style='width: 900px; height: 500px;'></div>
+<div style='display:flex'>
+  <div id='chart_div' style='width: 900px; height: 500px; margin-top: -100px; margin-left: -100px'></div>
+  <div id="piechart" ></div>
+</div>
