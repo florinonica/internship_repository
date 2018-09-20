@@ -25,110 +25,28 @@ body {
 <% end %>
 
 <%= link_to 'Download', controller: "reports", action: "download", id: @report.id %>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-    ['Ticket with status', 'Number of tickets'],
-    ['To do', <%= @report.get_filtered_by_status("To do").count %>],
-    ['In progress', <%= @report.get_filtered_by_status("In progress").count %>],
-    ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
-    ['Done', <%= @report.get_filtered_by_status("Done").count %>]
-  ]);
-    var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
-      pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            if (topping == "To do") {
-              $( "#dialog1" ).dialog();
-            }
-            else if (topping == "In progress") {
-              $( "#dialog2" ).dialog();
-            }
-            else if (topping == "Dev complete") {
-              $( "#dialog3" ).dialog();
-            }
-            else if (topping == "Done") {
-              $( "#dialog4" ).dialog();
-            }
-          }
-        }
-    google.visualization.events.addListener(chart, 'select', selectHandler);
-    chart.draw(data, options);
-  }
-</script>
-<script type='text/javascript'>
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Date', 'Tickets created', 'Tickets completed'],
-      <% (@report.report_data['start_date'].to_date..@report.report_data['end_date'].to_date).each do |day| %>
-        ['<%= day.strftime("%Y-%-m-%-d").to_s %>', <%= @report.get_filtered_by_created(day).count %>, <%= @report.get_filtered_by_ended(day).count %>],
-      <% end %>
-    ]);
+<%= render @report %>
 
-    var options = {
-      title: 'Progress timeline',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-  }
-</script>
-
-<div style='display:flex'>
-  <div>
-    <h3>Employees </h3>
-    <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px'>
-      <% @report.users.each do |user| %>
-        <td class="col-xs-2"><%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><br>
-      <% end %>
-    </div>
-  </div>
-
-  <div>
-    <h3>Projects </h3>
-    <div style='margin-top: 20px; margin-bottom: 40px'>
-      <% @report.projects.each do |project|%>
-        <td class="col-xs-2"><%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %></td><BR>
-      <% end %>
-    </div>
-  </div>
-
-  <div class = "col-xs-1" id="piechart"></div>
-</div>
-
-<div id='chart_div' style='width: 900px; height: 500px;'></div>
-
-<div id='dialog1' style='display: none;'>
+<div id='dialog1' title="To do list" style='display: none;'>
   <% @report.get_filtered_by_status("To do").each do |t| %>
     <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
   <% end %>
 </div>
 
-<div id='dialog2' style='display: none;'>
+<div id='dialog2' title="In progress list" style='display: none;'>
   <% @report.get_filtered_by_status("In progress").each do |t| %>
     <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
   <% end %>
 </div>
 
-<div id='dialog3' style='display: none;'>
+<div id='dialog3' title="Dev complete list" style='display: none;'>
   <% @report.get_filtered_by_status("Dev complete").each do |t| %>
     <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
   <% end %>
 </div>
 
-<div id='dialog4' style='display: none;'>
+<div id='dialog4' title="Done list" style='display: none;'>
   <% @report.get_filtered_by_status("Done").each do |t| %>
     <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
   <% end %>
