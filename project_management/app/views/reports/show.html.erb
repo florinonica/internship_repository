@@ -4,7 +4,10 @@ body {
     font-size: 20px;
 }
 </style>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <% if current_user.can_change_report_availability? %>
   <%= form_for @report, :url => {:action => :change_availability} do |form| %>
     <% if @report.is_available_to_clients? %>
@@ -42,20 +45,16 @@ body {
           if (selectedItem) {
             var topping = data.getValue(selectedItem.row, 0);
             if (topping == "To do") {
-              alert(//<% @report.get_filtered_by_status("To do").each do |t| %>
-                //<%= link_to t.title, ticket_path(t) %>
-              //<% end %>
-              <%= @report.get_filtered_by_status("To do").count %>
-            );
+              $( "#dialog1" ).dialog();
             }
             else if (topping == "In progress") {
-              alert(<%= @report.get_filtered_by_status("In progress").count %>);
+              $( "#dialog2" ).dialog();
             }
             else if (topping == "Dev complete") {
-              alert(<%= @report.get_filtered_by_status("Dev complete").count %>);
+              $( "#dialog3" ).dialog();
             }
             else if (topping == "Done") {
-              alert(<%= @report.get_filtered_by_status("Done").count %>);
+              $( "#dialog4" ).dialog();
             }
           }
         }
@@ -110,3 +109,27 @@ body {
 </div>
 
 <div id='chart_div' style='width: 900px; height: 500px;'></div>
+
+<div id='dialog1' style='display: none;'>
+  <% @report.get_filtered_by_status("To do").each do |t| %>
+    <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
+  <% end %>
+</div>
+
+<div id='dialog2' style='display: none;'>
+  <% @report.get_filtered_by_status("In progress").each do |t| %>
+    <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
+  <% end %>
+</div>
+
+<div id='dialog3' style='display: none;'>
+  <% @report.get_filtered_by_status("Dev complete").each do |t| %>
+    <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
+  <% end %>
+</div>
+
+<div id='dialog4' style='display: none;'>
+  <% @report.get_filtered_by_status("Done").each do |t| %>
+    <p><%= link_to t.title, ticket_path(t), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'}%></p>
+  <% end %>
+</div>
