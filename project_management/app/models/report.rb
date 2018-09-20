@@ -45,6 +45,36 @@ class Report < ApplicationRecord
     tickets
   end
 
+  def get_tasks
+    tickets = []
+    self.projects.each do |project|
+      project.tickets.each do |t|
+        tickets << t unless t.task_id.presence && t.created_at >= report_data['start_date'] && t.created_at <= report_data['end_date']
+      end
+    end
+    tickets
+  end
+
+  def get_subtasks
+    tickets = []
+    self.projects.each do |project|
+      project.tickets.each do |t|
+        tickets << t if t.task_id.presence  && !(t.is_a? Bug) && t.created_at >= report_data['start_date'] && t.created_at <= report_data['end_date']
+      end
+    end
+    tickets
+  end
+
+  def get_bugs
+    tickets = []
+    self.projects.each do |project|
+      project.tickets.each do |t|
+        tickets << t if t.task_id.presence && (t.is_a? Bug) && t.created_at >= report_data['start_date'] && t.created_at <= report_data['end_date']
+      end
+    end
+    tickets
+  end
+
   def get_comments_count
     count = 0
     self.get_tickets.each do |t|

@@ -18,7 +18,7 @@ body {
   ]);
     var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
       pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
     function selectHandler() {
           var selectedItem = chart.getSelection()[0];
           if (selectedItem) {
@@ -64,6 +64,28 @@ body {
     chart.draw(data, options);
   }
 </script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Ticket type', 'Number of tickets'],
+          ['Task', <%= @report.get_tasks.count %>],
+          ['Subtask', <%= @report.get_subtasks.count %>],
+          ['Bug', <%= @report.get_bugs.count %>]
+        ]);
+
+        var options = {
+          title: 'Tickets distribution'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 
 <div style='display:flex'>
   <div>
@@ -83,8 +105,10 @@ body {
       <% end %>
     </div>
   </div>
-
-  <div class = "col-xs-1" id="piechart"></div>
+  <div class = "col-xs-1">
+    <div id="donutchart"></div>
+    <div id="piechart" style='width: 900px; height: 500px;'></div>
+  </div>
 </div>
 
 <div id='chart_div' style='width: 900px; height: 500px;'></div>
