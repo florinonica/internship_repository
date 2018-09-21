@@ -44,6 +44,7 @@ F.transitions.resizeIn = function() {
     });
 };
 }(jQuery, jQuery.fancybox));
+
 $(".fancybox")
   .attr('rel', 'gallery')
   .fancybox({parent: "body",

@@ -32,8 +32,8 @@ body {
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <script type="text/javascript">
-$(document).on('turbolinks:load', function() {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
@@ -68,10 +68,9 @@ $(document).on('turbolinks:load', function() {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
   }
-});
 </script>
+
 <script type='text/javascript'>
-$(document).on('turbolinks:load', function() {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
 
@@ -93,10 +92,9 @@ $(document).on('turbolinks:load', function() {
 
     chart.draw(data, options);
   }
-});
 </script>
+
 <script type="text/javascript">
-$(document).on('turbolinks:load', function() {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
@@ -128,5 +126,4 @@ $(document).on('turbolinks:load', function() {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
   }
-});
 </script>
