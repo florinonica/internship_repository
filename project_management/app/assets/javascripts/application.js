@@ -20,6 +20,7 @@
 //= require sync
 //= require cable
 //= require turbolinks
+//= require_self
 //= require_tree .
 
 (function ($, F) {
