@@ -9,7 +9,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "report"
+        render pdf: "report", :javascript_delay => 5000
       end
     end
   end

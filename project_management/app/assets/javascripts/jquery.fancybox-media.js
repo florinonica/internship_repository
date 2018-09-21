@@ -86,6 +86,8 @@
 		};
 
 	//Add helper object
+	if (typeof(F) != 'undefined' && F != null)
+{
 	F.helpers.media = {
 		defaults : {
 			youtube : {
@@ -196,6 +198,6 @@
 				obj.autoHeight = false;
 			}
 		}
-	};
+	};};
 
 }(jQuery));

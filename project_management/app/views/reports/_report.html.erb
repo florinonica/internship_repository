@@ -4,8 +4,36 @@ body {
     font-size: 20px;
 }
 </style>
+
+<div style='display:flex'>
+  <div>
+    <h3>Employees </h3>
+    <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
+      <% @report.users.each do |user| %>
+        <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3>Projects </h3>
+    <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
+      <% @report.projects.each do |project|%>
+        <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
+      <% end %>
+    </div>
+  </div>
+  <div id="donutchart" style='margin-top: -50px;'></div>
+</div>
+
+<div style='display:flex'>
+  <div id='chart_div' style='width: 900px; height: 500px; margin-top: -100px; margin-left: -100px'></div>
+  <div id="piechart"></div>
+</div>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+$(document).on('turbolinks:load', function() {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
@@ -40,8 +68,10 @@ body {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
   }
+});
 </script>
 <script type='text/javascript'>
+$(document).on('turbolinks:load', function() {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
 
@@ -63,63 +93,40 @@ body {
 
     chart.draw(data, options);
   }
+});
 </script>
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Ticket type', 'Number of tickets'],
-          ['Tasks', <%= @report.get_tasks.count %>],
-          ['Subtasks', <%= @report.get_subtasks.count %>],
-          ['Bugs', <%= @report.get_bugs.count %>]
-        ]);
-        var options = {
-          title: 'Tickets distribution'
-        };
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            if (topping == "Tasks") {
-              $( "#dialog5" ).dialog();
-            }
-            else if (topping == "Subtasks") {
-              $( "#dialog6" ).dialog();
-            }
-            else if (topping == "Bugs") {
-              $( "#dialog7" ).dialog();
-            }
-          }
+$(document).on('turbolinks:load', function() {
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Ticket type', 'Number of tickets'],
+      ['Tasks', <%= @report.get_tasks.count %>],
+      ['Subtasks', <%= @report.get_subtasks.count %>],
+      ['Bugs', <%= @report.get_bugs.count %>]
+    ]);
+    var options = {
+      title: 'Tickets distribution'
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    function selectHandler() {
+      var selectedItem = chart.getSelection()[0];
+      if (selectedItem) {
+        var topping = data.getValue(selectedItem.row, 0);
+        if (topping == "Tasks") {
+          $( "#dialog5" ).dialog();
         }
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        chart.draw(data, options);
+        else if (topping == "Subtasks") {
+          $( "#dialog6" ).dialog();
+        }
+        else if (topping == "Bugs") {
+          $( "#dialog7" ).dialog();
+        }
       }
-    </script>
-
-<div style='display:flex'>
-  <div>
-    <h3>Employees </h3>
-    <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
-      <% @report.users.each do |user| %>
-        <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
-      <% end %>
-    </div>
-  </div>
-
-  <div>
-    <h3>Projects </h3>
-    <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
-      <% @report.projects.each do |project|%>
-        <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
-      <% end %>
-    </div>
-  </div>
-  <div id="donutchart" style='margin-top: -50px;'></div>
-</div>
-
-<div style='display:flex'>
-  <div id='chart_div' style='width: 900px; height: 500px; margin-top: -100px; margin-left: -100px'></div>
-  <div id="piechart"></div>
-</div>
+    }
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+    chart.draw(data, options);
+  }
+});
+</script>

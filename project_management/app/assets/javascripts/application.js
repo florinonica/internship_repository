@@ -10,7 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery-1.10.2.min
+
+//= require jquery-3.3.1
 //= require rails-ujs
 //= require activestorage
 //= require jquery.mousewheel.pack
@@ -137,8 +138,11 @@ $('#tabs').click(function (e) {
 
 function scrollBoard() {
   var element = document.getElementById("board");
-  if((element.scrollHeight - element.clientHeight) <= element.scrollTop){
-    element.scrollTop = 0;}
+  if (typeof(element) != 'undefined' && element != null) {
+    if((element.scrollHeight - element.clientHeight) <= element.scrollTop){
+      element.scrollTop = 0;
+    }
+  }
 };
 
 setInterval(scrollBoard,10000);

@@ -19,6 +19,8 @@
 	var F = $.fancybox;
 
 	//Add helper object
+	if (typeof(F) != 'undefined' && F != null)
+	{
 	F.helpers.thumbs = {
 		defaults : {
 			width    : 50,       // thumbnail width
@@ -161,5 +163,5 @@
 			this.width = 0;
 		}
 	}
-
+}
 }(jQuery));
