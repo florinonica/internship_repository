@@ -6,12 +6,6 @@ class ReportsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "report", :javascript_delay => 5000
-      end
-    end
   end
 
   def new
@@ -43,11 +37,6 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:available_to_clients)
     @report.update(:available_to_clients => params[:report][:available_to_clients])
     redirect_to @report
-  end
-
-  def download
-    pdf = WickedPdf.new.pdf_from_string(render_to_string('show', layout: false))
-    send_data(pdf, filename: 'download.pdf', type: 'application/pdf', disposition: 'attachment')
   end
 
   def update_projects

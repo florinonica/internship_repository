@@ -4,20 +4,6 @@ body {
     font-size: 20px;
 }
 </style>
-<!doctype html>
-<html>
-  <head>
-    <meta charset='utf-8' />
-    <%#= stylesheet_link_tag wicked_pdf_asset_base64("pdf") %>
-    <%#= javascript_include_tag wicked_pdf_asset_base64("number_pages") %>
-
-  </head>
-  <body onload='number_pages'>
-    <div id="content">
-      <%#= yield %>
-    </div>
-  </body>
-</html>
 <div style='display:flex'>
   <div>
     <h3>Employees </h3>
@@ -86,7 +72,6 @@ body {
 <script type='text/javascript'>
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
-
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets completed'],
