@@ -11,7 +11,7 @@ body {
   <% @reports.each do |report| %>
     <tr>
       <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px;'>
-        <%= link_to report.id, report_path(report), {:style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
+        <%= link_to report.id, report_path(report), {data: {turbolinks: 'false'}, :style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
       </td>
     </tr>
   <% end %>
