@@ -4,7 +4,7 @@ body {
     font-size: 20px;
 }
 </style>
-<div style='display:flex'>
+<div id="links" style='display:flex; background-color: white'>
   <div>
     <h3>Employees </h3>
     <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
@@ -31,50 +31,15 @@ body {
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
-  var btnSave = document.getElementById('save-pdf');
-  var doc = new jsPDF();
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-    ['Ticket with status', 'Number of tickets'],
-    ['To do', <%= @report.get_filtered_by_status("To do").count %>],
-    ['In progress', <%= @report.get_filtered_by_status("In progress").count %>],
-    ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
-    ['Done', <%= @report.get_filtered_by_status("Done").count %>]
-  ]);
-    var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
-      pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
-    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-    function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var topping = data.getValue(selectedItem.row, 0);
-            if (topping == "To do") {
-              $( "#dialog1" ).dialog();
-            }
-            else if (topping == "In progress") {
-              $( "#dialog2" ).dialog();
-            }
-            else if (topping == "Dev complete") {
-              $( "#dialog3" ).dialog();
-            }
-            else if (topping == "Done") {
-              $( "#dialog4" ).dialog();
-            }
-          }
-        }
-    google.visualization.events.addListener(chart, 'select', selectHandler);
-    btnSave.addEventListener('click', function () {
-      doc.addImage(chart.getImageURI(), 0, 0);
-      doc.save('chart.pdf');
-    }, false);
-    chart.draw(data, options);
-  }
-
   google.charts.setOnLoadCallback(drawChart1);
+  google.charts.setOnLoadCallback(drawChart2);
+  var doc = new jsPDF();
+  var btnSave = document.getElementById('save-pdf');
+  doc.addHTML($("#links"), 20, 0 );
+
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets completed'],
@@ -89,9 +54,9 @@ body {
     };
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
+    doc.addImage(chart.getImageURI(), 20, 100, 125, 75);
   }
 
-  google.charts.setOnLoadCallback(drawChart2);
   function drawChart2() {
     var data = google.visualization.arrayToDataTable([
       ['Ticket type', 'Number of tickets'],
@@ -120,5 +85,42 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
+    doc.addImage(chart.getImageURI(), 100, 100, 60, 60);
+  }
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ['Ticket with status', 'Number of tickets'],
+    ['To do', <%= @report.get_filtered_by_status("To do").count %>],
+    ['In progress', <%= @report.get_filtered_by_status("In progress").count %>],
+    ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
+    ['Done', <%= @report.get_filtered_by_status("Done").count %>]]);
+    var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
+      pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
+    function selectHandler() {
+      var selectedItem = chart.getSelection()[0];
+      if (selectedItem) {
+        var topping = data.getValue(selectedItem.row, 0);
+        if (topping == "To do") {
+          $( "#dialog1" ).dialog();
+        }
+        else if (topping == "In progress") {
+          $( "#dialog2" ).dialog();
+        }
+        else if (topping == "Dev complete") {
+          $( "#dialog3" ).dialog();
+        }
+        else if (topping == "Done") {
+          $( "#dialog4" ).dialog();
+        }
+      }
+    }
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+    chart.draw(data, options);
+    btnSave.addEventListener('click', function () {
+      doc.addImage(chart.getImageURI(), 100, 0, 100, 75);
+      doc.save('chart.pdf');
+    }, false);
   }
 </script>
