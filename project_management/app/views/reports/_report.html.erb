@@ -35,6 +35,8 @@ body {
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
+  var btnSave = document.getElementById('save-pdf');
+  var doc = new jsPDF();
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
     ['Ticket with status', 'Number of tickets'],
@@ -43,7 +45,6 @@ body {
     ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
     ['Done', <%= @report.get_filtered_by_status("Done").count %>]
   ]);
-    var btnSave = document.getElementById('save-pdf');
     var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
       pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -67,41 +68,31 @@ body {
         }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     btnSave.addEventListener('click', function () {
-      var doc = new jsPDF();
       doc.addImage(chart.getImageURI(), 0, 0);
       doc.save('chart.pdf');
     }, false);
     chart.draw(data, options);
   }
-</script>
 
-<script type='text/javascript'>
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
+  google.charts.setOnLoadCallback(drawChart1);
+  function drawChart1() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets completed'],
       <% (@report.report_data['start_date'].to_date..@report.report_data['end_date'].to_date).each do |day| %>
         ['<%= day.strftime("%Y-%-m-%-d").to_s %>', <%= @report.get_filtered_by_created(day).count %>, <%= @report.get_filtered_by_ended(day).count %>],
       <% end %>
     ]);
-
     var options = {
       title: 'Progress timeline',
       curveType: 'function',
       legend: { position: 'bottom' }
     };
-
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
     chart.draw(data, options);
   }
-</script>
 
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
+  google.charts.setOnLoadCallback(drawChart2);
+  function drawChart2() {
     var data = google.visualization.arrayToDataTable([
       ['Ticket type', 'Number of tickets'],
       ['Tasks', <%= @report.get_tasks.count %>],
