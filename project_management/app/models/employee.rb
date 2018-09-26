@@ -75,4 +75,8 @@ class Employee < User
     true
   end
 
+  def can_see_report?(report)
+    (report.owner_id == id ? true : false)
+  end
+
 end

@@ -13,6 +13,10 @@ class Client < User
     false
   end
 
+  def can_see_report?(report)?
+    (report.available_to_clients == 1 ? true : false)
+  end
+
   def get_unread_project_messages_count
     count = 0
     get_projects.each do |p|
@@ -24,7 +28,7 @@ class Client < User
   def get_unread_project_messages
     messages = []
     get_projects.each do |p|
-      
+
       if p.posts.select{|post| post.unread?(self)}.any?
         messages.push(p)
       end

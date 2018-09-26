@@ -92,4 +92,8 @@ class Superuser < User
     true
   end
 
+  def can_see_report?(report)
+    true
+  end
+
 end

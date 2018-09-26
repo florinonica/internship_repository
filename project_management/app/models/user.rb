@@ -8,13 +8,14 @@ class User < ApplicationRecord
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :username, uniqueness: true
-  has_many :tickets, foreign_key: :owner_id
-  has_many :tasks, foreign_key: :dev_id
+  has_many :attachments, dependent: :destroy
   has_many :bugs, foreign_key: :tester_id
+  has_many :posts, dependent: :destroy
   has_many :project_workers, dependent: :destroy
   has_many :projects, through: :project_workers
-  has_many :attachments, dependent: :destroy
-  has_many :posts, dependent: :destroy
+  has_many :reports, foreign_key: :owner_id
+  has_many :tasks, foreign_key: :dev_id
+  has_many :tickets, foreign_key: :owner_id
   has_and_belongs_to_many :reports, join_table: :users_reports
   acts_as_reader
   sync :all
@@ -161,6 +162,10 @@ class User < ApplicationRecord
   end
 
   def can_change_report_availability?
+    false
+  end
+
+  def can_see_report?(report)
     false
   end
 
