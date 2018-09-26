@@ -62,6 +62,9 @@ class ProjectsController < ApplicationController
   def events
   end
 
+  def reports
+  end
+
   def message_board
     @project.posts.each do |p|
       p.mark_as_read! for: current_user
@@ -94,6 +97,12 @@ class ProjectsController < ApplicationController
     redirect_to team_path(@project)
   end
 
+  def add_files
+    params.require(:project).permit(:files => [])
+    save_attachments(@project, params[:project][:files])
+    redirect_to files_path(@project)
+  end
+
   def remove_client
     @client = Client.find(params[:client_id])
     @project.clients = @project.clients - [@client]
@@ -104,12 +113,6 @@ class ProjectsController < ApplicationController
     @employee = Employee.find(params[:employee_id])
     @project.employees = @project.employees - [@employee]
     redirect_to team_path(@project)
-  end
-
-  def add_files
-    params.require(:project).permit(:files => [])
-    save_attachments(@project, params[:project][:files])
-    redirect_to files_path(@project)
   end
 
   private

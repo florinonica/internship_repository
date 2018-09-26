@@ -53,6 +53,9 @@ class UsersController < ApplicationController
   def unread
   end
 
+  def reports
+  end
+
   private
 
     def user_params
@@ -65,7 +68,7 @@ class UsersController < ApplicationController
 
     def save_roles
       params.require(:user).permit(:role_ids => [])
-      
+
       unless params[:user][:role_ids].nil?
         params[:user][:role_ids].each do |rol|
           @user.roles << Role.find(rol)
