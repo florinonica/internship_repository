@@ -39,7 +39,7 @@ body {
   google.charts.setOnLoadCallback(drawChart2);
   var doc = new jsPDF();
   var btnSave = document.getElementById('save-pdf');
-  doc.addHTML($("#links"), 20, 0 );
+  doc.addHTML($("#links"), 20, 20 );
   //$('#save-pdf').click(function() {
   //    html2canvas($("#canvas"), {
   //        onrendered: function(canvas) {
@@ -65,7 +65,7 @@ body {
     };
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
-    doc.addImage(chart.getImageURI(), 20, 100, 125, 75);
+    doc.addImage(chart.getImageURI(), 0, 125, 150, 75);
   }
 
   function drawChart2() {
@@ -96,7 +96,7 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
-    doc.addImage(chart.getImageURI(), 100, 100, 60, 60);
+    doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
   }
 
   function drawChart() {
@@ -130,7 +130,7 @@ body {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
     btnSave.addEventListener('click', function () {
-      doc.addImage(chart.getImageURI(), 100, 0, 100, 75);
+      doc.addImage(chart.getImageURI(), 100, 20, 130, 100);
       doc.save('chart.pdf');
     }, false);
   }
