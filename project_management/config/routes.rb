@@ -5,13 +5,14 @@ Rails.application.routes.draw do
   resources :projects do
   	resources :tickets
     resources :posts
+    resources :reports
   end
   resources :reports
   resources :tickets do
     resources :comments
   end
   resources :users, except: :create
-  
+
   get 'projects/:id/remove_client' => 'projects#remove_client'
   get 'projects/:id/remove_employee' => 'projects#remove_employee'
   get 'projects/:id/dashboard' => 'projects#dashboard', :as => :dashboard

@@ -53,9 +53,6 @@ class UsersController < ApplicationController
   def unread
   end
 
-  def reports
-  end
-
   private
 
     def user_params

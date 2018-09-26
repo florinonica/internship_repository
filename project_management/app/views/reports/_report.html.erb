@@ -30,6 +30,11 @@ body {
   <div id="piechart"></div>
 </div>
 
+<div style='margin-top: 50px;'>
+  <h3>Average ticket completion time </h3>
+  <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
+</div>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
 <script type="text/javascript">
@@ -40,17 +45,6 @@ body {
   var doc = new jsPDF();
   var btnSave = document.getElementById('save-pdf');
   doc.addHTML($("#links"), 20, 20 );
-  //$('#save-pdf').click(function() {
-  //    html2canvas($("#canvas"), {
-  //        onrendered: function(canvas) {
-  //            var imgData = canvas.toDataURL('image/png');
-  //            $("#imgRes").attr("src", imgData);
-  //            var doc = new jsPDF('p', 'mm');
-  //            doc.addImage(imgData, 'PNG', 10, 10);
-  //            doc.save('sample-file.pdf');
-  //        }
-  //    });
-  //});
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets completed'],

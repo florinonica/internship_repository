@@ -82,4 +82,14 @@ class Report < ApplicationRecord
     end
     count
   end
+
+  def get_average_ticket_solving_time
+    count = 0
+    sum = 0.0
+    get_filtered_by_status("Done").each do |ticket|
+      count += 1
+      sum += (ticket.end_at - ticket.created_at)
+    end
+    sum/count/3600
+  end
 end
