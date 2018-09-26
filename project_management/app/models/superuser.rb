@@ -96,4 +96,8 @@ class Superuser < User
     true
   end
 
+  def can_create_complex_report?
+    true
+  end
+
 end

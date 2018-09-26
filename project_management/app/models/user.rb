@@ -169,6 +169,10 @@ class User < ApplicationRecord
     false
   end
 
+  def can_create_complex_report?
+    false
+  end
+
   def get_unread_ticket_messages_count
     count = 0
     tickets.each do |t|
