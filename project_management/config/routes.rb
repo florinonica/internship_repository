@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :projects do
   	resources :tickets
     resources :posts
-    resources :reports
   end
   resources :reports
   resources :tickets do
@@ -19,6 +18,7 @@ Rails.application.routes.draw do
   get 'projects/:id/files' => 'projects#files', :as => :files
   get 'projects/:id/events' => 'projects#events', :as => :events
   get 'projects/:id/team' => 'projects#team', :as => :team
+  get 'projects/:id/reports' => 'projects#reports', :as => :project_reports
   get 'projects/:id/message_board' => 'projects#message_board', :as => :message_board
   get 'projects/:id/clients' => 'projects#clients', :as => :clients
   get 'reports/:id/download' => 'reports#download'
@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   get 'users/:id/unread' => 'users#unread', :as => :unread
   get 'users/type' => 'users#custom_index', :as => :type
   get 'users/:id/remove_role' => 'users#remove_role'
-
 
   patch 'projects/:id/add_client' => 'projects#add_client'
   patch 'projects/:id/add_project_manager' => 'projects#add_project_manager'

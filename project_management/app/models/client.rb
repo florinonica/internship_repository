@@ -13,7 +13,7 @@ class Client < User
     false
   end
 
-  def can_see_report?(report)?
+  def can_see_report?(report)
     (report.available_to_clients == 1 ? true : false)
   end
 
