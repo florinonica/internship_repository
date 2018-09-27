@@ -7,7 +7,7 @@ body {
 
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>
 
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-tabs" role="tablist" style='margin-top: 20px'>
   <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" style='color:white; font-size: 18px; font-weight: bold; border: transparent; border-radius: 0px; margin-right: 0px'>Reports list</a></li>
 
   <% if current_user.is_manager?(@project.id) %>
@@ -36,13 +36,12 @@ body {
 
   <div role="tabpanel" class="tab-pane fade" id="messages" style="margin-left: 100px"><br>
     <%= form_with model: @report, local: true do |form| %>
+      <%= form.hidden_field :project_ids, :value => [@project.id] %>
       <div style='margin-bottom: 50px; width: 500px'>
         <%= form.label :title %><br>
         <%= form.text_field :title, class: 'form-control' %>
       </div>
-
-      <%= form.hidden_field :project_ids, :value => [@project.id] %>
-
+      
       <div style='display:flex'>
         <div style='color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
           <h4>Choose ticket type </h4>
@@ -83,7 +82,6 @@ body {
       <p>
         <%= form.submit 'Generate report', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
       </p>
-
     <% end %>
   </div>
 </div>
