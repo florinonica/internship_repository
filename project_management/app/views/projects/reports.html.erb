@@ -8,7 +8,7 @@ body {
 <%= link_to '<i class="glyphicon glyphicon-arrow-left"></i> Back'.html_safe, :back, {:style => 'color:#0079bf; font-size: 20px; font-weight: bold; font-family: "Ubuntu"'} %>
 
 <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 20px; margin-left: 400px'>
-  <% @project.reports.each do |report| %>
+  <% @project.reports.paginate(:page => params[:page], per_page:5).each do |report| %>
     <tr>
       <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px;'>
         <%= link_to report.id, report_path(report), {data: {turbolinks: 'false'}, :style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
@@ -18,5 +18,5 @@ body {
 </table>
 
 <div style = 'text-align: center'>
-  <%= will_paginate @reports, renderer: BootstrapPagination::Rails %>
+  <%= will_paginate @project.reports.paginate(:page => params[:page], per_page:5), renderer: BootstrapPagination::Rails %>
 </div>

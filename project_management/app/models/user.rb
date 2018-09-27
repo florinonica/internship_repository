@@ -165,6 +165,10 @@ class User < ApplicationRecord
     false
   end
 
+  def can_create_report?(project)
+    false
+  end
+
   def can_see_report?(report)
     false
   end

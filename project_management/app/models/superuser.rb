@@ -96,6 +96,10 @@ class Superuser < User
     true
   end
 
+  def can_create_report?(project)
+    true
+  end
+
   def can_create_complex_report?
     true
   end

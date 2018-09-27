@@ -79,4 +79,8 @@ class Employee < User
     (report.owner_id == id ? true : false)
   end
 
+  def can_create_report?(project)
+    (is_manager?(project.id) ? true : false)
+  end
+
 end

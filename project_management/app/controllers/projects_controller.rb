@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :team, :events, :clients, :add_files, :message_board, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
+  before_action :get_project, only: [:show, :edit, :update, :destroy, :files, :dashboard, :reports, :team, :events, :clients, :add_files, :message_board, :add_client, :add_employees, :add_dev, :remove_client, :remove_employee]
 
   def index
     @projects = current_user.get_projects.paginate(:page => params[:page], per_page:5)
@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
         @projectWorker.update(:user_id => params[:project][:employee_ids])
         @project.project_workers << @projectWorker
       end
-      
+
     else
       params[:project][:employee_ids].each do |e|
         save_pw(params[:id], e, params[:project][:role_id])
