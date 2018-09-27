@@ -9,11 +9,13 @@ body {
 
 <table cellpadding=15 cellspacing=15 style='text-align: center; border-collapse: separate; border-spacing: 0 20px; margin-left: 400px'>
   <% @project.reports.paginate(:page => params[:page], per_page:5).each do |report| %>
-    <tr>
-      <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px;'>
-        <%= link_to report.id, report_path(report), {data: {turbolinks: 'false'}, :style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
-      </td>
-    </tr>
+    <% if current_user.can_see_report?(report) %>
+      <tr>
+        <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px;'>
+          <%= link_to report.id, report_path(report), {data: {turbolinks: 'false'}, :style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
+        </td>
+      </tr>
+    <% end %>
   <% end %>
 </table>
 
