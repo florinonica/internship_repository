@@ -35,6 +35,7 @@
         <ul class="list-unstyled components" style='margin-left: 10px; '> <br>
           <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
             <%= link_to '<i class="glyphicon glyphicon-home"></i> Home'.html_safe, root_path,  {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px;'}%>
+
             <% if controller_name == "welcome" || (controller_name == "users" && (action_name == "show" || action_name == "files")) %>
               <ul class="collapse-unstyled components">
                 <li>
@@ -48,8 +49,10 @@
           </li><br>
           <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;' >
             <%= link_to '<i class="glyphicon glyphicon-user"></i> Users'.html_safe, users_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px;'} %>
+
             <% if controller_name == "users" && !(action_name == "show" || action_name == "files") %>
               <ul class="collapse-unstyled components">
+
                 <% if current_user.can_create_user? %>
                   <li>
                     <%= link_to "Add User", new_user_path, {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'}%>
@@ -63,7 +66,9 @@
           </li><br>
           <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
             <%= link_to '<i class="glyphicon glyphicon-folder-open"></i> Projects'.html_safe, projects_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; '} %>
+
             <% if controller_name == "projects" %>
+
               <% if action_name == "show" || action_name == "dashboard" || action_name == "edit" || action_name == "events" || action_name == "team" || action_name == "files" || action_name == "clients" || action_name == "message_board" || action_name == "reports"%>
                 <ul class="collapse-unstyled components" style= 'padding-top: 5px'>
                   <li style = 'color:#FFFFFF; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif;' > <%= @project.title %></li>
@@ -73,6 +78,7 @@
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-th-list"></i> Event Log'.html_safe, events_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
+
                   <% if current_user.is_manager?(@project.id) || current_user.is_client?(@project) %>
                     <li>
                       <%= link_to '<i class="glyphicon glyphicon-comment"></i> Message Board'.html_safe, message_board_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
@@ -87,11 +93,13 @@
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-blackboard"></i> Dashboard'.html_safe, dashboard_path(@project),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
+
                   <% if current_user.can_see_project_details?%>
                     <li>
                       <%= link_to '<i class="glyphicon glyphicon-king"></i> Team'.html_safe, team_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                     </li>
                   <% end %>
+
                   <% if current_user.can_create_report?(@project)%>
                     <li>
                       <%= link_to '<i class="glyphicon glyphicon-copy"></i> Reports'.html_safe, project_reports_path(@project), {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
@@ -107,6 +115,7 @@
               <% end %>
             <% end %>
           </li>
+
           <% if controller_name == "tickets" && !(action_name == "create" || action_name == "new") %>
             <li style=' border-bottom: 5px solid white; margin-right: 15px; padding-top: 5px; margin-left: 10px; text-align: left'>
               <strong style ='color:#FFFFFF; font-size: 20px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; ' ><%= @ticket.title%></strong>
@@ -126,11 +135,13 @@
                     <%= link_to '<i class="glyphicon glyphicon-comment"></i> Comments'.html_safe, comments_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
                 <% end %>
+
                 <% if @ticket.subtasks.any? %>
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-duplicate"></i> Subtasks'.html_safe, subtasks_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
                   </li>
                 <% end %>
+
                 <% if @ticket.bugs.any? %>
                   <li>
                     <%= link_to '<i class="glyphicon glyphicon-fire"></i> Bugs'.html_safe, bugs_path(@ticket),  {:style => 'color:#FFFFFF; font-size: 18px; font-weight: bold; font-family: "Ubuntu", sans-serif;'} %>
@@ -139,9 +150,11 @@
               </ul>
             </li>
           <% end %><br>
+
           <% if current_user.can_create_complex_report? %>
             <li style=' border-top: 5px solid white; border-bottom: 5px solid white; margin-right: 15px;'>
               <%= link_to '<i class="glyphicon glyphicon-list-alt"></i> Reports'.html_safe, reports_path, {:style => 'color:#FFFFFF; font-size: 25px; font-weight: bold; font-family: "Ubuntu", sans-serif; margin-left: 20px; '} %>
+
               <% if controller_name == 'reports' %>
                 <ul class="collapse-unstyled components">
                   <li>
