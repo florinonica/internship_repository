@@ -18,9 +18,9 @@ class ReportsController < ApplicationController
     @report.available_to_clients = params[:report][:available_to_clients]
     @report.owner_id = current_user.id
     if @report.save
-      params[:report][:project_ids].each do |pid|
-        @report.projects << Project.find(pid)
-      end
+      #params[:report][:project_ids].each do |pid|
+      #  @report.projects << Project.find(pid)
+      #end
       params[:report][:employee_ids].each do |eid|
         @report.users << User.find(eid)
       end
@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
 
   private
     def report_params
-      params.require(:report).permit(:start_date, :end_date, :ticket_type, :ticket_status, :chart_type, :include_comments_data, :project_ids => [], :employee_ids => [])
+      params.require(:report).permit(:title, :include_employee_statistics, :include_ticket_statistics, :start_date, :end_date, :ticket_type, :ticket_status, :chart_type, :include_comments_data, :project_ids => [], :employee_ids => [])
     end
 
     def get_report

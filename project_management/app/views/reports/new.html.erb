@@ -48,17 +48,13 @@ body {
       <h4>Choose ticket status </h4>
       <%= form.select :ticket_status, options_for_select(["All", "To do", "In progress", "Dev complete", "Done"]), style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px;' %>
     </div>
-    <div style='display: none; color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
-      <h4>Select chart type </h4>
-      <%= form.select :chart_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 28px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
-    </div>
-  </div>
-
-  <div style='display:flex; align-content: stretch'>
     <div style='display:flex; margin-top: 20px;' >
       <h4 style=' margin-right: 20px;'> Make available to clients <h4>
       <%= form.check_box :available_to_clients, style: 'width: 100px; height: 100px'%>
     </div>
+  </div>
+
+  <div style='display:flex; align-content: stretch'>
     <div style='display:flex; margin-top: 20px;' >
       <h4 style=' margin-right: 20px;'> Include comments data <h4>
       <%= form.check_box :include_comments_data, style: 'width: 100px; height: 100px; '%>
