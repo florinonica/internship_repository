@@ -54,14 +54,14 @@ body {
     </div>
   </div>
 
-  <div style='display:flex'>
-    <div style='display:flex; margin-top: 20px; margin-right: 200px;' >
-      <h4 style=' margin-right: 20px;'> Include comments data <h4>
-      <%= form.check_box :include_comments_data, style: 'width: 100px; height: 100px; '%>
-    </div>
-    <div style='display:flex; margin-top: 20px' >
+  <div style='display:flex; align-content: stretch'>
+    <div style='display:flex; margin-top: 20px;' >
       <h4 style=' margin-right: 20px;'> Make available to clients <h4>
       <%= form.check_box :available_to_clients, style: 'width: 100px; height: 100px'%>
+    </div>
+    <div style='display:flex; margin-top: 20px;' >
+      <h4 style=' margin-right: 20px;'> Include comments data <h4>
+      <%= form.check_box :include_comments_data, style: 'width: 100px; height: 100px; '%>
     </div>
     <div style='display:flex; margin-top: 20px' >
       <h4 style=' margin-right: 20px;'> Include employee stats <h4>
