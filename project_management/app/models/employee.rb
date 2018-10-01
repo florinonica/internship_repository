@@ -83,4 +83,8 @@ class Employee < User
     (is_manager?(project.id) ? true : false)
   end
 
+  def can_see_all_charts?(project)
+    (is_manager?(project.id) ? true : false)
+  end
+
 end

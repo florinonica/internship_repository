@@ -177,6 +177,10 @@ class User < ApplicationRecord
     false
   end
 
+  def can_see_all_charts?(project)
+    false
+  end
+
   def get_unread_ticket_messages_count
     count = 0
     tickets.each do |t|

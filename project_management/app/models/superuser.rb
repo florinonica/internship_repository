@@ -104,4 +104,8 @@ class Superuser < User
     true
   end
 
+  def can_see_all_charts?(project)
+    true
+  end
+
 end
