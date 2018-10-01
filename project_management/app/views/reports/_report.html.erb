@@ -35,6 +35,10 @@ body {
   <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
 </div>
 
+<% if current_user.can_see_all_charts?(@report.projects) %>
+  <div id="employees"></div>
+<% end %>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
 <script type="text/javascript">
@@ -153,7 +157,7 @@ body {
         },
         bars: 'horizontal'
       };
-      var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+      var materialChart = new google.charts.Bar(document.getElementById('employees'));
       materialChart.draw(data, materialOptions);
     }
 </script>
