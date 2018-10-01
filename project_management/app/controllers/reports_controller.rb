@@ -18,13 +18,23 @@ class ReportsController < ApplicationController
     @report.available_to_clients = params[:report][:available_to_clients]
     @report.owner_id = current_user.id
     if @report.save
-      #params[:report][:project_ids].each do |pid|
-      #  @report.projects << Project.find(pid)
-      #end
-      params[:report][:employee_ids].each do |eid|
-        @report.users << User.find(eid)
+      if params[:report][:project_ids].count > 1
+        params[:report][:project_ids].each do |pid|
+          @report.projects << Project.find(pid)
+        end
+        params[:report][:employee_ids].each do |eid|
+          @report.users << User.find(eid)
+        end
+        redirect_to @report
+      else
+        @project = Project.find(params[:report][:project_ids])
+        @report.projects << @project
+        @project.employees.each do |employee|
+          @report.users << employee
+        end
+        redirect_to @report
       end
-      redirect_to @report
+
     else
       render 'new'
     end
