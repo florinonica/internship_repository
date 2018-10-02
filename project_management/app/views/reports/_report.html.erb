@@ -36,7 +36,7 @@ body {
 </div>
 
 <%# if current_user.can_see_all_charts?(@report.projects) %>
-  <div id="employees"></div>
+  <div id="employees" style='height: 700px;'></div>
 <%# end %>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -139,18 +139,22 @@ body {
   function drawEmployees() {
       var data = google.visualization.arrayToDataTable([
         ['Employee', 'Tickets completed', 'Total tickets'],
-        <% @report.users.each do |user| %>
+        <% @report.users.select{|user| user.tasks.count > 0}.each do |user| %>
           ['<%= user.full_name %>', <%= user.tasks.where(:status => 'Done').count + user.tasks.where(:status => 'Dev complete').count %>, <%= user.tasks.count %>],
         <% end %>
       ]);
 
       var options = {
-          chart: {
-            title: 'Employee Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          },
-          bars: 'horizontal'
-        };
+        chart: {
+          title: 'Employee Performance',
+          hAxis: {TextStyle: {
+            fontName: 'Ubuntu',
+            fontSize: 28,
+          }},
+        },
+        bars: 'horizontal',
+
+      };
 
       var materialChart = new google.charts.Bar(document.getElementById('employees'));
       materialChart.draw(data, options);
