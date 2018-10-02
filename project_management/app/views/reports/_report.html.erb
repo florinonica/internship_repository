@@ -35,9 +35,9 @@ body {
   <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
 </div>
 
-<%# if current_user.can_see_all_charts?(@report.projects) %>
+<% if current_user.can_see_all_charts?(@report.projects) %>
   <div id="employees" style='height: 700px;'></div>
-<%# end %>
+<% end %>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
@@ -137,22 +137,21 @@ body {
   }
 
   function drawEmployees() {
-      var data = google.visualization.arrayToDataTable([
-        ['Employee', 'Tickets completed', 'Total tickets'],
-        <% @report.users.select{|user| user.tasks.count > 0}.each do |user| %>
-          ['<%= user.full_name %>', <%= user.tasks.where(:status => 'Done').count + user.tasks.where(:status => 'Dev complete').count %>, <%= user.tasks.count %>],
-        <% end %>
-      ]);
+    var data = google.visualization.arrayToDataTable([
+      ['Employee', 'Tickets completed', 'Total tickets'],
+      <% @report.users.select{|user| user.tasks.count > 0}.each do |user| %>
+        ['<%= user.full_name %>', <%= user.tasks.where(:status => 'Done').count + user.tasks.where(:status => 'Dev complete').count %>, <%= user.tasks.count %>],
+      <% end %>
+    ]);
 
-      var options = {
-        chart: {
-          title: 'Employee Performance',
-        },
-        bars: 'horizontal',
+    var options = {
+      chart: {
+        title: 'Employee Performance',
+      },
+      bars: 'horizontal',
+    };
 
-      };
-
-      var materialChart = new google.charts.Bar(document.getElementById('employees'));
-      materialChart.draw(data, options);
-    }
+    var chart = new google.charts.Bar(document.getElementById('employees'));
+    chart.draw(data, options);
+  }
 </script>
