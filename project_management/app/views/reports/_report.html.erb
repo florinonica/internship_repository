@@ -26,26 +26,29 @@ body {
 </div>
 
 <div style='display:flex'>
-  <div id='chart_div' style='width: 1200px; height: 500px; margin-top: -100px; margin-left: -100px'></div>
-  <div id="piechart"></div>
-</div>
+  <div id='chart_div' style='width: 1200px; height: 600px; margin-top: -100px; margin-left: -100px'></div>
 
+</div>
+<div id="piechart"></div>
 <div style='margin-top: 50px;'>
   <h3>Average ticket completion time </h3>
   <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
 </div>
 
-<% if current_user.can_see_all_charts?(@report.projects) %>
+<%# if current_user.can_see_all_charts?(@report.projects) %>
   <div id="employees"></div>
-<% end %>
+<%# end %>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
+  google.charts.load('current', {'packages':['bar']});
+
   google.charts.setOnLoadCallback(drawChart);
   google.charts.setOnLoadCallback(drawChart1);
   google.charts.setOnLoadCallback(drawChart2);
+  google.charts.setOnLoadCallback(drawEmployees);
   var doc = new jsPDF();
   var btnSave = document.getElementById('save-pdf');
   doc.addHTML($("#links"), 20, 20 );
@@ -133,26 +136,23 @@ body {
     }, false);
   }
 
-  function drawTitleSubtitle() {
+  function drawEmployees() {
       var data = google.visualization.arrayToDataTable([
-        ['Employee', 'Tickets completed', 'Total tickets']
+        ['Employee', 'Tickets completed', 'Total tickets'],
+        <% @report.users.each do |user| %>
+          ['<%= user.full_name %>', <%= user.tasks.where(:status => 'Done').count + user.tasks.where(:status => 'Dev complete').count %>, <%= user.tasks.count %>],
+        <% end %>
       ]);
 
-      var materialOptions = {
-        chart: {
-          title: 'Employees performance',
-          subtitle: 'Based on most recent and previous census data'
-        },
-        hAxis: {
-          title: 'Total Population',
-          minValue: 0,
-        },
-        vAxis: {
-          title: 'City'
-        },
-        bars: 'horizontal'
-      };
+      var options = {
+          chart: {
+            title: 'Employee Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          bars: 'horizontal'
+        };
+
       var materialChart = new google.charts.Bar(document.getElementById('employees'));
-      materialChart.draw(data, materialOptions);
+      materialChart.draw(data, options);
     }
 </script>
