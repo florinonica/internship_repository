@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :get_report, only: [:show, :destroy, :change_availability, :download]
+  before_action :get_report, only: [:show, :destroy, :change_availability]
 
   def index
     @reports = Report.paginate(:page => params[:page], per_page:5)
@@ -48,14 +48,6 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:available_to_clients)
     @report.update(:available_to_clients => params[:report][:available_to_clients])
     redirect_to @report
-  end
-
-  def update_projects
-    @projects = Project.all
-  end
-
-  def update_employees
-    @employees = Employee.all
   end
 
   private
