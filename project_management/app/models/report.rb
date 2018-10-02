@@ -36,6 +36,26 @@ class Report < ApplicationRecord
     tickets
   end
 
+  def get_filtered_by_started(date)
+    tickets = []
+    self.projects.each do |project|
+      project.tickets.each do |t|
+        tickets << t if t.started_at < date
+      end
+    end
+    tickets
+  end
+
+  def get_filtered_by_dev_complete(date)
+    tickets = []
+    self.projects.each do |project|
+      project.tickets.each do |t|
+        tickets << t if t.completed_at < date
+      end
+    end
+    tickets
+  end
+
   def get_filtered_by_ended(date)
     tickets = []
     self.projects.each do |project|
