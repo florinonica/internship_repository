@@ -5,7 +5,7 @@ body {
 }
 </style>
 <div id="links" style='display:flex; background-color: white'>
-  <% if current_user.can_see_all_charts?(@report.projects) %>
+  <% if current_user.can_see_all_charts?(@report.projects) && @report.is_single_project_report? %>
     <div>
       <h3>Employees </h3>
       <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
@@ -16,14 +16,16 @@ body {
     </div>
   <% end %>
 
-  <div>
-    <h3>Projects </h3>
-    <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
-      <% @report.projects.each do |project|%>
-        <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
-      <% end %>
+  <% unless @report.is_single_project_report? %>
+    <div>
+      <h3>Projects </h3>
+      <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
+        <% @report.projects.each do |project|%>
+          <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
   <div id="donutchart" style='margin-top: -50px;'></div>
 </div>
 

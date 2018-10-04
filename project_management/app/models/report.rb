@@ -119,6 +119,7 @@ class Report < ApplicationRecord
   end
 
   def is_single_project_report?
+    ((projects.count == 1) ? true : false)
   end
 
 end
