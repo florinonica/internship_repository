@@ -5,14 +5,16 @@ body {
 }
 </style>
 <div id="links" style='display:flex; background-color: white'>
-  <div>
-    <h3>Employees </h3>
-    <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
-      <% @report.users.each do |user| %>
-        <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
-      <% end %>
+  <% if current_user.can_see_all_charts?(@report.projects) %>
+    <div>
+      <h3>Employees </h3>
+      <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
+        <% @report.users.each do |user| %>
+          <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div>
     <h3>Projects </h3>
@@ -38,6 +40,15 @@ body {
 <% if current_user.can_see_all_charts?(@report.projects) %>
   <div id="employees" style='height: 700px;'></div>
 <% end %>
+
+<div>
+  <% @report.get_event_list.each do |event| %>
+    <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px'>
+      <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
+      <%= event.message %>
+    </div>
+  <% end %>
+</div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>

@@ -113,4 +113,9 @@ class Report < ApplicationRecord
     end
     sum/count/3600
   end
+
+  def get_event_list
+    projects.first.events.where(:created_at.to_s >= report_data['start_date'] && :created_at.to_s <= report_data['end_date']).order("created_at DESC")
+  end
+
 end
