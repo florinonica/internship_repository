@@ -44,7 +44,6 @@ body {
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
   google.charts.load('current', {'packages':['bar']});
-
   google.charts.setOnLoadCallback(drawChart);
   google.charts.setOnLoadCallback(drawChart1);
   google.charts.setOnLoadCallback(drawChart2);
@@ -76,9 +75,7 @@ body {
       ['Subtasks', <%= @report.get_subtasks.count %>],
       ['Bugs', <%= @report.get_bugs.count %>]
     ]);
-    var options = {
-      title: 'Tickets distribution'
-    };
+    var options = { title: 'Tickets distribution' };
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     function selectHandler() {
       var selectedItem = chart.getSelection()[0];

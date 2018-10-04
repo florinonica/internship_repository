@@ -87,6 +87,10 @@ body {
           <h4 style=' margin-right: 20px;'> Additional ticket stats <h4>
           <%= form.check_box :include_ticket_statistics, style: 'width: 100px; height: 100px'%>
         </div>
+        <div style='display:flex; margin-top: 20px' >
+          <h4 style=' margin-right: 20px;'> Event log <h4>
+          <%= form.check_box :include_event_log, style: 'width: 100px; height: 100px'%>
+        </div>
         <div style='display: none; color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
           <h4>Select chart type </h4>
           <%= form.select :ticket_chart_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 28px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
