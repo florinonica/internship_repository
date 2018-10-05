@@ -52,7 +52,7 @@ class ReportsController < ApplicationController
 
   private
     def report_params
-      params.require(:report).permit(:title, :include_employee_statistics, :include_ticket_statistics, :start_date, :end_date, :ticket_type, :ticket_status, :chart_type, :include_comments_data, :include_event_log, :project_ids => [], :employee_ids => [])
+      params.require(:report).permit(:title, :include_ticket_distribution, :include_employee_statistics, :include_ticket_statistics, :start_date, :end_date, :ticket_type, :ticket_status, :chart_type, :include_comments_data, :include_event_log, :project_ids => [], :employee_ids => [])
     end
 
     def get_report
@@ -60,3 +60,4 @@ class ReportsController < ApplicationController
     end
 
 end
+#https://scifi.stackexchange.com/questions/tagged/tolkiens-legendarium?page=28&sort=newest&pagesize=15
