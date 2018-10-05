@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
     @report.available_to_clients = params[:report][:available_to_clients]
     @report.owner_id = current_user.id
     if @report.save
-      if params[:report][:project_ids].count > 1
+      if params[:report][:project_ids].is_a?(Array)
         params[:report][:project_ids].each do |pid|
           @report.projects << Project.find(pid)
         end

@@ -39,7 +39,7 @@ body {
   <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
 </div>
 
-<% if current_user.can_see_all_charts?(@report.projects) %>
+<% if current_user.can_see_all_charts?(@report.projects.first) %>
   <div id="employees" style='height: 700px; margin-bottom: 50px;'></div>
 <% end %>
 
@@ -53,7 +53,7 @@ body {
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
+
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
   google.charts.load('current', {'packages':['bar']});
@@ -174,7 +174,6 @@ body {
   }
 
 </script>
-
 
 <script>
  $(document).on('mouseover', function() {
