@@ -26,6 +26,7 @@ body {
       </div>
     </div>
   <% end %>
+
   <% if @report.report_data['include_ticket_distribution'] == '1' %>
     <div id="donutchart" style='margin-top: -50px;'></div>
   <% end %>
@@ -179,7 +180,7 @@ body {
     var rect = document.getElementById('donutchart').getBoundingClientRect();
     btnSave.addEventListener('click', function () {
       doc.setPage(0);
-      doc.addImage(chart.getImageURI(), document.getElementById('donutchart').offsetLeft, document.getElementById('donutchart').offsetTop - 150, 75, 55);
+      doc.addImage(chart.getImageURI(), document.getElementById('donutchart').offsetLeft/10, document.getElementById('donutchart').offsetTop - 150, 75, 55);
       doc.save('chart.pdf');
     }, false);
   }
@@ -188,11 +189,11 @@ body {
 
 <script>
  $(document).on('mouseover', function() {
-    $( '.card-header' ).draggable({
+    $( '.draggable' ).draggable({
         appendTo: "body",
         helper: "clone"
       });
-    $( '.card-container' ).droppable({
+    $( '.container' ).droppable({
       drop: function( event, ui ) {
         var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
         var id = ui.draggable.attr('id');
