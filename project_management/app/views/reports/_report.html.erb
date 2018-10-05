@@ -5,7 +5,7 @@ body {
 }
 </style>
 <div id="links" style='display:flex; background-color: white'>
-  <% if current_user.can_see_all_charts?(@report.projects) && @report.is_single_project_report? %>
+  <% if current_user.can_see_all_charts?(@report.projects.first) %>
     <div>
       <h3>Employees </h3>
       <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
@@ -34,13 +34,13 @@ body {
 
 </div>
 <div id="piechart"></div>
-<div style='margin-top: 50px;'>
+<div style='margin-top: 50px; '>
   <h3>Average ticket completion time </h3>
   <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
 </div>
 
 <% if current_user.can_see_all_charts?(@report.projects) %>
-  <div id="employees" style='height: 700px;'></div>
+  <div id="employees" style='height: 700px; margin-bottom: 50px;'></div>
 <% end %>
 
 <div>
