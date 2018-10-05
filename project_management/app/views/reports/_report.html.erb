@@ -62,11 +62,10 @@ body {
   google.charts.setOnLoadCallback(drawChart2);
   google.charts.setOnLoadCallback(drawEmployees);
   var doc = new jsPDF();
-  doc.addPage()
-  doc.addPage()
-  doc.setPage(1)
+  doc.addPage();
+  doc.setPage(1);
   var btnSave = document.getElementById('save-pdf');
-  doc.addHTML($("#links"), 20, 20 );
+  //doc.addHTML($("#links"), 20, 20 );
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets done'],
@@ -81,7 +80,7 @@ body {
     };
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
-    doc.addImage(chart.getImageURI(), 0, 125, 150, 75);
+    //doc.addImage(chart.getImageURI(), 0, 125, 150, 75);
   }
 
   function drawChart2() {
@@ -111,7 +110,29 @@ body {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
     //var rect = chart.getBoundingClientRect();
-    doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
+    //doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
+  }
+
+  function drawEmployees() {
+    var data = google.visualization.arrayToDataTable([
+      ['Employee', 'Tickets completed', 'Total tickets'],
+      <% @report.users.select{|user| user.tasks.count > 0}.each do |user| %>
+        ['<%= user.full_name %>', <%= user.tasks.where(:status => 'Done').count + user.tasks.where(:status => 'Dev complete').count %>, <%= user.tasks.count %>],
+      <% end %>
+    ]);
+
+    var options = {
+      chart: {
+        title: 'Employee Performance',
+      },
+      bars: 'horizontal',
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('employees'));
+    chart.draw(data, options);
+    var rect = document.getElementById('employees').getBoundingClientRect();
+    doc.setPage(2);
+    doc.addImage(chart.getImageURI(), rect.left, rect.top, 100, 100);
   }
 
   function drawChart() {
@@ -144,32 +165,12 @@ body {
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
-    //var rect = chart.getBoundingClientRect();
+    var rect = document.getElementById('donutchart').getBoundingClientRect();
     btnSave.addEventListener('click', function () {
-      doc.addImage(chart.getImageURI(), 100, 20, 130, 100);
+      doc.setPage(1);
+      doc.addImage(chart.getImageURI(), rect.left, rect.top, 75, 55);
       doc.save('chart.pdf');
     }, false);
   }
 
-  function drawEmployees() {
-    var data = google.visualization.arrayToDataTable([
-      ['Employee', 'Tickets completed', 'Total tickets'],
-      <% @report.users.select{|user| user.tasks.count > 0}.each do |user| %>
-        ['<%= user.full_name %>', <%= user.tasks.where(:status => 'Done').count + user.tasks.where(:status => 'Dev complete').count %>, <%= user.tasks.count %>],
-      <% end %>
-    ]);
-
-    var options = {
-      chart: {
-        title: 'Employee Performance',
-      },
-      bars: 'horizontal',
-    };
-
-    var chart = new google.charts.Bar(document.getElementById('employees'));
-    chart.draw(data, options);
-    var rect = chart.getBoundingClientRect();
-    doc.setPage(2);
-    doc.addImage(chart.getImageURI(), rect.left, rect.top, 100, 100);
-  }
 </script>
