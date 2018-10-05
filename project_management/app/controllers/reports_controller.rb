@@ -60,4 +60,3 @@ class ReportsController < ApplicationController
     end
 
 end
-#https://scifi.stackexchange.com/questions/tagged/tolkiens-legendarium?page=28&sort=newest&pagesize=15
