@@ -62,6 +62,9 @@ body {
   google.charts.setOnLoadCallback(drawChart2);
   google.charts.setOnLoadCallback(drawEmployees);
   var doc = new jsPDF();
+  doc.addPage()
+  doc.addPage()
+  doc.setPage(1)
   var btnSave = document.getElementById('save-pdf');
   doc.addHTML($("#links"), 20, 20 );
   function drawChart1() {
@@ -107,6 +110,7 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
+    //var rect = chart.getBoundingClientRect();
     doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
   }
 
@@ -140,6 +144,7 @@ body {
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
+    //var rect = chart.getBoundingClientRect();
     btnSave.addEventListener('click', function () {
       doc.addImage(chart.getImageURI(), 100, 20, 130, 100);
       doc.save('chart.pdf');
@@ -163,5 +168,8 @@ body {
 
     var chart = new google.charts.Bar(document.getElementById('employees'));
     chart.draw(data, options);
+    var rect = chart.getBoundingClientRect();
+    doc.setPage(2);
+    doc.addImage(chart.getImageURI(), rect.left, rect.top, 100, 100);
   }
 </script>
