@@ -121,8 +121,8 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
-    var rect = chart.getBoundingClientRect();
-    doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
+    //var rect = chart.getBoundingClientRect();
+    //doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
   }
 
   function drawEmployees() {
@@ -188,7 +188,7 @@ body {
 </script>
 
 <script>
- $(document).on('mouseover', function() {
+ /*$(document).on('mouseover', function() {
     $( '.draggable' ).draggable({
         appendTo: "body",
         helper: "clone"
@@ -201,5 +201,5 @@ body {
           $(ui.draggable).appendTo(this);
       }
     });
-  });
+  });*/
 </script>
