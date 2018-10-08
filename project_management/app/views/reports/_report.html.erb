@@ -4,65 +4,68 @@ body {
     font-size: 20px;
 }
 </style>
-<div id="links" style='display:flex; background-color: white'>
-  <% if current_user.can_see_all_charts?(@report.projects.first) %>
-    <div>
-      <h3>Employees </h3>
-      <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
-        <% @report.users.each do |user| %>
-          <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
 
-  <% unless @report.is_single_project_report? %>
-    <div>
-      <h3>Projects </h3>
-      <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
-        <% @report.projects.each do |project|%>
-          <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
-        <% end %>
+<div class="bangladesh">
+  <div id="links" style='display:flex; background-color: white'>
+    <% if current_user.can_see_all_charts?(@report.projects.first) %>
+      <div class='draggable'>
+        <h3>Employees </h3>
+        <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
+          <% @report.users.each do |user| %>
+            <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
+          <% end %>
+        </div>
       </div>
+    <% end %>
+
+    <% unless @report.is_single_project_report? %>
+      <div class='draggable'>
+        <h3>Projects </h3>
+        <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
+          <% @report.projects.each do |project|%>
+            <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @report.report_data['include_ticket_distribution'] == '1' %>
+      <div id="donutchart" class='draggable' style='margin-top: -50px;'></div>
+    <% end %>
+  </div>
+
+  <% if @report.report_data['include_ticket_statistics'] == '1' %>
+    <div style='display:flex'>
+      <div id='chart_div' style='width: 1200px; height: 600px; margin-top: -100px; margin-left: -100px'></div>
     </div>
   <% end %>
 
   <% if @report.report_data['include_ticket_distribution'] == '1' %>
-    <div id="donutchart" style='margin-top: -50px;'></div>
+    <div id="piechart"></div>
   <% end %>
-</div>
 
-<% if @report.report_data['include_ticket_statistics'] == '1' %>
-  <div style='display:flex'>
-    <div id='chart_div' style='width: 1200px; height: 600px; margin-top: -100px; margin-left: -100px'></div>
-  </div>
-<% end %>
+  <% if @report.report_data['include_ticket_statistics'] == '1' %>
+    <div style='margin-top: 50px; '>
+      <h3>Average ticket completion time </h3>
+      <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
+    </div>
+  <% end %>
 
-<% if @report.report_data['include_ticket_distribution'] == '1' %>
-  <div id="piechart"></div>
-<% end %>
+  <% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
+    <div id="employees" style='height: 700px; margin-bottom: 50px;'></div>
+  <% end %>
 
-<% if @report.report_data['include_ticket_statistics'] == '1' %>
-  <div style='margin-top: 50px; '>
-    <h3>Average ticket completion time </h3>
-    <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
-  </div>
-<% end %>
-
-<% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
-  <div id="employees" style='height: 700px; margin-bottom: 50px;'></div>
-<% end %>
-
-<div>
-  <% if @report.is_single_project_report? && @report.report_data['include_event_log'] == '1' %>
-    <% @report.get_event_list.each do |event| %>
-      <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px'>
-        <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
-        <%= event.message %>
-      </div>
+  <div>
+    <% if @report.is_single_project_report? && @report.report_data['include_event_log'] == '1' %>
+      <% @report.get_event_list.each do |event| %>
+        <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px'>
+          <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
+          <%= event.message %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -121,8 +124,8 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
-    //var rect = chart.getBoundingClientRect();
-    //doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
+    var rect = chart.getBoundingClientRect();
+    doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
   }
 
   function drawEmployees() {
@@ -143,8 +146,8 @@ body {
     var chart = new google.charts.Bar(document.getElementById('employees'));
     chart.draw(data, options);
     var rect = document.getElementById('employees').getBoundingClientRect();
-    //doc.setPage(2);
-    //doc.addImage(chart.getImageURI(), rect.left, rect.top, 100, 100);
+    doc.setPage(2);
+    doc.addImage(chart.getImageURI(), 0, 0, 100, 100);
   }
 
   function drawChart() {
@@ -188,18 +191,18 @@ body {
 </script>
 
 <script>
- /*$(document).on('mouseover', function() {
+ $(document).on('mouseover', function() {
     $( '.draggable' ).draggable({
         appendTo: "body",
         helper: "clone"
       });
-    $( '.container' ).droppable({
+    $( '.bangladesh' ).droppable({
       drop: function( event, ui ) {
-        var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
-        var id = ui.draggable.attr('id');
+        //var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
+        //var id = ui.draggable.attr('id');
           $( this ).find( ".placeholder" ).hide();
           $(ui.draggable).appendTo(this);
       }
     });
-  });*/
+  });
 </script>
