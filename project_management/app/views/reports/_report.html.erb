@@ -5,7 +5,7 @@ body {
 }
 </style>
 
-<div class="bangladesh">
+<div class="bangladesh" style="max-width: 100%; max-height:100%">
   <div id="links" style='display:flex; background-color: white'>
     <% if current_user.can_see_all_charts?(@report.projects.first) %>
       <div class='draggable'>
@@ -35,30 +35,30 @@ body {
   </div>
 
   <% if @report.report_data['include_ticket_statistics'] == '1' %>
-    <div style='display:flex'>
+    <div style='display:flex' class='draggable'>
       <div id='chart_div' style='width: 1200px; height: 600px; margin-top: -100px; margin-left: -100px'></div>
     </div>
   <% end %>
 
   <% if @report.report_data['include_ticket_distribution'] == '1' %>
-    <div id="piechart"></div>
+    <div id="piechart" class='draggable'></div>
   <% end %>
 
   <% if @report.report_data['include_ticket_statistics'] == '1' %>
-    <div style='margin-top: 50px; '>
+    <div style='margin-top: 50px; ' class='draggable'>
       <h3>Average ticket completion time </h3>
       <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
     </div>
   <% end %>
 
   <% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
-    <div id="employees" style='height: 700px; margin-bottom: 50px;'></div>
+    <div id="employees" style='height: 700px; margin-bottom: 50px;' class='draggable'></div>
   <% end %>
 
   <div>
     <% if @report.is_single_project_report? && @report.report_data['include_event_log'] == '1' %>
       <% @report.get_event_list.each do |event| %>
-        <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px'>
+        <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' class='draggable'>
           <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
           <%= event.message %>
         </div>
@@ -80,7 +80,7 @@ body {
   doc.addPage();
   doc.setPage(1);
   var btnSave = document.getElementById('save-pdf');
-  //doc.addHTML($("#links"), 20, 20 );
+  doc.addHTML($("#links"), 20, 20 );
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Tickets created', 'Tickets done'],
@@ -198,8 +198,6 @@ body {
       });
     $( '.bangladesh' ).droppable({
       drop: function( event, ui ) {
-        //var roomid= document.getElementById(ui.draggable.attr('id')).parentNode.id;
-        //var id = ui.draggable.attr('id');
           $( this ).find( ".placeholder" ).hide();
           $(ui.draggable).appendTo(this);
       }
