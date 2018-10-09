@@ -56,7 +56,9 @@ body {
   </div>
 </div>
 
-<%= render @report %>
+<div class="bangladesh" style="max-width: 90%; max-height:90%">
+  <%= render @report %>
+</div>
 
 <div id='dialog1' title="To do list" style='display: none;'>
   <% @report.get_filtered_by_status("To do").each do |t| %>
