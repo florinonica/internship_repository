@@ -5,14 +5,13 @@ body {
 }
 </style>
 
-
   <% if @report.report_data['include_ticket_distribution'] == '1' %>
-    <div id="donutchart" class='draggable' style='margin-top: -50px;'></div>
+    <div id="donutchart" class='draggable' style=' width: 10%; height: 10%;'></div>
   <% end %>
 
   <% if @report.report_data['include_ticket_statistics'] == '1' %>
     <div style='display:flex' class='draggable'>
-      <div id='chart_div' style='width: 1200px; height: 600px; margin-top: -100px; margin-left: -100px'></div>
+      <div id='chart_div' style='width: 1200px; height: 500px; margin-left: -100px'></div>
     </div>
   <% end %>
 
@@ -21,7 +20,7 @@ body {
   <% end %>
 
   <% if @report.report_data['include_ticket_statistics'] == '1' %>
-    <div style='margin-top: 50px; ' class='draggable'>
+    <div class='draggable'>
       <h3>Average ticket completion time </h3>
       <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
     </div>
@@ -32,16 +31,15 @@ body {
   <% end %>
 
   <div>
-    <% if @report.is_single_project_report? && @report.report_data['include_event_log'] == '1' %>
+    <%# if @report.is_single_project_report? && @report.report_data['include_event_log'] == '1' %>
       <% @report.get_event_list.each do |event| %>
         <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' class='draggable'>
           <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
           <%= event.message %>
         </div>
       <% end %>
-    <% end %>
+    <%# end %>
   </div>
-
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -159,7 +157,7 @@ body {
     var rect = document.getElementById('donutchart').getBoundingClientRect();
     btnSave.addEventListener('click', function () {
       doc.setPage(0);
-      doc.addImage(chart.getImageURI(), document.getElementById('donutchart').offsetLeft/10, document.getElementById('donutchart').offsetTop - 150, 75, 55);
+      doc.addImage(chart.getImageURI(), document.getElementById('donutchart').offsetLeft/10, document.getElementById('donutchart').offsetTop, 75, 55);
       doc.save('chart.pdf');
     }, false);
   }
