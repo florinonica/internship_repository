@@ -25,30 +25,35 @@ body {
   <% end %>
 <% end %>
 
-<input id="save-pdf" type="button" value="Save as PDF" />
+<div style='margin-bottom: 10px'>
+  <input id="save-pdf" type="button" value="Save as PDF" />
+</div>
 
-<div id="links" style='display:flex; background-color: white; margin-bottom: 10px'>
-  <% if current_user.can_see_all_charts?(@report.projects.first) %>
-    <div class='draggable'>
-      <h3>Employees </h3>
-      <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
-        <% @report.users.each do |user| %>
-          <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+<div style='display: none'>
+  <div id="links" style='display:flex; background-color: white; margin-bottom: 10px'>
 
-  <% unless @report.is_single_project_report? %>
-    <div class='draggable'>
-      <h3>Projects </h3>
-      <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
-        <% @report.projects.each do |project|%>
-          <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
-        <% end %>
+    <% if current_user.can_see_all_charts?(@report.projects.first) %>
+      <div class='draggable'>
+        <h3>Employees </h3>
+        <div style='margin-top: 20px; margin-right: 40px; margin-bottom: 40px; width: 200px;'>
+          <% @report.users.each do |user| %>
+            <%= link_to user.full_name, user_path(user), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><br>
+          <% end %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+
+    <% unless @report.is_single_project_report? %>
+      <div class='draggable'>
+        <h3>Projects </h3>
+        <div style='margin-top: 20px; margin-bottom: 40px; width: 200px;'>
+          <% @report.projects.each do |project|%>
+            <%= link_to project.title, project_path(project), {:style => 'color:#0079bf; font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %><BR>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <%= render @report %>
