@@ -30,9 +30,9 @@ body {
     <div id="employees" style='height: 700px; margin-bottom: 50px;' class='draggable'></div>
   <% end %>
 
-  <div id='events' >
+  <div id='events' class='draggable'>
       <% @report.get_event_list.each do |event| %>
-        <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' class='draggable'>
+        <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' >
           <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
           <%= event.message %>
         </div>
@@ -53,7 +53,9 @@ body {
   var doc = new jsPDF();
   doc.addPage();
   doc.setPage(2);
+  //var rect1 = $("#events").getBoundingClientRect();
   doc.addHTML($("#events"), 20, 100 );
+  //var rect2 = $("#average").getBoundingClientRect();
   doc.addHTML($("#average"), 20, 20 );
   doc.setPage(1);
   var btnSave = document.getElementById('save-pdf');
