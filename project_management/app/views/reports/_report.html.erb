@@ -31,14 +31,12 @@ body {
   <% end %>
 
   <div id='events' class='draggable'>
-      <% @report.get_event_list.each do |event| %>
-        <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' >
-          <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
-          <%= event.message %>
-        </div>
-      <% end %>
-    <%# if @report.is_single_project_report? && @report.report_data['include_event_log'] == '1' %>
-    <%# end %>
+    <% @report.get_event_list.each do |event| %>
+      <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' >
+        <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
+        <%= event.message %>
+      </div>
+    <% end %>
   </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -176,7 +174,7 @@ body {
         appendTo: "body",
         helper: "clone"
       });
-    $( '.bangladesh' ).droppable({
+    $( '.droppable' ).droppable({
       drop: function( event, ui ) {
           $( this ).find( ".placeholder" ).hide();
           $(ui.draggable).appendTo(this);
