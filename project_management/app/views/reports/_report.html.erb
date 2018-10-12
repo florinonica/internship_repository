@@ -51,9 +51,9 @@ body {
   var doc = new jsPDF();
   doc.addPage();
   doc.setPage(2);
-  //var rect1 = $("#events").getBoundingClientRect();
+  var rect1 = document.getElementById('events').getBoundingClientRect();
   doc.addHTML($("#events"), 20, 100 );
-  //var rect2 = $("#average").getBoundingClientRect();
+  var rect2 = document.getElementById('average').getBoundingClientRect();
   doc.addHTML($("#average"), 20, 20 );
   doc.setPage(1);
   var btnSave = document.getElementById('save-pdf');
@@ -102,7 +102,7 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
-    var rect = chart.getBoundingClientRect();
+    var rect = document.getElementById('piechart').getBoundingClientRect();
     doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
   }
 
