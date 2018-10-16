@@ -4,10 +4,10 @@ body {
     font-size: 20px;
 }
 </style>
-<h1 id="title" style='background-color: white;'>
+<h1 id="title" class='draggable' style='background-color: white;'>
   <%= @report.report_data['title'] %>
 </h1>
-<h3 id="period" style='background-color: white;'>
+<h3 id="period" class='draggable' style='background-color: white;'>
   <%= "Report period: " + @report.report_data['start_date'] + " - " + @report.report_data['end_date']%>
 </h3>
 <% if @report.report_data['include_ticket_distribution'] == '1' %>
@@ -61,7 +61,7 @@ body {
   var rect3 = document.getElementById('period').getBoundingClientRect();
   doc.addHTML($("#period"), 5, 20 );
   var rect3 = document.getElementById('average').getBoundingClientRect();
-  doc.addHTML($("#average"), 5, 40 );
+  doc.addHTML($("#average"), 5, 30 );
   doc.setPage(2);
   var rect4 = document.getElementById('events').getBoundingClientRect();
   doc.addHTML($("#events"), 5, 10 );
