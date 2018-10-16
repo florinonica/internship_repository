@@ -4,10 +4,10 @@ body {
     font-size: 20px;
 }
 </style>
-<h1 id="title" class='draggable' style='background-color: white;'>
+<h1 id="title"style='background-color: white;'>
   <%= @report.report_data['title'] %>
 </h1>
-<h3 id="period" class='draggable' style='background-color: white;'>
+<h3 id="period" style='background-color: white;'>
   <%= "Report period: " + @report.report_data['start_date'] + " - " + @report.report_data['end_date']%>
 </h3>
 <% if @report.report_data['include_ticket_distribution'] == '1' %>
@@ -35,9 +35,9 @@ body {
   <div id="employees" style='height: 700px; margin-bottom: 50px;' class='draggable'></div>
 <% end %>
 
-<div id='events' class='draggable' style='background-color: white;'>
+<div id='events' class='draggable' style='background-color: white; width: 90%'>
   <% @report.get_event_list.each do |event| %>
-    <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' >
+    <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px; width: 90%' >
       <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
       <%= event.message %>
     </div>
@@ -56,12 +56,9 @@ body {
   var doc = new jsPDF();
   doc.addPage();
   doc.setPage(1);
-  var rect3 = document.getElementById('title').getBoundingClientRect();
   doc.addHTML($("#title"), 5, 10 );
-  var rect3 = document.getElementById('period').getBoundingClientRect();
   doc.addHTML($("#period"), 5, 20 );
-  var rect3 = document.getElementById('average').getBoundingClientRect();
-  doc.addHTML($("#average"), 5, 30 );
+  doc.addHTML($("#average"), document.getElementById('average').offsetLeft, document.getElementById('average').offsetTop );
   doc.setPage(2);
   var rect4 = document.getElementById('events').getBoundingClientRect();
   doc.addHTML($("#events"), 5, 10 );
@@ -124,9 +121,7 @@ body {
     ]);
 
     var options = {
-      chart: {
-        title: 'Employee Performance',
-      },
+      chart: { title: 'Employee Performance',},
       bars: 'horizontal',
     };
 
@@ -174,7 +169,6 @@ body {
       doc.save('chart.pdf');
     }, false);
   }
-
 </script>
 
 <script>
