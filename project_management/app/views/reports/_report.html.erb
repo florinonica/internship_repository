@@ -55,16 +55,19 @@ body {
   google.charts.setOnLoadCallback(drawEmployees);
   var doc = new jsPDF();
   doc.addPage();
+  doc.setPage(1);
+  var rect3 = document.getElementById('title').getBoundingClientRect();
+  doc.addHTML($("#title"), 5, 10 );
+  var rect3 = document.getElementById('period').getBoundingClientRect();
+  doc.addHTML($("#period"), 5, 20 );
+  var rect3 = document.getElementById('average').getBoundingClientRect();
+  doc.addHTML($("#average"), 5, 40 );
   doc.setPage(2);
-  var rect1 = document.getElementById('events').getBoundingClientRect();
-  doc.addHTML($("#events"), 20, 100 );
-  var rect2 = document.getElementById('average').getBoundingClientRect();
-  doc.addHTML($("#average"), 20, 20 );
-  doc.addHTML($("#title"), 10, 10 );
-  doc.addHTML($("#period"), 30, 30 );
+  var rect4 = document.getElementById('events').getBoundingClientRect();
+  doc.addHTML($("#events"), 5, 10 );
   doc.setPage(1);
   var btnSave = document.getElementById('save-pdf');
-  doc.addHTML($("#links"), 20, 20 );
+  //doc.addHTML($("#links"), 20, 20 );
 
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
