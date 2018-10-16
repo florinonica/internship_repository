@@ -4,40 +4,45 @@ body {
     font-size: 20px;
 }
 </style>
+<h1>
+  <%= @report.report_data['title'] %>
+</h1>
+<h3>
+  <%= "Report period: " + @report.report_data['start_date'] + " - " + @report.report_data['end_date']%>
+</h3>
+<% if @report.report_data['include_ticket_distribution'] == '1' %>
+  <div id="donutchart" class='draggable' style=' width: 10%; height: 10%;'></div>
+<% end %>
 
-  <% if @report.report_data['include_ticket_distribution'] == '1' %>
-    <div id="donutchart" class='draggable' style=' width: 10%; height: 10%;'></div>
-  <% end %>
-
-  <% if @report.report_data['include_ticket_statistics'] == '1' %>
-    <div style='display:flex' class='draggable'>
-      <div id='chart_div' style='width: 1200px; height: 500px; margin-left: -100px'></div>
-    </div>
-  <% end %>
-
-  <% if @report.report_data['include_ticket_distribution'] == '1' %>
-    <div id="piechart" class='draggable'></div>
-  <% end %>
-
-  <% if @report.report_data['include_ticket_statistics'] == '1' %>
-    <div id='average' class='draggable'>
-      <h3>Average ticket completion time </h3>
-      <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
-    </div>
-  <% end %>
-
-  <% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
-    <div id="employees" style='height: 700px; margin-bottom: 50px;' class='draggable'></div>
-  <% end %>
-
-  <div id='events' class='draggable'>
-    <% @report.get_event_list.each do |event| %>
-      <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' >
-        <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
-        <%= event.message %>
-      </div>
-    <% end %>
+<% if @report.report_data['include_ticket_statistics'] == '1' %>
+  <div style='display:flex' class='draggable'>
+    <div id='chart_div' style='width: 1200px; height: 500px; margin-left: -100px'></div>
   </div>
+<% end %>
+
+<% if @report.report_data['include_ticket_distribution'] == '1' %>
+  <div id="piechart" class='draggable'></div>
+<% end %>
+
+<% if @report.report_data['include_ticket_statistics'] == '1' %>
+  <div id='average' class='draggable'>
+    <h3>Average ticket completion time </h3>
+    <%= @report.get_average_ticket_solving_time.round(2).to_s + " Hours" %>
+  </div>
+<% end %>
+
+<% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
+  <div id="employees" style='height: 700px; margin-bottom: 50px;' class='draggable'></div>
+<% end %>
+
+<div id='events' class='draggable'  style='background-color: white;'>
+  <% @report.get_event_list.each do |event| %>
+    <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px' >
+      <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
+      <%= event.message %>
+    </div>
+  <% end %>
+</div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -135,7 +140,7 @@ body {
     ['In progress', <%= @report.get_filtered_by_status("In progress").count %>],
     ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
     ['Done', <%= @report.get_filtered_by_status("Done").count %>]]);
-    var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':750, 'height':600,
+    var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':650, 'height':500, padding: 0, margin: 0,
       pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
     function selectHandler() {
       var selectedItem = chart.getSelection()[0];
