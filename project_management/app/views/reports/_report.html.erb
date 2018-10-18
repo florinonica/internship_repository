@@ -21,7 +21,7 @@ body {
 <% end %>
 
 <% if @report.report_data['include_ticket_distribution'] == '1' %>
-  <div id="piechart" class='draggable'></div>
+  <div id="piechart" class='draggable' style="width: 450px"></div>
 <% end %>
 
 <% if @report.report_data['include_ticket_statistics'] == '1' %>
@@ -73,8 +73,7 @@ body {
     };
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     chart.draw(data, options);
-    //doc.setPage(1);
-    doc.addImage(chart.getImageURI(), 0, 125, 150, 75);
+    doc.addImage(chart.getImageURI(), 0, 125, 200, 100);
   }
 
   function drawChart2() {
@@ -104,8 +103,7 @@ body {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
     var rect = document.getElementById('piechart').getBoundingClientRect();
-    //doc.setPage(1);
-    doc.addImage(chart.getImageURI(), 125, 125, 100, 100);
+    doc.addImage(chart.getImageURI(), 5, 50, 130, 75);
   }
 
   function drawEmployees() {
@@ -125,10 +123,8 @@ body {
     chart.draw(data, options);
     var rect = document.getElementById('employees').getBoundingClientRect();
     doc.addPage();
-    //doc.setPage(2);
     //doc.addImage(chart.getImageURI(), 0, 0, 100, 100);
     var rect4 = document.getElementById('events').getBoundingClientRect();
-
     doc.addHTML($("#events"), 5, 10 );
   }
 
