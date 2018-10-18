@@ -54,15 +54,10 @@ body {
   google.charts.setOnLoadCallback(drawChart2);
   google.charts.setOnLoadCallback(drawEmployees);
   var doc = new jsPDF();
-  doc.addPage();
   doc.setPage(1);
   doc.addHTML($("#title"), 5, 10 );
   doc.addHTML($("#period"), 5, 20 );
   doc.addHTML($("#average"), document.getElementById('average').offsetLeft, document.getElementById('average').offsetTop );
-  doc.setPage(2);
-  var rect4 = document.getElementById('events').getBoundingClientRect();
-  doc.addHTML($("#events"), 5, 10 );
-  doc.setPage(1);
   var btnSave = document.getElementById('save-pdf');
 
   function drawChart1() {
@@ -164,8 +159,11 @@ body {
     chart.draw(data, options);
     var rect = document.getElementById('donutchart').getBoundingClientRect();
     btnSave.addEventListener('click', function () {
-      doc.setPage(1);
       doc.addImage(chart.getImageURI(), document.getElementById('donutchart').offsetLeft/10, document.getElementById('donutchart').offsetTop, 75, 55);
+      doc.addPage();
+      //doc.setPage(2);
+      var rect4 = document.getElementById('events').getBoundingClientRect();
+      doc.addHTML($("#events"), 5, 10 );
       doc.save('chart.pdf');
     }, false);
   }

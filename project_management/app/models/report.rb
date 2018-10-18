@@ -115,7 +115,7 @@ class Report < ApplicationRecord
   end
 
   def get_event_list
-    projects.first.events.where(:created_at.to_s >= report_data['start_date'] && :created_at.to_s <= report_data['end_date']).order("created_at DESC")
+    projects.first.events.where(:created_at.to_s >= report_data['start_date'] && :created_at.to_s <= report_data['end_date']).limit(20).order("created_at DESC")
   end
 
   def is_single_project_report?
