@@ -10,7 +10,7 @@ body {
 <h3 id="period" style='background-color: white;'>
   <%= "Report period: " + @report.report_data['start_date'] + " - " + @report.report_data['end_date']%>
 </h3>
-<% if @report.report_data['include_ticket_distribution'] == '1' %>
+<% if @report.report_data['include_ticket_distribution'] == '1' && @report.report_data['ticket_status'] == "All" %>
   <div id="donutchart" class='draggable' style=' width: 10%; height: 10%;'></div>
 <% end %>
 
@@ -20,7 +20,7 @@ body {
   </div>
 <% end %>
 
-<% if @report.report_data['include_ticket_distribution'] == '1' %>
+<% if @report.report_data['include_ticket_distribution'] == '1' && @report.report_data['ticket_type'] == "All"%>
   <div id="piechart" class='draggable' style="width: 450px"></div>
 <% end %>
 
