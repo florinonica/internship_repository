@@ -31,6 +31,13 @@ body {
   </div>
 <% end %>
 
+<% if @report.report_data['include_ticket_statistics'] == '1' %>
+  <div id='versions' class='draggable' style='background-color: white;'>
+    <h3>Ticket with most versions </h3>
+    <%#= link_to @report.get_max_versions_ticket.title, ticket_path(@report.get_max_versions_ticket) %>
+  </div>
+<% end %>
+
 <% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
   <div id="employees" style='height: 700px; margin-bottom: 50px;' class='draggable'></div>
 <% end %>
