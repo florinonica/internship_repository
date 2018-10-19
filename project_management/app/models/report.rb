@@ -91,7 +91,16 @@ class Report < ApplicationRecord
   def get_tickets
     tickets = []
     projects.each do |project|
-      tickets << project.tickets
+
+      if report_data['ticket_status'] == "All" && report_data['ticket_type'] == "All"
+        tickets << project.tickets
+      elsif report_data['ticket_status'] == "All" && report_data['ticket_type'] != "All"
+        tickets << project.tickets.where(type: report_data['ticket_type'])
+      elsif report_data['ticket_status'] != "All" && report_data['ticket_type'] == "All"
+        tickets << project.tickets.where(status: report_data['ticket_status'])
+      else
+        tickets << project.tickets.where(status: report_data['ticket_status']).where(type: report_data['ticket_type'])
+      end
     end
     tickets
   end
@@ -121,6 +130,7 @@ class Report < ApplicationRecord
   def get_max_versions_ticket
     max_ticket = get_tickets.first
     self.get_tickets.each do |t|
+      
       if t.versions.count > max_ticket.versions.count
         max_ticket = t
       end
