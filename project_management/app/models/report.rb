@@ -8,14 +8,6 @@ class Report < ApplicationRecord
     ((available_to_clients == true) ? true : false)
   end
 
-  def get_tickets
-    tickets = []
-    projects.each do |project|
-      tickets << project.tickets
-    end
-    tickets
-  end
-
   def get_filtered_by_status(status)
     tickets = []
     self.projects.each do |project|
@@ -96,6 +88,14 @@ class Report < ApplicationRecord
     tickets
   end
 
+  def get_tickets
+    tickets = []
+    projects.each do |project|
+      tickets << project.tickets
+    end
+    tickets
+  end
+
   def get_comments_count
     count = 0
     self.get_tickets.each do |t|
@@ -116,6 +116,16 @@ class Report < ApplicationRecord
 
   def get_event_list
     projects.first.events.where(:created_at.to_s >= report_data['start_date'] && :created_at.to_s <= report_data['end_date']).limit(20).order("created_at DESC")
+  end
+
+  def get_max_versions_ticket
+    max_ticket = get_tickets.first
+    self.get_tickets.each do |t|
+      if t.versions.count > max_ticket.versions.count
+        max_ticket = t
+      end
+    end
+    max_ticket
   end
 
   def is_single_project_report?
