@@ -59,6 +59,10 @@ class Ticket < ApplicationRecord
     "glyphicon glyphicon-tasks"
   end
 
+  def get_versions_count
+    versions.size
+  end
+
   private
 
     def set_type

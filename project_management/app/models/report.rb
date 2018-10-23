@@ -128,10 +128,10 @@ class Report < ApplicationRecord
   end
 
   def get_max_versions_ticket
-    max_ticket = get_tickets.first
-    self.get_tickets.each do |t|
+    max_ticket = projects.first.tickets.first
+    projects.first.tickets.each do |t|
 
-      if t.versions.count > max_ticket.versions.count
+      if t.get_versions_count > max_ticket.get_versions_count
         max_ticket = t
       end
     end
