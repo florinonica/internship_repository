@@ -79,8 +79,10 @@ body {
       legend: { position: 'bottom' }
     };
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-    doc.addImage(chart.getImageURI(), 0, 125, 200, 100);
+    <% if @report.report_data['include_ticket_statistics'] == '1' %>
+      chart.draw(data, options);
+      doc.addImage(chart.getImageURI(), 0, 125, 200, 100);
+    <% end %>
   }
 
   function drawChart2() {
@@ -109,8 +111,10 @@ body {
     }
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(data, options);
-    var rect = document.getElementById('piechart').getBoundingClientRect();
-    doc.addImage(chart.getImageURI(), 5, 50, 150, 75);
+    <% if @report.report_data['include_ticket_distribution'] == '1' && @report.report_data['ticket_type'] == "All"%>
+      var rect = document.getElementById('piechart').getBoundingClientRect();
+      doc.addImage(chart.getImageURI(), 5, 50, 110, 50);
+    <% end %>
   }
 
   function drawEmployees() {
@@ -171,8 +175,8 @@ body {
     var rect = document.getElementById('donutchart').getBoundingClientRect();
     btnSave.addEventListener('click', function () {
       <% if @report.report_data['include_ticket_distribution'] == '1' && @report.report_data['ticket_status'] == "All" %>
-        doc.setPage(3);
-        doc.addImage(chart.getImageURI(), 10, 10, 75, 55);
+        doc.setPage(2);
+        doc.addImage(chart.getImageURI(), 10, 10, 100, 75);
       <% end %>
       doc.save('chart.pdf');
     }, false);
