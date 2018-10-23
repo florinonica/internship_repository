@@ -128,9 +128,11 @@ body {
 
     var chart = new google.charts.Bar(document.getElementById('employees'));
     chart.draw(data, options);
-    var rect = document.getElementById('employees').getBoundingClientRect();
     doc.addPage();
-    //doc.addImage(chart.getImageURI(), 0, 0, 200, 100);
+    <% if current_user.can_see_all_charts?(@report.projects.first) && @report.report_data['include_employee_statistics'] == '1' %>
+      var rect = document.getElementById('employees').getBoundingClientRect();
+      //doc.addImage(chart.getImageURI(), 0, 0, 200, 100);
+    <% end %>
     doc.addPage();
     doc.setPage(3);
     doc.addHTML($("#events"), 5, 10 );
@@ -168,8 +170,10 @@ body {
     chart.draw(data, options);
     var rect = document.getElementById('donutchart').getBoundingClientRect();
     btnSave.addEventListener('click', function () {
-      doc.setPage(3);
-      doc.addImage(chart.getImageURI(), 10, 10, 75, 55);
+      <% if @report.report_data['include_ticket_distribution'] == '1' && @report.report_data['ticket_status'] == "All" %>
+        doc.setPage(3);
+        doc.addImage(chart.getImageURI(), 10, 10, 75, 55);
+      <% end %>
       doc.save('chart.pdf');
     }, false);
   }

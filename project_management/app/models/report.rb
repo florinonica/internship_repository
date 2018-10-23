@@ -12,7 +12,7 @@ class Report < ApplicationRecord
     tickets = []
     self.projects.each do |project|
       project.tickets.each do |t|
-        tickets << t if t.status == status && t.created_at >= report_data['start_date'] && t.created_at <= report_data['end_date']
+        tickets << t if t.status == status && t.created_at >= report_data['start_date'].to_s && t.created_at <= report_data['end_date']
       end
     end
     tickets
