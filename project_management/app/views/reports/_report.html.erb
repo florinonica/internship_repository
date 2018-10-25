@@ -51,6 +51,20 @@ body {
   <% end %>
 </div>
 
+<script>
+/* $(document).on('mouseover', function() {
+    $( '.draggable' ).draggable({
+        appendTo: "body",
+        helper: "clone"
+      });
+    $( '.droppable' ).droppable({
+      drop: function( event, ui ) {
+          $( this ).find( ".placeholder" ).hide();
+          $(ui.draggable).appendTo(this);
+      }
+    });
+  });*/
+</script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
@@ -181,19 +195,4 @@ body {
       doc.save('chart.pdf');
     }, false);
   }
-</script>
-
-<script>
- $(document).on('mouseover', function() {
-    $( '.draggable' ).draggable({
-        appendTo: "body",
-        helper: "clone"
-      });
-    $( '.droppable' ).droppable({
-      drop: function( event, ui ) {
-          $( this ).find( ".placeholder" ).hide();
-          $(ui.draggable).appendTo(this);
-      }
-    });
-  });
 </script>
