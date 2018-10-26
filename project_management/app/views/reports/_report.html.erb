@@ -34,7 +34,7 @@ body {
 <% if @report.report_data['include_ticket_statistics'] == '1' %>
   <div id='versions' class='draggable' style='background-color: white;'>
     <h3>Ticket with most versions </h3>
-    <%= link_to @report.get_max_versions_ticket.title, ticket_path(@report.get_max_versions_ticket) %>
+    <%= link_to @report.get_max_versions_ticket.title, ticket_path(@report.get_max_versions_ticket) %> - <%= @report.get_max_versions_ticket.get_versions_count %> versions
   </div>
 <% end %>
 
@@ -78,7 +78,8 @@ body {
   doc.setPage(1);
   doc.addHTML($("#title"), 5, 10 );
   doc.addHTML($("#period"), 5, 20 );
-  doc.addHTML($("#average"), document.getElementById('average').offsetLeft, document.getElementById('average').offsetTop );
+  doc.addHTML($("#average"), 5, 30 );
+  doc.addHTML($("#versions"), 5, 45 );
   var btnSave = document.getElementById('save-pdf');
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
@@ -95,7 +96,7 @@ body {
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
     <% if @report.report_data['include_ticket_statistics'] == '1' %>
       chart.draw(data, options);
-      doc.addImage(chart.getImageURI(), 0, 125, 200, 100);
+      doc.addImage(chart.getImageURI(), 5, 145, 200, 100);
     <% end %>
   }
 
@@ -127,7 +128,8 @@ body {
     chart.draw(data, options);
     <% if @report.report_data['include_ticket_distribution'] == '1' && @report.report_data['ticket_type'] == "All"%>
       var rect = document.getElementById('piechart').getBoundingClientRect();
-      doc.addImage(chart.getImageURI(), 5, 50, 110, 50);
+      doc.setPage(2);
+      doc.addImage(chart.getImageURI(), 5, 70, 110, 50);
     <% end %>
   }
 
@@ -140,7 +142,7 @@ body {
     ]);
 
     var options = {
-      chart: { title: 'Employee Performance',},
+      chart: { title: 'Employee Performance'},
       bars: 'horizontal',
     };
 
