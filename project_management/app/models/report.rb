@@ -138,6 +138,17 @@ class Report < ApplicationRecord
     max_ticket
   end
 
+  def get_min_versions_ticket
+    min_ticket = projects.first.tickets.first
+    projects.first.tickets.each do |t|
+
+      if t.get_versions_count < min_ticket.get_versions_count
+        min_ticket = t
+      end
+    end
+    min_ticket
+  end
+
   def is_single_project_report?
     ((projects.count == 1) ? true : false)
   end

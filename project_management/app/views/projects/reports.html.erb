@@ -22,7 +22,7 @@ body {
         <% if current_user.can_see_report?(report) %>
           <tr>
             <td class="col-xs-1" style='text-align: center; border-bottom: 2px solid; padding-bottom: 30px;'>
-              <%= link_to report.title, report_path(report), {data: {turbolinks: 'false'}, :style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
+              <%= link_to report.report_data['title'], report_path(report), {data: {turbolinks: 'false'}, :style => 'color:#0079bf; font-size: 20px; font-weight: bold'}%><br>
             </td>
           </tr>
         <% end %>
@@ -34,12 +34,23 @@ body {
     </div>
   </div>
 
-  <div role="tabpanel" class="tab-pane fade" id="messages" style="margin-left: 100px"><br>
+  <div role="tabpanel" class="tab-pane fade" id="messages" style="margin-left: 100px; "><br>
     <%= form_with model: Report.new, local: true, :url => {:controller => :reports, :action => :create} do |form| %>
       <%= form.hidden_field :project_ids, :value => [] << @project.id %>
-      <div style='margin-bottom: 50px; width: 500px'>
+      <div style='margin-bottom: 20px; width: 500px'>
         <%= form.label :title %><br>
         <%= form.text_field :title, class: 'form-control' %>
+      </div>
+
+      <div style='display:flex;  margin-top:' >
+        <div>
+          <h4>Start date </h4>
+          <%= form.date_field :start_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 100px; margin-bottom: 20px; ' %>
+        </div>
+        <div>
+          <h4>End date </h4>
+          <%= form.date_field :end_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-bottom: 20px;' %>
+        </div>
       </div>
 
       <div>
@@ -71,12 +82,8 @@ body {
       </div>
 
       <div style='display:flex; align-content: stretch'>
-        <div style='display:flex; margin-top: 20px;' >
-          <h4 style=' margin-right: 20px;'> Include comments data <h4>
-          <%= form.check_box :include_comments_data, style: 'width: 100px; height: 100px; '%>
-        </div>
         <div style='display:flex; margin-top: 20px' >
-          <h4 style=' margin-right: 20px;'> Include employee stats <h4>
+          <h4 style=' margin-right: 20px;'> Include employee performance chart <h4>
           <%= form.check_box :include_employee_statistics, style: 'width: 100px; height: 100px'%>
         </div>
         <div style='display: none; color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 200px; margin-bottom: 50px'>
@@ -84,7 +91,7 @@ body {
           <%= form.select :employee_chart_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 28px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
         </div>
         <div style='display:flex; margin-top: 20px' >
-          <h4 style=' margin-right: 20px;'> Additional ticket stats <h4>
+          <h4 style=' margin-right: 20px;'> Include ticket statistics <h4>
           <%= form.check_box :include_ticket_statistics, style: 'width: 100px; height: 100px'%>
         </div>
         <div style='display:flex; margin-top: 20px' >
@@ -95,23 +102,21 @@ body {
           <h4>Select chart type </h4>
           <%= form.select :ticket_chart_type, options_for_select(["Pie", "Donut", "Line", "Column", "Bar"]), style: 'color:black; font-size: 28px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center; margin-right: 200px; margin-bottom: 50px' %>
         </div>
+      </div>
+      <div style='display:flex'>
         <div style='display:flex; margin-top: 20px' >
-          <h4 style=' margin-right: 20px;'> Show ticket distribution <h4>
-          <%= form.check_box :include_ticket_distribution, style: 'width: 100px; height: 100px'%>
+          <h4 style=' margin-right: 20px;'> Include ticket timeline<h4>
+          <%= form.check_box :include_ticket_timeline, style: 'width: 100px; height: 100px'%>
+        </div>
+        <div style='display:flex; margin-top: 20px' >
+          <h4 style=' margin-right: 20px;'> Show ticket distribution by type<h4>
+          <%= form.check_box :include_ticket_distribution_type, style: 'width: 100px; height: 100px'%>
+        </div>
+        <div style='display:flex; margin-top: 20px' >
+          <h4 style=' margin-right: 20px;'> Show ticket distribution by status<h4>
+          <%= form.check_box :include_ticket_distribution_status, style: 'width: 100px; height: 100px'%>
         </div>
       </div>
-
-      <div style='display:flex;  margin-top: -50px' >
-        <div>
-          <h4>Start date </h4>
-          <%= form.date_field :start_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-right: 100px; margin-bottom: 50px; ' %>
-        </div>
-        <div>
-          <h4>End date </h4>
-          <%= form.date_field :end_date, style: 'color:black; font-size: 18px; font-weight: bold; font-family: "Ubuntu"; width: 200px; text-align: center; margin-bottom: 50px;' %>
-        </div>
-      </div>
-
       <p>
         <%= form.submit 'Generate report', {class: "btn btn-info collapsed", :style => 'font-size: 18px; font-weight: bold; font-family: "Ubuntu"'} %>
       </p>
