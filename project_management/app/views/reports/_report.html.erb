@@ -5,7 +5,7 @@
   }
 </style>
 
-<h1 id="title"style='background-color: white; border-color: white;'>
+<h1 id="title"style='background-color: white;'>
   <%= @report.report_data['title'] %>
 </h1>
 <h3 id="period" style='background-color: white;'>
@@ -56,10 +56,10 @@
   var doc = new jsPDF();
   function initializeDoc() {}
   doc.setPage(1);
-  doc.addHTML($("#title"), 5, 10 );
-  doc.addHTML($("#period"), 5, 20 );
-  doc.addHTML($("#average"), 5, 30 );
-  doc.addHTML($("#versions"), 5, 45 );
+  doc.addHTML($("#title"), 15, 10, {'background': '#FFF'} );
+  doc.addHTML($("#period"), 15, 20, {'background': '#FFF'} );
+  doc.addHTML($("#average"), 15, 30, {'background': '#FFF'} );
+  doc.addHTML($("#versions"), 15, 45, {'background': '#FFF'} );
   google.charts.load('current', {'packages':['corechart']});
   google.charts.load('current', {'packages':['bar']});
   google.charts.setOnLoadCallback(drawChart);
@@ -77,7 +77,7 @@
       ]);
       var options = {
         chart: { title: 'Employee Performance'},
-        bars: 'horizontal',
+        bars: 'horizontal', 'background': '#FFF'
       };
       var chart = new google.charts.Bar(document.getElementById('employees'));
       chart.draw(data, options);
@@ -98,6 +98,7 @@
       var options = {
         title: 'Progress timeline',
         curveType: 'function',
+        'background': '#FFF',
         legend: { position: 'bottom' }
       };
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -115,7 +116,7 @@
         ['Subtasks', <%= @report.get_subtasks.count %>],
         ['Bugs', <%= @report.get_bugs.count %>]
       ]);
-      var options = { title: 'Tickets distribution', 'width': 550, 'height': 450 };
+      var options = { title: 'Tickets distribution', 'width': 550, 'height': 450, 'background': '#FFF'};
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       function selectHandler() {
         var selectedItem = chart.getSelection()[0];
@@ -137,7 +138,7 @@
       doc.setPage(2);
       doc.addImage(chart.getImageURI(), 5, 5, 100, 80);
       doc.addPage();
-      doc.addHTML($("#events"), 5, 10 );
+      doc.addHTML($("#events"), 5, 10, {'background': '#FFF'} );
     <% end %>
   }
 
