@@ -110,8 +110,15 @@ ActiveRecord::Schema.define(version: 2018_09_26_083722) do
     t.index ["reader_type", "reader_id"], name: "index_read_marks_on_reader_type_and_reader_id"
   end
 
-# Could not dump table "reports" because of following StandardError
-#   Unknown type 'reference' for column 'owner'
+  create_table "reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.binary "report_data"
+    t.boolean "available_to_clients"
+    t.string "title"
+    t.integer "owner_id"
+    t.index ["owner_id"], name: "index_reports_on_owner_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "role_type"

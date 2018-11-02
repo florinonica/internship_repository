@@ -13,7 +13,7 @@
         <%= select_tag :search, options_for_select(["All", ["Bug", "1"], ["Task", "0"], "Only mine - Dev", "Only mine - Owner"]), style: 'color:black; font-size: 17px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center' %>
       <% end %>
       <% if current_user.can_undo?%>
-        <%= form_tag undo_path , method: :patch, :id=> "undo" ,:url => {:controller => :tickets, :action => :undo} do %>
+        <%= form_tag undo_path , method: :post, :url => {:controller => :tickets, :action => :undo} do %>
           <%= submit_tag 'Undo', style: 'color:black; font-size: 15.5px; font-weight: bold; font-family: "Ubuntu"; width: 100px; text-align: center'%>
         <% end %>
       <% end %>
@@ -32,7 +32,7 @@
         <%= render partial: "card", locals: {id: "Dev complete", project: @project, count: @project.get_tasks_dev_complete.search(params[:search], current_user).count, tickets: @project.get_tasks_dev_complete.search(params[:search], current_user)} %>
       </div>
       <div  id="m3" class="cards">
-        <%= render partial: "card", locals: {id: "Done", project: @project, count: @project.get_tasks_done.search(params[:search], current_user).count, tickets: @project.get_tasks_done.search(params[:search], current_user)} %> 
+        <%= render partial: "card", locals: {id: "Done", project: @project, count: @project.get_tasks_done.search(params[:search], current_user).count, tickets: @project.get_tasks_done.search(params[:search], current_user)} %>
       </div>
     </div>
   </div>
