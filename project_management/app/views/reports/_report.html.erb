@@ -172,8 +172,8 @@
       google.visualization.events.addListener(chart, 'select', selectHandler);
       chart.draw(data, options);
       btnSave.addEventListener('click', function () {
-        doc.setPage(2);
-        doc.addImage(chart.getImageURI(), 110, 10, 100, 75);
+        doc.setPage(1);
+        doc.addImage(chart.getImageURI(), 10, 85, 100, 75);
         doc.save('chart.pdf');
       }, false);
     <% end %>
