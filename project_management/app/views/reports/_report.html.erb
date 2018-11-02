@@ -45,7 +45,7 @@
 
 <div id='events' class='draggable' style='background-color: white; width: 90%'>
   <% @report.get_event_list.each do |event| %>
-    <div style='border-bottom: 1px solid black; padding-bottom: 15px; padding-top: 15px; padding-left: 20px; width: 90%' >
+    <div style='padding-bottom: 15px; padding-top: 15px; padding-left: 20px; width: 90%' >
       <strong> <%= event.created_at.strftime("%d-%m-%Y %H:%M") + ":" %> </strong>
       <%= event.message %>
     </div>
@@ -82,7 +82,7 @@
       var chart = new google.charts.Bar(document.getElementById('employees'));
       chart.draw(data, options);
       doc.addPage();
-      //doc.addImage(chart.getImageURI(), 0, 0, 200, 100);
+      doc.addImage(chart.getImageURI(), 10, 10, 100, 200);
     <% end %>
 
   }
@@ -135,10 +135,10 @@
       }
       google.visualization.events.addListener(chart, 'select', selectHandler);
       chart.draw(data, options);
-      doc.setPage(2);
-      doc.addImage(chart.getImageURI(), 5, 5, 100, 80);
+      //doc.setPage(2);
+      //doc.addImage(chart.getImageURI(), 5, 5, 100, 80);
       doc.addPage();
-      doc.addHTML($("#events"), 5, 10, {'background': '#FFF'} );
+      doc.addHTML($("#events"), 15, 10, {'background': '#FFF'} );
     <% end %>
   }
 
