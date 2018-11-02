@@ -5,7 +5,7 @@
   }
 </style>
 
-<h1 id="title"style='background-color: white;'>
+<h1 id="title"style='background-color: white; border-color: white;'>
   <%= @report.report_data['title'] %>
 </h1>
 <h3 id="period" style='background-color: white;'>
@@ -115,7 +115,7 @@
         ['Subtasks', <%= @report.get_subtasks.count %>],
         ['Bugs', <%= @report.get_bugs.count %>]
       ]);
-      var options = { title: 'Tickets distribution' };
+      var options = { title: 'Tickets distribution', 'width': 550, 'height': 450 };
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
       function selectHandler() {
         var selectedItem = chart.getSelection()[0];
@@ -135,7 +135,7 @@
       google.visualization.events.addListener(chart, 'select', selectHandler);
       chart.draw(data, options);
       doc.setPage(2);
-      doc.addImage(chart.getImageURI(), 5, 70, 110, 50);
+      doc.addImage(chart.getImageURI(), 5, 5, 100, 80);
       doc.addPage();
       doc.addHTML($("#events"), 5, 10 );
     <% end %>
