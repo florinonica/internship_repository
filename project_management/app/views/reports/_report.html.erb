@@ -79,12 +79,11 @@
         chart: { title: 'Employee Performance'},
         bars: 'horizontal', 'background': '#FFF'
       };
-      var chart = new google.charts.Bar(document.getElementById('employees'));
+      var chart = new google.visualization.BarChart(document.getElementById('employees'));
       chart.draw(data, options);
       doc.addPage();
-      doc.addImage(chart.getImageURI(), 10, 10, 100, 200);
+      doc.addImage(chart.getImageURI(), 10, 50, 200, 200);
     <% end %>
-
   }
 
   function drawChart1() {
@@ -135,8 +134,8 @@
       }
       google.visualization.events.addListener(chart, 'select', selectHandler);
       chart.draw(data, options);
-      //doc.setPage(2);
-      //doc.addImage(chart.getImageURI(), 5, 5, 100, 80);
+      doc.setPage(2);
+      doc.addImage(chart.getImageURI(), 5, 5, 100, 80);
       doc.addPage();
       doc.addHTML($("#events"), 15, 10, {'background': '#FFF'} );
     <% end %>
@@ -150,8 +149,7 @@
       ['In progress', <%= @report.get_filtered_by_status("In progress").count %>],
       ['Dev complete', <%= @report.get_filtered_by_status("Dev complete").count %>],
       ['Done', <%= @report.get_filtered_by_status("Done").count %>]]);
-      var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':650, 'height':500, padding: 0, margin: 0,
-        pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
+      var options = {title: "Progress status", titleTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 20}, pieHole: 0.4, 'width':650, 'height':500, padding: 0, margin: 0, pieSliceTextStyle: {color: 'white', fontName: 'Ubuntu', fontSize: 18}, legendTextStyle: {color: 'black', fontName: 'Ubuntu', fontSize: 18}};
       function selectHandler() {
         var selectedItem = chart.getSelection()[0];
         if (selectedItem) {
@@ -174,8 +172,8 @@
       google.visualization.events.addListener(chart, 'select', selectHandler);
       chart.draw(data, options);
       btnSave.addEventListener('click', function () {
-        doc.setPage(1);
-        doc.addImage(chart.getImageURI(), 10, 85, 100, 75);
+        doc.setPage(2);
+        doc.addImage(chart.getImageURI(), 110, 10, 100, 75);
         doc.save('chart.pdf');
       }, false);
     <% end %>
