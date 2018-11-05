@@ -7,7 +7,7 @@ body {  padding-top: 110px;
     font-family: 'Ubuntu', sans-serif;
     color: white;
 }
-*= require lightbox
+
 .hidden { display: none; }
 
 .round-image-50 {
